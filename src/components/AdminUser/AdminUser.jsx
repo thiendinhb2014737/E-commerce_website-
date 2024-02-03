@@ -74,8 +74,8 @@ const AdminUser = () => {
         },
     )
     const getAllUser = async () => {
-        const res = await UserService.getAllUser()
-        console.log('res', res)
+        const res = await UserService.getAllUser(user?.access_token)
+        //console.log('res', res)
         return res
     }
 
@@ -97,7 +97,7 @@ const AdminUser = () => {
     useEffect(() => {
         form.setFieldsValue(stateUserDetails)
     }, [form, stateUserDetails])
-    console.log('rowSelected', rowSelected)
+    //console.log('rowSelected', rowSelected)
     useEffect(() => {
         if (rowSelected && isOpenDrawer) {
             setIsPendingUpdate(true)

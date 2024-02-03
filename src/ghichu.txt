@@ -1,0 +1,5 @@
+// Xóa bỏ đơn hàng khỏi redux vd 59
+// Số lượng đã bán, tồn kho vd 60
+// Chỉ tài khoản admin mới mua hàng được còn tài khoản user nó bị lỗi authUsemiddlwe ko mua được a ạ vd61
+//key={order?.product} line 94
+// thiếu style trong app.js

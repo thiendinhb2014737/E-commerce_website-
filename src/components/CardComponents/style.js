@@ -8,6 +8,8 @@ export const WapperCardStyle = styled(Card)`
         width: 200px;
     },
     position: relative;
+    background-color: ${props => props.disabled ? '#ccc' : '#fff'}
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'}
 `
 
 

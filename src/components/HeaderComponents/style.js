@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Row } from "antd";
+import { Link } from "react-router-dom";
 
 // phần row của Header
 export const WapperHeader = styled(Row)`
@@ -12,7 +13,7 @@ export const WapperHeader = styled(Row)`
     padding: 10px 0;
 `
 
-export const WapperTextHeader = styled.span`
+export const WapperTextHeader = styled(Link)`
     font-size: 18px;
     color: #444;
     font-weight: bold;

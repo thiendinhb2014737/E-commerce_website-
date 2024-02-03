@@ -36,6 +36,8 @@ const SignInPage = () => {
                 navigate('/')
             }
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+            localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
+            //localStorage.setItem('persist:root', JSON.stringify(order?.orderItems))
             if (data?.access_token) {
                 const decoded = jwtDecode(data?.access_token)
                 //console.log('decoded', decoded)
@@ -48,8 +50,10 @@ const SignInPage = () => {
     }, [isSuccess])
 
     const handleGetDetailsUser = async (id, token) => {
+        const storage = localStorage.getItem('refresh_token')
+        const refreshToken = JSON.parse(storage)
         const res = await UserService.getDetailsUser(id, token)
-        dispatch(updateUser({ ...res?.data, access_token: token }))
+        dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }))
     }
     //console.log('mutation', mutation)
     const handleOnChangeEmail = (value) => {
@@ -106,8 +110,8 @@ const SignInPage = () => {
 
                             size={20}
                             styleButton={{ background: 'rgb(255, 57, 69)', height: '49px', width: '100%', border: 'none', borderRadius: '4px', margin: '26px 0 10px' }}
-                            textButton={'Đăng nhập'}
-                            styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Đăng nhập'}
+                            styletextbutton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                         >
                         </ButtonComponents>
                     </Loading>

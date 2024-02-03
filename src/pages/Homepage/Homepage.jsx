@@ -13,7 +13,7 @@ import Loading from "../../components/LoadingComponents/Loading";
 import { useDebounce } from "../../hooks/useDebounce";
 const Homepage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
-    const [pending, setPending] = useState(false)
+    //const [pending, setPending] = useState(false)
     const searchDebounce = useDebounce(searchProduct, 100)
     const [limit, setLimit] = useState(6)
     const [typeProduct, setTypeProduct] = useState([])
@@ -31,18 +31,19 @@ const Homepage = () => {
             setTypeProduct(res?.data)
         }
     }
-    const { isPending, data: products, isPlaceholderData } = useQuery({
+    // bỏ isPending
+    const { data: products, isPlaceholderData } = useQuery({
         queryKey: ['products', limit, searchDebounce],
         queryFn: fetchProductAll, retry: 3, retryDeplay: 1000, placeholderData: true
     })
-    //console.log('products', products)
 
     useEffect(() => {
         fetchAllTypeProduct()
     }, [])
 
     return (
-        <Loading isPending={isPending || pending}>
+        //Loading isPending={isPending || pending}
+        <>
             <div style={{ width: '1270px', margin: '0 auto' }}>
                 <WapperTypeProduct>
                     {typeProduct.map((item) => {
@@ -79,7 +80,7 @@ const Homepage = () => {
                     </WrapperProducts>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
                         <WrapperButtonMore
-                            textButton={isPlaceholderData ? 'Load more' : ' Xem thêm'} type='outline'
+                            textbutton={isPlaceholderData ? 'Load more' : ' Xem thêm'} type='outline'
                             styleButton={{
                                 border: '1px solid rgb(10, 104, 255)',
                                 color: `${products?.total === products?.data?.length ? '#ccc' : 'rgb(10, 104, 255)'}`,
@@ -88,13 +89,13 @@ const Homepage = () => {
                                 borderRadius: '4px'
                             }}
                             disabled={products?.total === products?.data?.length || products.totalPage === 1}
-                            styleTextButton={{ fontWeight: 500, color: products?.total === products?.data?.length && '#fff' }}
+                            styletextbutton={{ fontWeight: 500, color: products?.total === products?.data?.length && '#fff' }}
                             onClick={() => setLimit((prev) => prev + 6)}
                         />
                     </div>
                 </div>
             </div>
-        </Loading>
+        </>
     )
 }
 export default Homepage

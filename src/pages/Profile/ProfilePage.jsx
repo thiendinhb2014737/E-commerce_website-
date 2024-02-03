@@ -86,8 +86,8 @@ const ProfilePage = () => {
                             onClick={handleUpdate}
                             size={20}
                             styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px' }}
-                            textButton={'Cập nhật'}
-                            styleTextButton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Cập nhật'}
+                            styletextbutton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
                         >Cập nhật</ButtonComponents>
                     </WrapperInput>
 
@@ -98,8 +98,8 @@ const ProfilePage = () => {
                             onClick={handleUpdate}
                             size={20}
                             styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px' }}
-                            textButton={'Cập nhật'}
-                            styleTextButton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Cập nhật'}
+                            styletextbutton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
                         >Cập nhật</ButtonComponents>
                     </WrapperInput>
 
@@ -110,8 +110,8 @@ const ProfilePage = () => {
                             onClick={handleUpdate}
                             size={20}
                             styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px' }}
-                            textButton={'Cập nhật'}
-                            styleTextButton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Cập nhật'}
+                            styletextbutton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
                         >Cập nhật</ButtonComponents>
                     </WrapperInput>
 
@@ -122,8 +122,8 @@ const ProfilePage = () => {
                             onClick={handleUpdate}
                             size={20}
                             styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px' }}
-                            textButton={'Cập nhật'}
-                            styleTextButton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Cập nhật'}
+                            styletextbutton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
                         >Cập nhật</ButtonComponents>
                     </WrapperInput>
 
@@ -145,8 +145,8 @@ const ProfilePage = () => {
                             onClick={handleUpdate}
                             size={20}
                             styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px' }}
-                            textButton={'Cập nhật'}
-                            styleTextButton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
+                            textbutton={'Cập nhật'}
+                            styletextbutton={{ color: '#555', fontSize: '15px', fontWeight: '700' }}
                         >Cập nhật</ButtonComponents>
                     </WrapperInput>
                 </WrapperContentProfile>
