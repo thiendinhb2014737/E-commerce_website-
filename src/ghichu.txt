@@ -3,3 +3,4 @@
 // Chỉ tài khoản admin mới mua hàng được còn tài khoản user nó bị lỗi authUsemiddlwe ko mua được a ạ vd61
 //key={order?.product} line 94
 // thiếu style trong app.js
+//// "proxy": "http://localhost:3001" pakage.json
