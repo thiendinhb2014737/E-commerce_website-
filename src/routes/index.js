@@ -14,6 +14,8 @@ import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import PriceProductPage from "../pages/PriceProductPage/PriceProductPage";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+import ChangePassword from "../pages/ChangePassword/ChangePassword";
 
 
 export const routes = [
@@ -68,6 +70,18 @@ export const routes = [
     {
         path: '/sign-in',
         page: SignInPage,
+        isShowHeader: false
+
+    },
+    {
+        path: '/forgot-password',
+        page: ForgotPassword,
+        isShowHeader: false
+
+    },
+    {
+        path: '/change-password',
+        page: ChangePassword,
         isShowHeader: false
 
     },

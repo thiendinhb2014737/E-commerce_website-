@@ -86,3 +86,11 @@ export const countUserMonth = async (access_token, month) => {
     })
     return res.data
 }
+export const getEmailUser = async (data) => {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/forgot-password`, data)
+    return res.data
+}
+export const changePassword = async (data) => {
+    const res = await axios.put(`${process.env.REACT_APP_API_URL}/user/change-password`, data)
+    return res.data
+}

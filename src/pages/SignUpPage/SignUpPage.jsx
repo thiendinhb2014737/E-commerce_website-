@@ -126,7 +126,7 @@ const SignUpPage = () => {
         </WrapperContainerLeft>
         <WrapperContainerRight>
           <Image src={ImageLogoTransparent} preview={false} alt='img-logo' height={'250px'} width={'250px'} />
-          <p>Đăng ký tài khoản để nhận nhiều ưu đãi đến từ DingVog</p>
+          <p style={{ color: '#333' }}>Đăng ký tài khoản để nhận nhiều ưu đãi đến từ DingVog</p>
         </WrapperContainerRight>
       </div>
     </div>

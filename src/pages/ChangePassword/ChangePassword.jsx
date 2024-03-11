@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
 import InputFormComponents from '../../components/InputFormComponents/InputFormComponents'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents'
@@ -7,69 +8,52 @@ import { Image } from 'antd'
 import {
     EyeFilled, EyeInvisibleFilled
 } from '@ant-design/icons';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import Loading from '../../components/LoadingComponents/Loading'
-import { useDispatch } from 'react-redux'
-import { jwtDecode } from "jwt-decode"
-import { updateUser } from '../../redux/slice/UserSlide'
+import * as mes from '../../components/Message/Message'
 
-const SignInPage = () => {
+
+const ChangePassword = () => {
     const [isShowPassword, setIsShowPassword] = useState(false)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
     const navigate = useNavigate()
-    const dispatch = useDispatch();
-    const location = useLocation()
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setconfirmPassword] = useState('')
+    const { state } = useLocation()
+    const email = state
 
     const mutation = useMutationHooks(
-        (data) => UserService.loginUser(data)
+        (data) => UserService.changePassword(data)
     )
-    const { data, isPending, isSuccess } = mutation
+    const { data, isPending, isSuccess, isError } = mutation
 
     useEffect(() => {
         if (isSuccess) {
-            if (location?.state) {
-                navigate(location?.state)
-            } else {
-                navigate('/')
-            }
-            localStorage.setItem('access_token', JSON.stringify(data?.access_token))
-            //localStorage.setItem('persist:root', JSON.stringify(data?.access_token))
-            if (data?.access_token) {
-                const decoded = jwtDecode(data?.access_token)
-                if (decoded?.id) {
-                    handleGetDetailsUser(decoded?.id, data?.access_token)
-                }
-            }
-
+            mes.success('Thay đổi mật khẩu thành công!')
+            handleNavigateSignIn()
+        } else if (isError) {
+            mes.error('Thay đổi mật khẩu thất bại!')
         }
-    }, [isSuccess])
-
-    const handleGetDetailsUser = async (id, token) => {
-        const res = await UserService.getDetailsUser(id, token)
-        dispatch(updateUser({ ...res?.data, access_token: token }))
-    }
-    //console.log('mutation', mutation)
-    const handleOnChangeEmail = (value) => {
-        setEmail(value)
-    }
+    }, [isSuccess, isError])
 
     const handleOnChangePassword = (value) => {
         setPassword(value)
     }
 
-    const handleNavigateSignUp = () => {
-        navigate('/sign-up')
+    const handleOnChangeConfirmPassword = (value) => {
+        setconfirmPassword(value)
     }
-    const handleNavigateForgotPassword = () => {
-        navigate('/forgot-password')
+
+    const handleNavigateSignIn = () => {
+        navigate('/sign-in')
     }
-    const handleSignIn = () => {
+    const handleSignUp = () => {
         mutation.mutate({
             email,
-            password
+            password,
+            confirmPassword,
         })
     }
 
@@ -77,10 +61,8 @@ const SignInPage = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.53)', height: '100vh' }}>
             <div style={{ width: '950px', height: '480px', borderRadius: '4px', backgroundColor: '#fff', display: 'flex' }}>
                 <WrapperContainerLeft>
-                    <h1 style={{ margin: '10px', marginBottom: '20px' }}>Kính chào quí khách!</h1>
-                    <p style={{ margin: '10px', marginBottom: '20px', fontSize: '14px' }}>Đăng nhập và tạo tài khoản</p>
-                    <InputFormComponents style={{ marginBottom: '20px' }} placeholder='abc@gmail.com' value={email} onChange={handleOnChangeEmail} />
-
+                    <h1 style={{ margin: '10px', marginBottom: '20px' }}>Thay đổi mật khẩu!</h1>
+                    <p style={{ margin: '10px', marginBottom: '20px', fontSize: '13px' }}>Vui lòng nhập mật khẩu mới!</p>
                     <div style={{ position: 'relative' }}>
                         <span
                             onClick={() => setIsShowPassword(!isShowPassword)}
@@ -101,29 +83,49 @@ const SignInPage = () => {
                         </span>
                         <InputFormComponents placeholder='password' type={isShowPassword ? "text" : "password"} value={password} onChange={handleOnChangePassword} />
                     </div>
+                    <div style={{ position: 'relative', margin: '20px 0' }}>
+                        <span
+                            onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
+                            style={{
+                                zIndex: 10,
+                                position: 'absolute',
+                                top: '4px',
+                                right: '8px',
+
+                            }}
+                        >{
+                                isShowConfirmPassword ? (
+                                    <EyeFilled />
+                                ) : (
+                                    <EyeInvisibleFilled />
+                                )
+                            }
+                        </span>
+                        <InputFormComponents placeholder='comfirm password' type={isShowConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={handleOnChangeConfirmPassword} />
+                    </div>
+
                     {data?.status === 'ERR' && <span style={{ color: 'red' }}>{data?.message}</span>}
                     <Loading isPending={isPending}>
                         <ButtonComponents
-                            disabled={!email.length || !password.length}
-                            onClick={handleSignIn}
-
+                            disabled={!password.length || !confirmPassword.length}
+                            onClick={handleSignUp}
                             size={20}
                             styleButton={{ background: 'rgb(255, 57, 69)', height: '49px', width: '100%', border: 'none', borderRadius: '4px', margin: '26px 0 10px' }}
-                            textbutton={'Đăng nhập'}
+                            textbutton={'Thay đổi mật khẩu'}
                             styletextbutton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                         >
                         </ButtonComponents>
                     </Loading>
-                    <p style={{ margin: '10px', fontSize: '14px' }}><WrapperTextLight onClick={handleNavigateForgotPassword}>Quên mật khẩu?</WrapperTextLight></p>
-                    <p style={{ margin: '10px', fontSize: '14px' }}>Chưa có tài khoản?<WrapperTextLight onClick={handleNavigateSignUp}> Tạo tài khoản</WrapperTextLight></p>
+
+                    <p style={{ margin: '10px', fontSize: '13px' }}>Bạn đã có tài khoản?<WrapperTextLight onClick={handleNavigateSignIn}> Đăng nhập</WrapperTextLight></p>
                 </WrapperContainerLeft>
                 <WrapperContainerRight>
                     <Image src={ImageLogoTransparent} preview={false} alt='img-logo' height={'250px'} width={'250px'} />
-                    <p style={{ color: '#333' }}>Mua sắm tại Dingvog với nhiều ưu đãi vô cùng hấp dẫn</p>
+                    <p style={{ color: '#333' }}>Đăng ký tài khoản để nhận nhiều ưu đãi đến từ DingVog</p>
                 </WrapperContainerRight>
             </div>
         </div>
     )
 }
 
-export default SignInPage
+export default ChangePassword

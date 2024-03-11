@@ -91,7 +91,7 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                             objectFit: 'cover',
                             marginRight: '10px'
                         }} />
-                        THỜI TRANG THỊNH HÀNH
+                        THỜI TRANG DINGVOG
                     </WapperTextHeader>
                 </Col>
                 {!isHiddenSearch && (
