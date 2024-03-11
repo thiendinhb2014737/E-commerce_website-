@@ -2,20 +2,21 @@ import React from 'react'
 import { Lable, WrapperInfo, WrapperContainer, WrapperValue, WrapperCountOrder, WrapperItemOrder, WrapperItemOrderInfo } from './style';
 import Loading from '../../components/LoadingComponents/Loading';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { orderContant } from '../../contant';
 import { convertPrice } from '../../utils';
 
 
 const OrderSucess = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   //console.log('location', location)
   const { state } = location
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       {/* <Loading isLoading={false}> */}
       <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-        <h3>Thông tin đơn hàng</h3>
+        <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Thông tin đơn hàng</h4>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <WrapperContainer>
             <WrapperInfo>
@@ -45,14 +46,17 @@ const OrderSucess = () => {
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap'
-                      }}>{order?.name}</div>
+                      }}>{order?.name} (size {order?.size})</div>
                     </div>
                     <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span>
-                        <span style={{ fontSize: '13px', color: '#242424' }}>Giá tiền: {convertPrice(order?.price)}</span>
+                        <span style={{ fontSize: '14px', color: '#242424' }}>Giá tiền: {convertPrice(order?.price)}</span>
                       </span>
                       <span>
-                        <span style={{ fontSize: '13px', color: '#242424' }}>Số lượng: {convertPrice(order?.amount)}</span>
+                        <span style={{ fontSize: '14px', color: '#242424' }}>Số lượng: {order?.amount}</span>
+                      </span>
+                      <span>
+                        <span style={{ fontSize: '14px', color: '#242424' }}>Giảm giá: {order?.discount} %</span>
                       </span>
                     </div>
                   </WrapperItemOrder>

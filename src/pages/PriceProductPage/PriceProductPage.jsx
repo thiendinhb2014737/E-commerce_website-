@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import NavbarComponents from '../../components/NavbarComponents/NavbarComponents'
 import CardComponents from '../../components/CardComponents/CardComponents'
@@ -7,8 +8,7 @@ import { useLocation } from 'react-router-dom'
 import * as ProductService from "../../services/ProductService"
 import { useSelector } from 'react-redux'
 import { useDebounce } from '../../hooks/useDebounce'
-
-const TypeProductPage = () => {
+const PriceProductPage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
     const searchDebounce = useDebounce(searchProduct, 100)
     const { state } = useLocation()
@@ -19,8 +19,8 @@ const TypeProductPage = () => {
         total: 1
     })
 
-    const fetchProductType = async (type, page, limit) => {
-        const res = await ProductService.getProductType(type, page, limit)
+    const fetchProductPrice = async (fprice, page, limit) => {
+        const res = await ProductService.getProductPrice(fprice, page, limit)
         if (res?.status === 'OK') {
             setProducts(res?.data)
             setPanigate({ ...panigate, total: res?.totalPage })
@@ -30,7 +30,7 @@ const TypeProductPage = () => {
 
     useEffect(() => {
         if (state) {
-            fetchProductType(state, panigate.page, panigate.limit)
+            fetchProductPrice(state, panigate.page, panigate.limit)
         }
 
     }, [state, panigate.page, panigate.limit])
@@ -41,7 +41,6 @@ const TypeProductPage = () => {
     return (
         <div style={{ width: '100%', background: '#efefef', height: '100vh' }}>
             <div style={{ width: '1270px', margin: '0 auto', height: '100%' }}>
-
                 <Row style={{ flexWrap: 'nowrap', paddingTop: '10px', height: '100%' }}>
                     <WrapperNavbar span={4} >
                         <NavbarComponents />
@@ -78,7 +77,8 @@ const TypeProductPage = () => {
             </div>
 
         </div>
+
     )
 }
 
-export default TypeProductPage
+export default PriceProductPage

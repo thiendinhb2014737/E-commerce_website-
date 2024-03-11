@@ -35,7 +35,14 @@ const AdminProduct = () => {
     image: '',
     type: '',
     price: '',
-    size: '',
+    sizeS: 'S',
+    countS: '',
+    sizeM: 'M',
+    countM: '',
+    sizeL: 'L',
+    countL: '',
+    sizeXL: 'XL',
+    countXL: '',
     description: '',
     countInStock: '',
     rating: '',
@@ -53,7 +60,14 @@ const AdminProduct = () => {
         image,
         type,
         price,
-        size,
+        sizeS,
+        countS,
+        sizeM,
+        countM,
+        sizeL,
+        countL,
+        sizeXL,
+        countXL,
         description,
         countInStock, // khác chỗ này, nhưng ko sai
         rating,
@@ -63,7 +77,14 @@ const AdminProduct = () => {
         image,
         type,
         price,
-        size,
+        sizeS,
+        countS,
+        sizeM,
+        countM,
+        sizeL,
+        countL,
+        sizeXL,
+        countXL,
         description,
         countInStock,
         rating,
@@ -122,7 +143,14 @@ const AdminProduct = () => {
         image: res?.data?.image,
         type: res?.data?.type,
         price: res?.data?.price,
-        size: res?.data?.size,
+        sizeS: res?.data?.sizeS,
+        countS: res?.data?.countS,
+        sizeM: res?.data?.sizeM,
+        countM: res?.data?.countM,
+        sizeL: res?.data?.sizeL,
+        countL: res?.data?.countL,
+        sizeXL: res?.data?.sizeXL,
+        countXL: res?.data?.countXL,
         description: res?.data?.description,
         countInStock: res?.data?.countInStock,
         rating: res?.data?.rating,
@@ -391,7 +419,14 @@ const AdminProduct = () => {
       image: '',
       type: '',
       price: '',
-      size: '',
+      sizeS: 'S',
+      countS: '',
+      sizeM: 'M',
+      countM: '',
+      sizeL: 'L',
+      countL: '',
+      sizeXL: 'XL',
+      countXL: '',
       description: '',
       countInStock: '',
       discount: '',
@@ -405,6 +440,14 @@ const AdminProduct = () => {
       image: '',
       type: '',
       price: '',
+      sizeS: 'S',
+      countS: '',
+      sizeM: 'M',
+      countM: '',
+      sizeL: 'L',
+      countL: '',
+      sizeXL: 'XL',
+      countXL: '',
       description: '',
       countInStock: '',
     })
@@ -438,7 +481,14 @@ const AdminProduct = () => {
       image: stateProduct.image,
       type: stateProduct.type === 'add_type' ? stateProduct.newType : stateProduct.type,
       price: stateProduct.price,
-      size: stateProduct.size,
+      sizeS: stateProduct.sizeS,
+      countS: stateProduct.countS,
+      sizeM: stateProduct.sizeM,
+      countM: stateProduct.countM,
+      sizeL: stateProduct.sizeL,
+      countL: stateProduct.countL,
+      sizeXL: stateProduct.sizeXL,
+      countXL: stateProduct.countXL,
       description: stateProduct.description,
       countInStock: stateProduct.countInStock,
       rating: stateProduct.rating,
@@ -508,7 +558,7 @@ const AdminProduct = () => {
 
   return (
     <div>
-      <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+      <WrapperHeader style={{ fontSize: '20px', textAlign: 'center' }}>QUẢN LÝ SẢN PHẨM</WrapperHeader>
       <div style={{ marginTop: '10px' }}>
         <Button style={{ height: '150px', width: '150px', borderRadius: '6px', borderStyle: 'dashed' }} onClick={() => setIsModalOpen(true)}><PlusCircleTwoTone style={{ fontSize: '40px' }} /></Button>
       </div>
@@ -522,12 +572,12 @@ const AdminProduct = () => {
         }} />
       </div>
 
-      <ModalComponents forceRender title="Tạo sản phẩm" open={isModalOpen} onCancel={handleCancel} footer={null}>
+      <ModalComponents forceRender title="Tạo sản phẩm" open={isModalOpen} onCancel={handleCancel} footer={null} width="60%">
         <Loading isPending={isPending}>
           <Form
             name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 18 }}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 20 }}
             onFinish={onFinish}
             autoComplete="on"
             form={form}
@@ -570,13 +620,59 @@ const AdminProduct = () => {
             >
               <InputComponents value={stateProduct.price} onChange={handleOnChange} name="price" />
             </Form.Item>
-            <Form.Item
-              label="Size"
-              name="size"
-              rules={[{ required: true, message: 'Please input your size!' }]}
-            >
-              <InputComponents value={stateProduct.size} onChange={handleOnChange} name="size" />
-            </Form.Item>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                name="sizeS"
+                style={{ width: '70px', textAlign: 'center' }}>
+                <span name="sizeS">Size{stateProduct.sizeS}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countS"
+                rules={[{ required: true, message: 'Please input your countS!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProduct.countS} onChange={handleOnChange} name="countS" />
+              </Form.Item>
+              <Form.Item
+                name="sizeM"
+                style={{ width: '70px', textAlign: 'center' }}>
+                <span name="sizeM">Size{stateProduct.sizeM}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countM"
+                rules={[{ required: true, message: 'Please input your countM!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProduct.countM} onChange={handleOnChange} name="countM" />
+              </Form.Item>
+
+              <Form.Item
+                name="sizeL"
+                style={{ width: '70px', textAlign: 'center' }}
+              >
+                <span name="sizeL">Size{stateProduct.sizeL}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countL"
+                rules={[{ required: true, message: 'Please input your countM!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProduct.countL} onChange={handleOnChange} name="countL" />
+              </Form.Item>
+
+              <Form.Item
+                name="sizeXL"
+                style={{ width: '70px', textAlign: 'center' }}
+              >
+                <span name="sizeXL">Size{stateProduct.sizeXL}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countXL"
+                rules={[{ required: true, message: 'Please input your countXL!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProduct.countXL} onChange={handleOnChange} name="countXL" />
+              </Form.Item>
+
+            </div>
+
             <Form.Item
               label="Description"
               name="description"
@@ -665,13 +761,57 @@ const AdminProduct = () => {
             >
               <InputComponents value={stateProductDetails.price} onChange={handleOnChangeDetails} name="price" />
             </Form.Item>
-            <Form.Item
-              label="Size"
-              name="size"
-              rules={[{ required: true, message: 'Please input your size!' }]}
-            >
-              <InputComponents value={stateProduct.size} onChange={handleOnChangeDetails} name="size" />
-            </Form.Item>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                name="sizeS"
+                style={{ width: '70px', textAlign: 'center' }}>
+                <span name="sizeS">Size{stateProductDetails.sizeS}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countS"
+                rules={[{ required: true, message: 'Please input your countS!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProductDetails.countS} onChange={handleOnChangeDetails} name="countS" />
+              </Form.Item>
+              <Form.Item
+                name="sizeM"
+                style={{ width: '70px', textAlign: 'center' }}>
+                <span name="sizeM">Size{stateProductDetails.sizeM}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countM"
+                rules={[{ required: true, message: 'Please input your countM!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProductDetails.countM} onChange={handleOnChangeDetails} name="countM" />
+              </Form.Item>
+
+              <Form.Item
+                name="sizeL"
+                style={{ width: '70px', textAlign: 'center' }}
+              >
+                <span name="sizeL">Size{stateProductDetails.sizeL}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countL"
+                rules={[{ required: true, message: 'Please input your countM!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProductDetails.countL} onChange={handleOnChangeDetails} name="countL" />
+              </Form.Item>
+
+              <Form.Item
+                name="sizeXL"
+                style={{ width: '70px', textAlign: 'center' }}
+              >
+                <span name="sizeXL">Size{stateProductDetails.sizeXL}:</span>
+              </Form.Item>
+              <Form.Item
+                name="countXL"
+                rules={[{ required: true, message: 'Please input your countXL!' }]}
+              >
+                <InputComponents style={{ width: '90px' }} value={stateProductDetails.countXL} onChange={handleOnChangeDetails} name="countXL" />
+              </Form.Item>
+
+            </div>
             <Form.Item
               label="Description"
               name="description"

@@ -1,4 +1,4 @@
-import { Col, Image, Rate, Row } from 'antd'
+import { Col, Image, Radio, Rate, Row } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import imgProductSmall from '../../assets/Images/a2.png'
 import { WrapperAddressProduct, WrapperInputNumber, WrapperPriceProduct, WrapperPriceTextProduct, WrapperQualityProduct, WrapperStyleColImage, WrapperStyleImageSmall, WrapperStyleNameProduct, WrapperStyleTextSell } from './style'
@@ -15,6 +15,7 @@ import { convertPrice, initFacebookSDK } from '../../utils';
 import * as mess from '../Message/Message'
 import LikeButtonComponent from '../LikeButtonComponent/LikeButtonComponent';
 import CommentComponent from '../CommentComponent/CommentComponent';
+import Loading from '../LoadingComponents/Loading'
 
 const ProductDetailsComponents = ({ idProduct }) => {
     const [numberProduct, setNumberProduct] = useState(1)
@@ -37,7 +38,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
             return res.data
         }
     }
-    const { isPending, data: productDetails } = useQuery({
+    const { isLoading: isPending, data: productDetails } = useQuery({
         queryKey: ['product-details', idProduct],
         queryFn: fetchGetDetailsProduct, enabled: !!idProduct
     })
@@ -74,6 +75,10 @@ const ProductDetailsComponents = ({ idProduct }) => {
             }
         }
     }
+    const [placement, SetPlacement] = useState('');
+    const placementChange = (e) => {
+        SetPlacement(e.target.value);
+    };
 
     const handleAddOrderProduct = () => {
         if (!user?.id) {
@@ -82,6 +87,8 @@ const ProductDetailsComponents = ({ idProduct }) => {
             const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
             if ((orderRedux?.amount + numberProduct) <= orderRedux?.countInStock || (!orderRedux && productDetails?.countInStock > 0)) {
                 dispatch(addOrderProduct({
+                    ///
+                    userID: user?.id,
                     orderItem: {
                         name: productDetails?.name,
                         amount: numberProduct,
@@ -89,6 +96,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                         price: productDetails?.price,
                         product: productDetails?._id,
                         discount: productDetails?.discount,
+                        size: placement,
                         countInStock: productDetails?.countInStock
                     },
                 }))
@@ -98,12 +106,13 @@ const ProductDetailsComponents = ({ idProduct }) => {
         }
     }
 
+
     return (
-        <>
+        <Loading isPending={isPending}>
             <Row style={{ padding: '16px', background: '#fff', borderRadius: '4px' }}>
                 <Col span={10} style={{ borderRight: '1px solid #e5e5e5', paddingRight: '8px' }}>
                     <Image src={productDetails?.image} alt='img product' preview={false} />
-                    <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
+                    {/* <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
                         <WrapperStyleColImage span={4}>
                             <WrapperStyleImageSmall src={imgProductSmall} alt='img small' preview={false} />
                         </WrapperStyleColImage>
@@ -123,27 +132,46 @@ const ProductDetailsComponents = ({ idProduct }) => {
                             <WrapperStyleImageSmall src={imgProductSmall} alt='img small' preview={false} />
                         </WrapperStyleColImage>
 
-                    </Row>
+                    </Row> */}
                 </Col>
                 <Col span={14} style={{ paddingLeft: '6px' }}>
                     <WrapperStyleNameProduct>{productDetails?.name}</WrapperStyleNameProduct>
                     <div>
                         <Rate allowHalf defaultValue={productDetails?.rating} value={productDetails?.rating} />
-                        <WrapperStyleTextSell>| Đã bán 99+</WrapperStyleTextSell>
+                        <WrapperStyleTextSell>| Đã bán {productDetails?.selled}+</WrapperStyleTextSell>
                     </div>
                     <WrapperPriceProduct>
                         <WrapperPriceTextProduct>{convertPrice(productDetails?.price)}</WrapperPriceTextProduct>
                     </WrapperPriceProduct>
-                    <WrapperAddressProduct>
-                        <span>Giao đến</span>
-                        <span className='address'>{user?.address}</span> -
-                        <span className='change-address'>Đổi địa chỉ</span>
-                    </WrapperAddressProduct>
+                    <p>Kích cỡ:</p>
+                    <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                        <span>{productDetails?.countS}</span>
+                        <span>{productDetails?.countM}</span>
+                        <span>{productDetails?.countL}</span>
+                        <span>{productDetails?.countXL}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Radio.Group value={placement} onChange={placementChange}>
+                            <Radio.Button value={productDetails?.sizeS}>{productDetails?.sizeS}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeM}>{productDetails?.sizeM}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeL}>{productDetails?.sizeL}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeXL}>{productDetails?.sizeXL}</Radio.Button>
+                        </Radio.Group>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <LikeButtonComponent
                         dataHref={process.env.REACT_APP_IS_LOCAL ? "https://developers.facebook.com/docs/plugins/" : window.location.href}
                     />
+                    {/* <WrapperAddressProduct>
+                        <span>Giao đến</span>
+                        <span className='address'>{user?.address}</span> -
+                        <span className='change-address'>Đổi địa chỉ</span>
+                    </WrapperAddressProduct> */}
                     <div style={{ margin: '10px 0 20px', padding: '10px 0', borderTop: '1px solid #e5e5e5', borderBottom: '1px solid #e5e5e5' }}>
-                        <div style={{ marginBottom: '10px' }}>Số lượng</div>
+                        <div style={{ marginBottom: '10px' }}>Số lượng còn lại ({productDetails?.countInStock}) sản phẩm</div>
                         <WrapperQualityProduct>
                             <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', numberProduct === 1)}>
                                 <MinusOutlined style={{ fontSize: '20px' }} />
@@ -155,6 +183,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                             </button>
                         </WrapperQualityProduct>
                     </div>
+
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div>
                             <ButtonComponents
@@ -176,9 +205,9 @@ const ProductDetailsComponents = ({ idProduct }) => {
                         </ButtonComponents>
                     </div>
                 </Col>
-                <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://developers.facebook.com/docs/plugins/comments#configurator" : window.location.href} width="1270" />
+                <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://clothingStore.com" : window.location.href} width="1270" />
             </Row>
-        </>
+        </Loading>
     )
 }
 

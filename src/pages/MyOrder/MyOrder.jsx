@@ -9,30 +9,34 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as message from '../../components/Message/Message'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents';
+import ButtonInputSearch from '../../components/ButtonInputSearch/ButtonInputSearch';
+import { WrapperButtonMore } from '../Homepage/style';
 
 const MyOrderPage = () => {
   const location = useLocation()
   const { state } = location
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
+  const [limit, setLimit] = useState(4)
 
-
-  const fetchMyOrder = async () => {
-    const res = await OrderService.getOrderByUserId(state?.id, state?.token)
+  const fetchMyOrder = async (context) => {
+    const limit = context?.queryKey && context?.queryKey[1]
+    const res = await OrderService.getOrderByUserId(state?.id, state?.token, limit)
     //console.log('res', res)
     return res.data
   }
 
   const id = state?.id
   const token = state?.token
+
   const queryOrder = useQuery({
-    queryKey: ['orders'],
+    queryKey: ['orders', limit],
     queryFn: fetchMyOrder,
     enabled: !!id && !!token
   })
 
   const { isPending, data } = queryOrder
-  //console.log('data', data)
+  console.log('data', data)
 
 
 
@@ -100,17 +104,17 @@ const MyOrderPage = () => {
 
     <Loading isPending={isPending}>
       <WrapperContainer>
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-          <h4>Đơn hàng của tôi</h4>
+        <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '5px' }}>
+          <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Đơn hàng của tôi</h4>
           <WrapperListOrder>
             {data?.map((order) => {
               return (
                 <WrapperItemOrder key={order?._id}>
                   <WrapperStatus>
-                    <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái</span>
+                    <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái đơn hàng</span>
                     <div>
-                      <span style={{ color: 'rgb(255, 66, 78)' }}>Giao hàng: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isDelivered ? 'Đã giao hàng' : 'Chưa giao hàng'}`}</span>
+                      <span style={{ color: 'rgb(255, 66, 78)' }}>Trạng thái: </span>
+                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.statusOder}`}</span>
                     </div>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Thanh toán: </span>
@@ -125,6 +129,7 @@ const MyOrderPage = () => {
                         style={{ fontSize: '13px', color: 'rgb(56, 56, 61)', fontWeight: 700 }}
                       >{convertPrice(order?.totalPrice)}</span>
                     </div>
+
                     <div style={{ display: 'flex', gap: '10px' }}>
                       <ButtonComponents
                         onClick={() => handleCanceOrder(order)}
@@ -156,6 +161,21 @@ const MyOrderPage = () => {
               )
             })}
           </WrapperListOrder>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+            <WrapperButtonMore
+              textbutton={' Xem thêm'} type='outline'
+              styleButton={{
+                border: '1px solid rgb(10, 104, 255)',
+                color: 'rgb(10, 104, 255)',
+                width: '240px',
+                height: '38px',
+                borderRadius: '4px'
+              }}
+              // disabled={products?.total === products?.data?.length || products.totalPage === 1}
+              styletextbutton={{ fontWeight: 500 }}
+              onClick={() => setLimit((prev) => prev + 6)}
+            />
+          </div>
         </div>
       </WrapperContainer>
     </Loading>

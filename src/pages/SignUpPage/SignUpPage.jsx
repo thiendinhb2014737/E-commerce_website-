@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
 import InputFormComponents from '../../components/InputFormComponents/InputFormComponents'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents'
-import ImageLogo from '../../assets/Images/Logo.png'
+import ImageLogoTransparent from '../../assets/Images/Logo_trongsuot.png'
 import { Image } from 'antd'
 import {
   EyeFilled, EyeInvisibleFilled
@@ -12,6 +12,7 @@ import * as UserService from '../../services/UserService'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import Loading from '../../components/LoadingComponents/Loading'
 import * as mes from '../../components/Message/Message'
+import moment from 'moment'
 
 const SignUpPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)
@@ -20,6 +21,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
+  const date = moment().format("MMMM DD YYYY")
 
   const mutation = useMutationHooks(
     (data) => UserService.signupUser(data)
@@ -28,7 +30,7 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      mes.success()
+      mes.success('Bạn đã đăng ký thành công!')
       handleNavigateSignIn()
     } else if (isError) {
       mes.error()
@@ -54,17 +56,18 @@ const SignUpPage = () => {
     mutation.mutate({
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      createOrderdAt: String(date)
     })
   }
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.53)', height: '100vh' }}>
-      <div style={{ width: '800px', height: '443px', borderRadius: '4px', backgroundColor: '#fff', display: 'flex' }}>
+      <div style={{ width: '950px', height: '480px', borderRadius: '4px', backgroundColor: '#fff', display: 'flex' }}>
         <WrapperContainerLeft>
-          <h1 style={{ margin: '10px' }}>Xin chào!</h1>
-          <p style={{ margin: '10px', fontSize: '13px' }}>Đăng nhập và tạo tài khoản</p>
-          <InputFormComponents style={{ marginBottom: '15px' }} placeholder='abc@gmail.com' value={email} onChange={handleOnChangeEmail} />
+          <h1 style={{ margin: '10px', marginBottom: '20px' }}>Đăng ký tài khoản!</h1>
+          <p style={{ margin: '10px', marginBottom: '20px', fontSize: '13px' }}>Đăng ký và tạo tài khoản</p>
+          <InputFormComponents style={{ marginBottom: '20px' }} placeholder='abc@gmail.com' value={email} onChange={handleOnChangeEmail} />
           <div style={{ position: 'relative' }}>
             <span
               onClick={() => setIsShowPassword(!isShowPassword)}
@@ -85,7 +88,7 @@ const SignUpPage = () => {
             </span>
             <InputFormComponents placeholder='password' type={isShowPassword ? "text" : "password"} value={password} onChange={handleOnChangePassword} />
           </div>
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', margin: '20px 0' }}>
             <span
               onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
               style={{
@@ -111,7 +114,6 @@ const SignUpPage = () => {
             <ButtonComponents
               disabled={!email.length || !password.length || !confirmPassword.length}
               onClick={handleSignUp}
-
               size={20}
               styleButton={{ background: 'rgb(255, 57, 69)', height: '49px', width: '100%', border: 'none', borderRadius: '4px', margin: '26px 0 10px' }}
               textbutton={'Đăng ký'}
@@ -120,11 +122,11 @@ const SignUpPage = () => {
             </ButtonComponents>
           </Loading>
 
-          <p style={{ margin: '10px', fontSize: '13px' }}>Bạn đã có tài khoản?<WrapperTextLight onClick={handleNavigateSignIn}>Đăng nhập</WrapperTextLight></p>
+          <p style={{ margin: '10px', fontSize: '13px' }}>Bạn đã có tài khoản?<WrapperTextLight onClick={handleNavigateSignIn}> Đăng nhập</WrapperTextLight></p>
         </WrapperContainerLeft>
         <WrapperContainerRight>
-          <Image src={ImageLogo} preview={false} alt='img-logo' height={'203px'} width={'203px'} />
-          <h4>Mua sắm tại Dingvog</h4>
+          <Image src={ImageLogoTransparent} preview={false} alt='img-logo' height={'250px'} width={'250px'} />
+          <p>Đăng ký tài khoản để nhận nhiều ưu đãi đến từ DingVog</p>
         </WrapperContainerRight>
       </div>
     </div>

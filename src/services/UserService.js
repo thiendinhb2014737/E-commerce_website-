@@ -51,7 +51,7 @@ export const deleteManyUser = async (data, access_token) => {
 }
 
 export const getAllUser = async (access_token) => {
-    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAll`, {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAll?sort=desc&sort=createdAt`, {
         headers: {
             token: `Bearer ${access_token}`,
         }
@@ -65,17 +65,24 @@ export const refreshToken = async () => {
     })
     return res.data
 }
-// export const refreshToken = async (refreshToken) => {
-//     const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/refresh-token`, {}, {
-//         headers: {
-//             token: `Bearer ${refreshToken}`,
-//         }
-//     })
-//     return res.data
-// }
 
 export const logoutUser = async () => {
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/log-out`)
     return res.data
 }
-
+export const getAllUserCount = async (access_token) => {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAllCount`, {
+        headers: {
+            token: `Bearer ${access_token}`,
+        }
+    })
+    return res.data
+}
+export const countUserMonth = async (access_token, month) => {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAll?filter=createOrderdAt&filter=${month}`, {
+        headers: {
+            token: `Bearer ${access_token}`,
+        }
+    })
+    return res.data
+}

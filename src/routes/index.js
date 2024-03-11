@@ -13,6 +13,7 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
+import PriceProductPage from "../pages/PriceProductPage/PriceProductPage";
 
 
 export const routes = [
@@ -55,6 +56,12 @@ export const routes = [
     {
         path: '/product/:type',
         page: TypeProductPage,
+        isShowHeader: true
+
+    },
+    {
+        path: '/product-price/:fprice',
+        page: PriceProductPage,
         isShowHeader: true
 
     },

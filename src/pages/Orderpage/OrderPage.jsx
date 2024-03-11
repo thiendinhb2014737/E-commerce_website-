@@ -144,7 +144,7 @@ const OrderPage = () => {
         //console.log('user', user)
         if (!order?.orderItemsSelected?.length) {
             message.error('Không có sản phẩm nào được chọn!')
-        } else if (!user?.phone || !user?.address) {
+        } else if (!user?.name || !user?.phone || !user?.address) {
             setIsOpenModalUpdateInfo(true)
         } else {
             navigate('/payment')
@@ -196,7 +196,7 @@ const OrderPage = () => {
             [e.target.name]: e.target.value
         })
     }
-
+    //console.log('stateUserDetails', stateUserDetails)
 
 
     const itemsDelivery = [
@@ -213,20 +213,79 @@ const OrderPage = () => {
             description: '> 500.000 VNĐ',
         },
     ]
+    const refreshPage = () => {
+        window.location.reload(false);
+    }
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
-            <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-                <h3 style={{ fontWeight: 'bold' }}>Giỏ hàng</h3>
+            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '5px' }}>
+                <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Giỏ hàng</h4>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <WrapperLeft>
+                    {/*  */}
+                    {order?.userIds === user?.id ? (
+                        <WrapperLeft>
+                            <WrapperStyleHeaderDilivery>
+                                <span>Phí vận chuyển</span>
+                                <StepComponents items={itemsDelivery} current={diliveryPriceMemo === 35000 ? 1 : diliveryPriceMemo === 25000 ? 2 : order?.orderItemsSelected?.length === 0 ? 0 : 3} />
+                            </WrapperStyleHeaderDilivery>
+                            <WrapperStyleHeader>
+                                <span style={{ display: 'inline-block', width: '390px' }}>
+                                    <Checkbox onChange={handleOnchangeCheckAll} checked={listChecked?.length === order?.orderItems?.length} ></Checkbox>
+                                    <span> Tất cả ({order?.orderItems?.length} sản phẩm)</span>
+                                </span>
+                                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span>Đơn giá</span>
+                                    <span>Số lượng</span>
+                                    <span>Thành tiền</span>
+                                    <button style={{ cursor: 'pointer', fontSize: '10px' }} onClick={handleRemoveAllOrder}>Xóa tất cả</button>
+                                    {/* <DeleteOutlined style={{ cursor: 'pointer' }} onClick={handleRemoveAllOrder} /> */}
+                                </div>
+                            </WrapperStyleHeader>
+                            <WrapperListOrder>
+                                {order?.orderItems?.map((order) => {
+                                    return (
+                                        <WrapperItemOrder key={order?.product}>
+                                            <div style={{ width: '390px', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                                {/* <CustomCheckbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></CustomCheckbox> */}
+                                                <Checkbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></Checkbox>
+                                                <img src={order?.image} style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
+                                                <div style={{
+                                                    width: 'px',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap'
+                                                }}>{order?.name} (size {order?.size})</div>
+                                            </div>
+                                            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                <span>
+                                                    <span style={{ fontSize: '13px', color: '#242424' }}>{convertPrice(order?.price)}</span>
+                                                </span>
+                                                <WrapperCountOrder>
+                                                    <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', order?.product, order?.amount === 1)}>
+                                                        <MinusOutlined style={{ color: '#000', fontSize: '10px' }} />
+                                                    </button>
+                                                    <WrapperInputNumber defaultValue={order?.amount} value={order?.amount} size="small" min={1} max={order?.countInStock} />
+                                                    <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('increase', order?.product, order?.amount === order?.countInStock)}>
+                                                        <PlusOutlined style={{ color: '#000', fontSize: '10px' }} />
+                                                    </button>
+                                                </WrapperCountOrder>
+                                                <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{convertPrice(order?.price * order?.amount)}</span>
+                                                <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDeleteOrder(order?.product)} />
+                                            </div>
+                                        </WrapperItemOrder>
+                                    )
+                                })}
+                            </WrapperListOrder>
+                        </WrapperLeft>
+                    ) : <WrapperLeft>
                         <WrapperStyleHeaderDilivery>
                             <span>Phí vận chuyển</span>
                             <StepComponents items={itemsDelivery} current={diliveryPriceMemo === 35000 ? 1 : diliveryPriceMemo === 25000 ? 2 : order?.orderItemsSelected?.length === 0 ? 0 : 3} />
                         </WrapperStyleHeaderDilivery>
                         <WrapperStyleHeader>
                             <span style={{ display: 'inline-block', width: '390px' }}>
-                                <Checkbox onChange={handleOnchangeCheckAll} checked={listChecked?.length === order?.orderItems?.length} ></Checkbox>
-                                <span> Tất cả ({order?.orderItems?.length} sản phẩm)</span>
+                                <Checkbox ></Checkbox>
+                                <span> Tất cả (0 sản phẩm)</span>
                             </span>
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <span>Đơn giá</span>
@@ -237,41 +296,11 @@ const OrderPage = () => {
                             </div>
                         </WrapperStyleHeader>
                         <WrapperListOrder>
-                            {order?.orderItems?.map((order) => {
-                                return (
-                                    <WrapperItemOrder key={order?.product}>
-                                        <div style={{ width: '390px', display: 'flex', alignItems: 'center', gap: 4 }}>
-                                            {/* <CustomCheckbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></CustomCheckbox> */}
-                                            <Checkbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></Checkbox>
-                                            <img src={order?.image} style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
-                                            <div style={{
-                                                width: 'px',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap'
-                                            }}>{order?.name}</div>
-                                        </div>
-                                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <span>
-                                                <span style={{ fontSize: '13px', color: '#242424' }}>{convertPrice(order?.price)}</span>
-                                            </span>
-                                            <WrapperCountOrder>
-                                                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', order?.product, order?.amount === 1)}>
-                                                    <MinusOutlined style={{ color: '#000', fontSize: '10px' }} />
-                                                </button>
-                                                <WrapperInputNumber defaultValue={order?.amount} value={order?.amount} size="small" min={1} max={order?.countInStock} />
-                                                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('increase', order?.product, order?.amount === order?.countInStock)}>
-                                                    <PlusOutlined style={{ color: '#000', fontSize: '10px' }} />
-                                                </button>
-                                            </WrapperCountOrder>
-                                            <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{convertPrice(order?.price * order?.amount)}</span>
-                                            <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDeleteOrder(order?.product)} />
-                                        </div>
-                                    </WrapperItemOrder>
-                                )
-                            })}
+
                         </WrapperListOrder>
                     </WrapperLeft>
+                    }
+
                     <WrapperRight>
                         <div style={{ width: '100%' }}>
 
@@ -321,47 +350,47 @@ const OrderPage = () => {
                 </div>
             </div>
             <ModalComponents title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} footer={null}>
-                {/* <Loading isPending={isPending}> */}
-                <div>Bạn cần cung cấp đầy đủ thông thin cần thiết</div>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 7 }}
-                    wrapperCol={{ span: 17 }}
-                    //onFinish={onupdateUser}
-                    autoComplete="on"
-                    form={form}
-                >
-                    <Form.Item
-                        label="Tên người dùng"
-                        name="name"
-                        rules={[{ required: true, message: 'Please input your name!' }]}
+                <Loading isPending={isPending}>
+                    <div style={{ margin: '10px' }}>Bạn cần cung cấp đầy đủ thông thin cần thiết</div>
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 7 }}
+                        wrapperCol={{ span: 17 }}
+                        //onFinish={onupdateUser}
+                        autoComplete="on"
+                        form={form}
                     >
-                        <InputComponents value={stateUserDetails.name} onChange={handleOnChangeDetails} name="name" />
-                    </Form.Item>
+                        <Form.Item
+                            label="Tên người dùng"
+                            name="name"
+                            rules={[{ required: true, message: 'Please input your name!' }]}
+                        >
+                            <InputComponents value={stateUserDetails.name} onChange={handleOnChangeDetails} name="name" />
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Số điện thoại"
-                        name="phone"
-                        rules={[{ required: true, message: 'Please input your phone!' }]}
-                    >
-                        <InputComponents value={stateUserDetails.phone} onChange={handleOnChangeDetails} name="phone" />
-                    </Form.Item>
+                        <Form.Item
+                            label="Số điện thoại"
+                            name="phone"
+                            rules={[{ required: true, message: 'Please input your phone!' }]}
+                        >
+                            <InputComponents value={stateUserDetails.phone} onChange={handleOnChangeDetails} name="phone" />
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Địa chỉ giao hàng"
-                        name="address"
-                        rules={[{ required: true, message: 'Please input your address!' }]}
-                    >
-                        <InputComponents value={stateUserDetails.address} onChange={handleOnChangeDetails} name="address" />
-                    </Form.Item>
+                        <Form.Item
+                            label="Địa chỉ giao hàng"
+                            name="address"
+                            rules={[{ required: true, message: 'Please input your address!' }]}
+                        >
+                            <InputComponents value={stateUserDetails.address} onChange={handleOnChangeDetails} name="address" />
+                        </Form.Item>
 
-                    <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-                        <Button type="primary" htmlType="submit" onClick={handleUpdateInforUser}>
-                            Cập nhật
-                        </Button>
-                    </Form.Item>
-                </Form>
-                {/* </Loading> */}
+                        <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+                            <Button type="primary" htmlType="submit" onClick={handleUpdateInforUser} >
+                                Cập nhật
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Loading>
             </ModalComponents>
         </div>
     )

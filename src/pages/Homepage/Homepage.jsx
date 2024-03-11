@@ -11,11 +11,16 @@ import * as ProductService from "../../services/ProductService"
 import { useSelector } from "react-redux";
 import Loading from "../../components/LoadingComponents/Loading";
 import { useDebounce } from "../../hooks/useDebounce";
+import ButtonComponents from "../../components/ButtonComponents/ButtonComponents";
+import FooterComponents from '../../components/FooterComponents/FooterComponents';
+import { useNavigate } from "react-router-dom";
+import backgroundBody from "../../assets/Images/Body_Sale.png"
+
 const Homepage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
-    //const [pending, setPending] = useState(false)
+    const [pending, setPending] = useState(false)
     const searchDebounce = useDebounce(searchProduct, 100)
-    const [limit, setLimit] = useState(6)
+    const [limit, setLimit] = useState(12)
     const [typeProduct, setTypeProduct] = useState([])
 
     const fetchProductAll = async (context) => {
@@ -25,6 +30,7 @@ const Homepage = () => {
         const res = await ProductService.getAllProduct(search, limit)
         return res
     }
+
     const fetchAllTypeProduct = async () => {
         const res = await ProductService.getAllTypeProduct()
         if (res?.status === 'OK') {
@@ -32,7 +38,7 @@ const Homepage = () => {
         }
     }
     // bỏ isPending
-    const { data: products, isPlaceholderData } = useQuery({
+    const { isLoading: isPending, data: products, isPlaceholderData } = useQuery({
         queryKey: ['products', limit, searchDebounce],
         queryFn: fetchProductAll, retry: 3, retryDeplay: 1000, placeholderData: true
     })
@@ -42,22 +48,23 @@ const Homepage = () => {
     }, [])
 
     return (
-        //Loading isPending={isPending || pending}
-        <>
-            <div style={{ width: '1270px', margin: '0 auto' }}>
-                <WapperTypeProduct>
-                    {typeProduct.map((item) => {
-                        return (
-                            <TypeProduct name={item} key={item} />
-                        )
 
-                    })}
-                </WapperTypeProduct>
-
+        < Loading isPending={pending}>
+            <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
+                <div style={{ width: '1270px', margin: '0 auto', backgroundColor: "#fff" }}>
+                    <WapperTypeProduct>
+                        {typeProduct.map((item) => {
+                            return (
+                                <TypeProduct name={item} key={item} />
+                            )
+                        })}
+                    </WapperTypeProduct>
+                </div>
             </div>
-            <div className="body" style={{ width: '100%', backgroundColor: "#efefef" }}>
-                <div id="container" style={{ margin: '0 auto', height: "1000px", width: '1270px' }}>
+            <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
+                <div id="container" style={{ margin: '0 auto', height: "1000px", width: '1270px', backgroundColor: "#fff", padding: '5px' }}>
                     <SliderComponents arrImages={[slider1, slider2, slider3]} />
+
                     <WrapperProducts>
                         {products?.data?.map((product) => {
                             return (
@@ -95,7 +102,9 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
-        </>
+            <FooterComponents />
+        </Loading>
+
     )
 }
 export default Homepage

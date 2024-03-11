@@ -17,8 +17,7 @@ import ModalComponents from '../../components/ModalComponents/ModalComponents';
 import InputComponents from '../../components/InputComponents/InputComponents';
 import { removeAllOrderProduct } from '../../redux/slice/orderSlide';
 import { PayPalButton } from 'react-paypal-button-v2';
-
-
+import moment from 'moment';
 //import StepComponent from '../../components/StepConponent/StepComponent';
 
 const PaymentPage = () => {
@@ -28,7 +27,7 @@ const PaymentPage = () => {
     const [delivery, setDelivery] = useState('fast')
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
     const [sdkReady, setSdkReady] = useState(false)
-
+    const date = moment().format("MMMM DD YYYY")
     const [stateUserDetails, setStateUserDetails] = useState({
         name: '',
         phone: '',
@@ -113,6 +112,7 @@ const PaymentPage = () => {
                     shippingPrice: diliveryPriceMemo,
                     totalPrice: totalPriceMemo,
                     user: user?.id,
+                    createOrderdAt: String(date)
                 }
             )
         }
@@ -211,6 +211,8 @@ const PaymentPage = () => {
             description: 'Trên 500.000 VND',
         },
     ]
+
+
     const onSuccessPaypal = (details, data) => {
         mutationAddOrder.mutate(
             {
@@ -226,7 +228,8 @@ const PaymentPage = () => {
                 user: user?.id,
                 isPaid: true,
                 paidAt: details.update_time,
-                email: user?.email
+                email: user?.email,
+                createOrderdAt: String(date),
             }
         )
     }
@@ -254,11 +257,15 @@ const PaymentPage = () => {
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
             <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-                <h3 style={{ fontWeight: 'bold' }}>Thanh toán</h3>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', padding: '5px' }}>
+                    <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span></h4>
+                    <h4 style={{ padding: '0 5px' }}>|</h4>
+                    <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/order') }}> Giỏ hàng</span> | Thanh toán</h4>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
                     <WrapperLeft>
-                        <WrapperInfo>
-                            <div>
+                        <WrapperInfo style={{ marginBottom: '20px' }}>
+                            <div >
                                 <Lable>Chọn phương thức giao hàng</Lable>
                                 <WrapperRadio onChange={handleDilivery} value={delivery}>
                                     <Radio value="fast"><span style={{ color: '#ea8500', fontWeight: 'bold' }}>FAST</span> Giao hàng tiết kiệm</Radio>

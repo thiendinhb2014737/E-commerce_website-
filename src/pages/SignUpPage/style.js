@@ -7,8 +7,8 @@ export const WrapperContainerLeft = styled.div`
    flex-direction: column;
 `
 export const WrapperContainerRight = styled.div`
-    width: 300px;
-    background: linear-gradient(136deg, rgb(240, 248, 255) -1%, #ffd4d4 85%);
+    width: 400px;
+    background: linear-gradient(136deg, rgb(240, 248, 255) -1%, #5774F8 85%);
     display: flex;
     justify-content: center;
     flex-direction: column;

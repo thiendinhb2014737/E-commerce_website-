@@ -18,7 +18,6 @@ export const WapperTextHeader = styled(Link)`
     color: #fff;
     font-weight: bold;
     text-align: left
-    
 `
 export const WapperHeaderAccount = styled.div`
     display: flex;

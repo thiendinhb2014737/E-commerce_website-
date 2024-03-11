@@ -6,5 +6,9 @@ export const orderContant = {
   payment: {
     later_money: 'Thanh toán khi nhận hàng',
     paypal: 'Thanh toán bằng paypal'
+  },
+  statusOder: {
+    'Đã xác nhận': 'Đã xác nhận',
+    'Chưa xác nhận': 'Chưa xác nhận'
   }
 }

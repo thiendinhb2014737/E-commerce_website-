@@ -8,12 +8,14 @@ import HeaderComponents from '../../components/HeaderComponents/HeaderComponents
 import AdminUser from '../../components/AdminUser/AdminUser';
 import AdminProduct from '../../components/AdminProduct/AdminProduct';
 import OrderAdmin from '../../components/OrderAdmin/OrderAmin';
+import StatisticalAmin from '../../components/Statistical/StatisticalAmin';
 
 const AdminPage = () => {
   const items = [
     getItem('Người dùng', 'user', <UserOutlined />),
     getItem('Sản phẩm', 'product', <AppstoreOutlined />),
     getItem('Đơn hàng', 'order', <AppstoreOutlined />),
+    getItem('Thống kê', 'statistical', <AppstoreOutlined />),
   ];
 
 
@@ -31,6 +33,10 @@ const AdminPage = () => {
       case 'order':
         return (
           <OrderAdmin />
+        )
+      case 'statistical':
+        return (
+          <StatisticalAmin />
         )
 
 
@@ -60,6 +66,7 @@ const AdminPage = () => {
         <div style={{ flex: '1', padding: '15px 0 15px 15px' }}>
           {renderPage(keySelected)}
         </div>
+
       </div>
     </>
   )

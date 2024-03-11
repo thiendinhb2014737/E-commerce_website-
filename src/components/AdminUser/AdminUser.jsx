@@ -78,6 +78,10 @@ const AdminUser = () => {
         //console.log('res', res)
         return res
     }
+    const getAllUserCount = async () => {
+        const res = await UserService.getAllUserCount(user?.access_token)
+        return res
+    }
 
 
     const fetchGetDetailsUser = async (rowSelected) => {
@@ -126,7 +130,9 @@ const AdminUser = () => {
         queryKey: ['users'],
         queryFn: getAllUser
     })
+
     const { isLoading: isPendingUser, data: users } = queryUser
+
     const renderAction = () => {
         return (
             <div>
@@ -283,7 +289,7 @@ const AdminUser = () => {
         return {
             ...user,
             key: user._id,
-            isAdmin: user.isAdmin ? 'TRUE' : 'FALSE'
+            isAdmin: user.isAdmin ? 'TRUE' : 'FALSE',
         }
     })
 
@@ -371,7 +377,7 @@ const AdminUser = () => {
     }
     return (
         <div>
-            <WrapperHeader>Quản lý người dùng</WrapperHeader>
+            <WrapperHeader style={{ fontSize: '20px', textAlign: 'center' }}>QUẢN LÝ NGƯỜI DÙNG</WrapperHeader>
 
             <div style={{ marginTop: '20px' }}>
                 <TableComponent handleDeleteMany={handleDeleteManyUser} columns={columns} isPending={isPendingUser} data={dataTable} onRow={(record, rowIndex) => {
@@ -383,7 +389,7 @@ const AdminUser = () => {
                 }} />
             </div>
 
-            <DrawerComponents title='Chi tiết người dùng' isOpen={isOpenDrawer} onClose={() => setIsOpenDrawer(false)} width="90%">
+            <DrawerComponents title='Chi tiết người dùng' isOpen={isOpenDrawer} onClose={() => setIsOpenDrawer(false)} width="85%">
                 <Loading isPending={isPendingUpdate || isPendingUpdated}>
                     <Form
                         name="basic"

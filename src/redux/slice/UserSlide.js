@@ -9,7 +9,6 @@ const initialState = {
     id: '',
     access_token: '',
     isAdmin: false,
-    // refreshToken: ''
 }
 
 export const userSlide = createSlice({
@@ -27,7 +26,6 @@ export const userSlide = createSlice({
             state.id = _id;
             state.access_token = access_token;
             state.isAdmin = isAdmin;
-            // state.refreshToken = refreshToken;
         },
         resetUser: (state) => {
             state.name = '';
@@ -38,7 +36,6 @@ export const userSlide = createSlice({
             state.id = '';
             state.access_token = '';
             state.isAdmin = false;
-            // state.refreshToken = '';
         },
 
     },

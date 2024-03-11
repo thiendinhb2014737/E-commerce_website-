@@ -1,7 +1,7 @@
 import React from 'react'
 import { WrapperAllPrice, WrapperContentInfo, WrapperHeaderUser, WrapperInfoUser, WrapperItem, WrapperItemLabel, WrapperLabel, WrapperNameProduct, WrapperProduct, WrapperStyleContent } from './style'
 import logo from '../../assets/Images/Logo.png'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import * as OrderService from '../../services/OrderService'
 import { useQuery } from '@tanstack/react-query'
@@ -16,8 +16,10 @@ import { WrapperAddressProduct, WrapperPriceProduct, WrapperPriceTextProduct, Wr
 const DetailsOrderPage = () => {
   const params = useParams()
   const location = useLocation()
+  const navigate = useNavigate()
   const { state } = location
   const { id } = params
+  //console.log('idaaaaa', id)
 
   const fetchDetailsOrder = async () => {
     const res = await OrderService.getDetailsOrder(id, state?.token)
@@ -30,7 +32,7 @@ const DetailsOrderPage = () => {
   })
 
   const { isLoading, data } = queryOrder
-
+  console.log('data', data)
   const priceMemo = useMemo(() => {
     const result = data?.orderItems?.reduce((total, cur) => {
       return total + ((cur.price * cur.amount))
@@ -41,8 +43,8 @@ const DetailsOrderPage = () => {
   return (
     <Loading isPending={isLoading}>
       <div style={{ width: '100%', height: '100%', background: '#f5f5fa' }}>
-        <div style={{ width: '1270px', margin: '0 auto', height: '1270px' }}>
-          <h4>Chi tiết đơn hàng</h4>
+        <div style={{ width: '1270px', margin: '0 auto', height: '1270px', padding: '5px' }}>
+          <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Chi tiết đơn hàng</h4>
           <WrapperHeaderUser>
             <WrapperInfoUser>
               <Card title="Địa chỉ người nhận" bordered={false} >

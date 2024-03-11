@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
 import InputFormComponents from '../../components/InputFormComponents/InputFormComponents'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents'
-import ImageLogo from '../../assets/Images/Logo.png'
+import ImageLogoTransparent from '../../assets/Images/Logo_trongsuot.png'
 import { Image } from 'antd'
 import {
     EyeFilled, EyeInvisibleFilled
@@ -36,6 +36,7 @@ const SignInPage = () => {
                 navigate('/')
             }
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+            //localStorage.setItem('persist:root', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwtDecode(data?.access_token)
                 if (decoded?.id) {
@@ -71,11 +72,11 @@ const SignInPage = () => {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.53)', height: '100vh' }}>
-            <div style={{ width: '800px', height: '443px', borderRadius: '4px', backgroundColor: '#fff', display: 'flex' }}>
+            <div style={{ width: '950px', height: '480px', borderRadius: '4px', backgroundColor: '#fff', display: 'flex' }}>
                 <WrapperContainerLeft>
-                    <h1 style={{ margin: '10px' }}>Xin chào!</h1>
-                    <p style={{ margin: '10px', fontSize: '13px' }}>Đăng nhập và tạo tài khoản</p>
-                    <InputFormComponents style={{ marginBottom: '15px' }} placeholder='abc@gmail.com' value={email} onChange={handleOnChangeEmail} />
+                    <h1 style={{ margin: '10px', marginBottom: '20px' }}>Kính chào quí khách!</h1>
+                    <p style={{ margin: '10px', marginBottom: '20px', fontSize: '14px' }}>Đăng nhập và tạo tài khoản</p>
+                    <InputFormComponents style={{ marginBottom: '20px' }} placeholder='abc@gmail.com' value={email} onChange={handleOnChangeEmail} />
 
                     <div style={{ position: 'relative' }}>
                         <span
@@ -110,12 +111,12 @@ const SignInPage = () => {
                         >
                         </ButtonComponents>
                     </Loading>
-                    <p style={{ margin: '10px' }}><WrapperTextLight>Quên mật khẩu?</WrapperTextLight></p>
-                    <p style={{ margin: '10px', fontSize: '13px' }}>Chưa có tài khoản?<WrapperTextLight onClick={handleNavigateSignUp}>Tạo tài khoản</WrapperTextLight></p>
+                    <p style={{ margin: '10px', fontSize: '14px' }}><WrapperTextLight>Quên mật khẩu?</WrapperTextLight></p>
+                    <p style={{ margin: '10px', fontSize: '14px' }}>Chưa có tài khoản?<WrapperTextLight onClick={handleNavigateSignUp}> Tạo tài khoản</WrapperTextLight></p>
                 </WrapperContainerLeft>
                 <WrapperContainerRight>
-                    <Image src={ImageLogo} preview={false} alt='img-logo' height={'203px'} width={'203px'} />
-                    <h4>Mua sắm tại Dingvog</h4>
+                    <Image src={ImageLogoTransparent} preview={false} alt='img-logo' height={'250px'} width={'250px'} />
+                    <p>Mua sắm tại Dingvog với nhiều ưu đãi vô cùng hấp dẫn</p>
                 </WrapperContainerRight>
             </div>
         </div>

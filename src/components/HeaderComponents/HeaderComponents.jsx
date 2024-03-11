@@ -11,6 +11,7 @@ import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slice/UserSlide'
 import Loading from "../LoadingComponents/Loading";
 import { searchProduct } from "../../redux/slice/productSlide";
+import logo from "../../assets/Images/Logo.png"
 
 const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const user = useSelector((state) => state.user)
@@ -29,8 +30,10 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
         setPending(true)
         await UserService.logoutUser()
         //****************/
-        localStorage.clear();
+        localStorage.removeItem('access_token')
+        //localStorage.clear('access_token');
         //****************/
+        navigate('/sign-in')
         dispatch(resetUser())
         setPending(false)
     }
@@ -77,13 +80,22 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     }
 
     return (
-        <div style={{ width: '100%', background: '#ffd4d4', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', background: '#5774F8', display: 'flex', justifyContent: 'center', height: '80px' }}>
             <WapperHeader style={{ justifyContent: isHiddenSearch && isHiddenCart ? 'space-between' : 'unset' }}>
-                <Col span={5}>
-                    <WapperTextHeader to='/'>DINGVOG</WapperTextHeader>
+                <Col span={6}>
+                    <WapperTextHeader to='/'>
+                        <img src={logo} alt="Logo" style={{
+                            height: '60px',
+                            width: '60px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                            marginRight: '10px'
+                        }} />
+                        THỜI TRANG THỊNH HÀNH
+                    </WapperTextHeader>
                 </Col>
                 {!isHiddenSearch && (
-                    <Col span={13}>
+                    <Col span={12}>
                         <ButtonInputSearch
                             size='large'
                             bordered={false}
@@ -91,6 +103,11 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                             textbutton='Tìm kiếm'
                             onChange={onSearch}
                         />
+                    </Col>
+                )}
+                {isHiddenSearch && (
+                    <Col span={13}>
+                        <WapperTextHeader>QUẢN TRỊ HỆ THỐNG</WapperTextHeader>
                     </Col>
                 )}
 
@@ -129,10 +146,16 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                     </Loading>
                     {!isHiddenCart && (
                         <div onClick={() => navigate('/order')} style={{ cursor: 'pointer' }}>
-                            <Badge count={order?.orderItems?.length} size="small">
-                                <ShoppingCartOutlined style={{ fontSize: '30px', color: '#444' }} />
-                            </Badge>
-                            <WapperTextHeaderSmall>Giỏ hàng</WapperTextHeaderSmall>
+                            {/* /// */}
+                            {order?.userIds === user?.id ? (
+                                <Badge count={order?.orderItems?.length} size="small">
+                                    <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
+                                </Badge>
+                            ) : <Badge size="small">
+                                <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
+                            </Badge>}
+
+                            <WapperTextHeaderSmall> Giỏ hàng</WapperTextHeaderSmall>
 
                         </div>
                     )}

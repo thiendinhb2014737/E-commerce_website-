@@ -7,7 +7,9 @@ const TypeProduct = ({ name }) => {
         navigate(`/product/${type.normalize('NFD').replace(/[\u0300-\u036f]/g, '')?.replace(/ /g, '_')}`, { state: type })
     }
     return (
-        <div style={{ padding: '0 10px', cursor: 'pointer' }} onClick={() => handleNavigateType(name)}>{name}</div>
+        <div
+            style={{ padding: '5px', cursor: 'pointer', background: '#efefef', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
+            onClick={() => handleNavigateType(name)}>{name}</div>
     )
 }
 

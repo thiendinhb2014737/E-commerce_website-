@@ -4,9 +4,9 @@ import { axiosJWT } from "./UserService"
 export const getAllProduct = async (search, limit) => {
     let res = {}
     if (search?.length > 0) {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}&limit=${limit}`)
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}`)
     } else {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}`)
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}&sort=desc&sort=createdAt`)
     }
     return res.data
 }
@@ -47,9 +47,19 @@ export const getAllTypeProduct = async () => {
     return res.data
 }
 export const getProductType = async (type, page, limit) => {
-
     if (type) {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=type&filter=${type}&limit=${limit}&page=${page}`)
+        return res.data
+    }
+}
+export const getAllPriceProduct = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all-price`)
+    return res.data
+}
+
+export const getProductPrice = async (fprice, page, limit) => {
+    if (fprice) {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=price&filter=${fprice}&limit=${limit}&page=${page}`)
         return res.data
     }
 }

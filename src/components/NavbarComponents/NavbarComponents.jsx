@@ -1,69 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { WapperLabelText, WapperTextValue, WrapperContent, WrapperTextPrice } from './style'
-import { Checkbox, Rate } from 'antd'
+import TypeProduct from '../TypeProduct/TypeProduct'
+import * as ProductService from "../../services/ProductService"
+
+import { useNavigate } from 'react-router-dom'
 
 const NavbarComponents = () => {
     const onChange = () => { }
-    const renderContent = (type, options) => {
-        switch (type) {
-            case 'text':
-                return options.map((option) => {
-                    return (
-                        <WapperTextValue>{option}</WapperTextValue>
-                    )
-                })
-            case 'checkbox':
-                return (
-                    <Checkbox.Group style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }} onChange={onChange}>
-                        {options.map((option) => {
-                            return (
-                                <Checkbox value={option.value}>{option.label}</Checkbox>
-                            )
-                        })}
-
-                    </Checkbox.Group>
-                )
-            case 'star':
-                return options.map((option) => {
-                    return (
-                        <div style={{ display: 'flex', gap: '4px' }}>
-                            <Rate style={{ fontSize: '12px' }} disabled defaultValue={option} />
-                            <span>{`từ ${option} sao`}</span>
-                        </div>
-                    )
-                })
-            case 'price':
-                return options.map((option) => {
-
-                    return (
-                        <WrapperTextPrice>{option}</WrapperTextPrice>
-
-                    )
-                })
-
-            default:
-                return {}
+    const [typeProduct, setTypeProduct] = useState([])
+    const [priceProduct, setPriceProduct] = useState([])
+    const fetchAllTypeProduct = async () => {
+        const res = await ProductService.getAllTypeProduct()
+        if (res?.status === 'OK') {
+            setTypeProduct(res?.data)
         }
+    }
+    useEffect(() => {
+        fetchAllTypeProduct()
+    }, [])
+    const fetchAllPriceProduct = async () => {
+        const res = await ProductService.getAllPriceProduct()
+        if (res?.status === 'OK') {
+            setPriceProduct(res?.data)
+        }
+    }
+    useEffect(() => {
+        fetchAllPriceProduct()
+    }, [])
+
+    const navigate = useNavigate()
+    const handleNavigatePrice = (fprice) => {
+        navigate(`/product-price/${fprice}`, { state: fprice })
     }
     return (
         <div>
-            <WapperLabelText>Label</WapperLabelText>
-            <WrapperContent>
-                {renderContent('text', ['Áo thun', 'Áo len', 'Áo khoác'])}
+            <WapperLabelText>Danh mục sản phẩm:</WapperLabelText>
+            <WrapperContent style={{ cursor: 'pointer' }}>
+                {typeProduct.map((item) => {
+                    return (
+                        <TypeProduct name={item} key={item} />
+                    )
+                })}
+
             </WrapperContent>
-            <WrapperContent>
-                {renderContent('checkbox',
-                    [
-                        { value: 'a', label: 'A' },
-                        { value: 'a', label: 'B' }
-                    ]
-                )}
-            </WrapperContent>
-            <WrapperContent>
-                {renderContent('star', [5, 4, 3])}
-            </WrapperContent>
-            <WrapperContent>
-                {renderContent('price', ['dưới 90.000', 'trên 90.000'])}
+            <WapperLabelText>Lọc theo giá:</WapperLabelText>
+            <WrapperContent style={{ cursor: 'pointer' }}>
+                <span value='200000' onClick={() => handleNavigatePrice(200000)}>Dưới 200000</span>
+                <span value='200001' onClick={() => handleNavigatePrice(200001)}>Trên 200000</span>
             </WrapperContent>
         </div>
     )

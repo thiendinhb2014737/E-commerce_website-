@@ -83,7 +83,7 @@ export const convertDataChart = (data, type) => {
                 object[opt[type]] = 1
             } else {
                 object[opt[type]] += 1
-                console.log('c;getBase64', object[opt[type]], typeof (object[opt[type]]))
+                //console.log('c;getBase64', object[opt[type]], typeof (object[opt[type]]))
             }
         })
         const results = Array.isArray(Object.keys(object)) && Object.keys(object).map((item) => {
@@ -97,3 +97,27 @@ export const convertDataChart = (data, type) => {
         return []
     }
 }
+export const convertDataChartShipped = (data, type) => {
+    try {
+        const object = {}
+        Array.isArray(data) && data.forEach((opt) => {
+            if (!object[opt[type]]) {
+                object[opt[type]] = 1
+            } else {
+                object[opt[type]] += 1
+                //console.log('c;getBase64', object[opt[type]], typeof (object[opt[type]]))
+            }
+        })
+        const results = Array.isArray(Object.keys(object)) && Object.keys(object).map((item) => {
+            return {
+                name: orderContant.statusOder[item],
+                value: object[item]
+            }
+        })
+        return results
+    } catch (e) {
+        return []
+    }
+}
+
+

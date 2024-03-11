@@ -7,9 +7,9 @@ const ProductDetailsPage = () => {
     //console.log('params', id)
     const navigate = useNavigate()
     return (
-        <div style={{ width: '100%', background: '#efefef' }}>
-            <div style={{ width: '1270px', height: '100%', margin: '0 auto' }}>
-                <h4><span style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={() => { navigate('/') }}>Trang chủ</span>/Chi tiết sản phẩm</h4>
+        <div style={{ width: '100%', background: '#f5f5fa' }}>
+            <div style={{ width: '1270px', height: '100%', margin: '0 auto', background: '#fff', padding: '5px' }}>
+                <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Chi tiết sản phẩm</h4>
                 <ProductDetailsComponents idProduct={id} />
             </div>
         </div>

@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+    userIds: [
+
+    ],
     orderItems: [
     ],
     orderItemsSelected: [
@@ -19,6 +22,7 @@ const initialState = {
     isDelivered: false,
     deliveredAt: '',
     isSucessOrder: false,
+    createOrderdAt: ''
 }
 export const orderSlide = createSlice({
     name: 'order',
@@ -26,6 +30,8 @@ export const orderSlide = createSlice({
     reducers: {
         addOrderProduct: (state, action) => {
             const { orderItem } = action.payload
+            const { userID } = action.payload
+            //console.log('action.payload', userID, orderItem)
             const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
             if (itemOrder) {
                 if (itemOrder.amount <= itemOrder.countInStock) {
@@ -34,6 +40,8 @@ export const orderSlide = createSlice({
                     state.isErrorOrder = false
                 }
             } else {
+                //state.userIds.push(userID)///
+                state.userIds = userID
                 state.orderItems.push(orderItem)
             }
         },
@@ -64,6 +72,7 @@ export const orderSlide = createSlice({
             const itemOrder = state?.orderItems?.filter((item) => item?.product !== idProduct)
             const itemOrderSelected = state?.orderItemsSelected?.filter((item) => item?.product !== idProduct)//vd 57
             state.orderItems = itemOrder;
+            state.userIds = '';
             state.orderItemsSelected = itemOrderSelected;
 
         },
@@ -72,6 +81,7 @@ export const orderSlide = createSlice({
             const itemOrders = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
             const itemOrderSelected = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
             state.orderItems = itemOrders;
+            state.userIds = '';
             state.orderItemsSelected = itemOrderSelected;
 
         },
