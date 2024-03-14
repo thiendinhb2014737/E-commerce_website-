@@ -98,7 +98,7 @@ const DetailsOrderPage = () => {
                         <Image src={order?.image} alt='img product' preview={false} style={{ width: '150px' }} />
                       </Col>
                       <Col span={19} style={{ paddingLeft: '6px' }}>
-                        <WrapperStyleNameProduct style={{ fontSize: '18px', margin: '4px', padding: '0' }}>{order?.name}</WrapperStyleNameProduct>
+                        <WrapperStyleNameProduct style={{ fontSize: '18px', margin: '4px', padding: '0', display: 'flex' }}>{order?.name} (size {order?.size}, màu{<div style={{ width: '20px', height: '20px', background: `${order?.color}`, marginLeft: '5px', marginTop: '5px' }} />} )</WrapperStyleNameProduct>
                         <WrapperPriceProduct>
                           <WrapperPriceTextProduct style={{ fontSize: '18px', margin: '4px', padding: '0' }}>{convertPrice(order?.price)} (x{order?.amount})</WrapperPriceTextProduct>
                         </WrapperPriceProduct>

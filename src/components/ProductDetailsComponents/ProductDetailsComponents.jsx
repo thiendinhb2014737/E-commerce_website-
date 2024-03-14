@@ -76,8 +76,13 @@ const ProductDetailsComponents = ({ idProduct }) => {
         }
     }
     const [placement, SetPlacement] = useState('');
+    const [color, setColor] = useState('');
+
     const placementChange = (e) => {
         SetPlacement(e.target.value);
+    };
+    const colorChange = (e) => {
+        setColor(e.target.value)
     };
 
     const handleAddOrderProduct = () => {
@@ -97,6 +102,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                         product: productDetails?._id,
                         discount: productDetails?.discount,
                         size: placement,
+                        color: color,
                         countInStock: productDetails?.countInStock
                     },
                 }))
@@ -136,6 +142,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                 </Col>
                 <Col span={14} style={{ paddingLeft: '6px' }}>
                     <WrapperStyleNameProduct>{productDetails?.name}</WrapperStyleNameProduct>
+                    <WrapperStyleTextSell>Thể loại: {productDetails?.gender}</WrapperStyleTextSell>
                     <div>
                         <Rate allowHalf defaultValue={productDetails?.rating} value={productDetails?.rating} />
                         <WrapperStyleTextSell>| Đã bán {productDetails?.selled}+</WrapperStyleTextSell>
@@ -143,7 +150,8 @@ const ProductDetailsComponents = ({ idProduct }) => {
                     <WrapperPriceProduct>
                         <WrapperPriceTextProduct>{convertPrice(productDetails?.price)}</WrapperPriceTextProduct>
                     </WrapperPriceProduct>
-                    <p>Kích cỡ:</p>
+
+                    <p>Số lượng size còn lại:</p>
                     <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
                         <span>{productDetails?.countS}</span>
                         <span>{productDetails?.countM}</span>
@@ -162,6 +170,55 @@ const ProductDetailsComponents = ({ idProduct }) => {
                         <span></span>
                         <span></span>
                     </div>
+                    <p>Số lượng màu còn lại:</p>
+                    {placement === 'S' ?
+                        (
+                            <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+
+                                <span>{productDetails?.countColorBeS}</span>
+                                <span>{productDetails?.countColorWhiteS}</span>
+                                <span>{productDetails?.countColorBlackS}</span>
+                                <span>{productDetails?.countColorBlueS}</span>
+                            </div>
+                        ) : placement === 'M' ?
+                            (
+                                <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                    <span>{productDetails?.countColorBeM}</span>
+                                    <span>{productDetails?.countColorWhiteM}</span>
+                                    <span>{productDetails?.countColorBlackM}</span>
+                                    <span>{productDetails?.countColorBlueM}</span>
+                                </div>
+                            ) : placement === 'L' ?
+                                (
+                                    <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                        <span>{productDetails?.countColorBeL}</span>
+                                        <span>{productDetails?.countColorWhiteL}</span>
+                                        <span>{productDetails?.countColorBlackL}</span>
+                                        <span>{productDetails?.countColorBlueL}</span>
+                                    </div>
+                                ) : placement === 'XL' ?
+                                    (
+                                        <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                            <span>{productDetails?.countColorBeXL}</span>
+                                            <span>{productDetails?.countColorWhiteXL}</span>
+                                            <span>{productDetails?.countColorBlackXL}</span>
+                                            <span>{productDetails?.countColorBlueXL}</span>
+                                        </div>
+                                    ) : <div></div>
+                    }
+
+
+
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Radio.Group value={color} onChange={colorChange}>
+                            <Radio.Button value={productDetails?.colorBe} style={{ background: `${productDetails?.colorBe}`, width: '40px' }}></Radio.Button>
+                            <Radio.Button value={productDetails?.colorWhite} style={{ background: `${productDetails?.colorWhite}`, width: '42px' }}></Radio.Button>
+                            <Radio.Button value={productDetails?.colorBlack} style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}></Radio.Button>
+                            <Radio.Button value={productDetails?.colorBlue} style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}></Radio.Button>
+                        </Radio.Group>
+                    </div>
+
+
                     <LikeButtonComponent
                         dataHref={process.env.REACT_APP_IS_LOCAL ? "https://developers.facebook.com/docs/plugins/" : window.location.href}
                     />
@@ -182,6 +239,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                                 <PlusOutlined style={{ fontSize: '20px' }} />
                             </button>
                         </WrapperQualityProduct>
+                        <WrapperStyleTextSell>Mô tả: {productDetails?.description}</WrapperStyleTextSell>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

@@ -3,7 +3,7 @@ import NavbarComponents from '../../components/NavbarComponents/NavbarComponents
 import CardComponents from '../../components/CardComponents/CardComponents'
 import { Col, Pagination, Row } from 'antd'
 import { WrapperNavbar, WrapperProducts } from './style'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as ProductService from "../../services/ProductService"
 import { useSelector } from 'react-redux'
 import { useDebounce } from '../../hooks/useDebounce'
@@ -11,6 +11,7 @@ import { useDebounce } from '../../hooks/useDebounce'
 const TypeProductPage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
     const searchDebounce = useDebounce(searchProduct, 100)
+    const navigate = useNavigate()
     const { state } = useLocation()
     const [products, setProducts] = useState([])
     const [panigate, setPanigate] = useState({
@@ -39,11 +40,11 @@ const TypeProductPage = () => {
         setPanigate({ ...pageSize, page: current - 1, limit: pageSize })
     }
     return (
-        <div style={{ width: '100%', background: '#efefef', height: '100vh' }}>
-            <div style={{ width: '1270px', margin: '0 auto', height: '100%' }}>
-
-                <Row style={{ flexWrap: 'nowrap', paddingTop: '10px', height: '100%' }}>
-                    <WrapperNavbar span={4} >
+        <div style={{ width: '100%', background: '#f5f5fa', height: '100vh' }}>
+            <div style={{ width: '1270px', margin: '0 auto', height: '100%', padding: '8px' }}>
+                <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Thể loại sản phẩm</h4>
+                <Row style={{ flexWrap: 'nowrap', height: '100%' }}>
+                    <WrapperNavbar span={4}>
                         <NavbarComponents />
                     </WrapperNavbar>
                     <Col span={20} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

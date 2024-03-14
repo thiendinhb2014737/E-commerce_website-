@@ -98,6 +98,7 @@ const PaymentPage = () => {
     }, [priceMemo, priceDiscountMemo, diliveryPriceMemo])
 
 
+
     const handleAddOrder = () => {
         if (user?.access_token && order?.orderItemsSelected && user?.name && user?.address && user?.phone && priceMemo && user?.id) {
             mutationAddOrder.mutate(
@@ -197,20 +198,7 @@ const PaymentPage = () => {
 
 
 
-    const itemsDelivery = [
-        {
-            title: '20.000 VND',
-            description: 'Dưới 200.000 VND',
-        },
-        {
-            title: '10.000 VND',
-            description: 'Từ 200.000 VND đến dưới 500.000 VND',
-        },
-        {
-            title: 'Free ship',
-            description: 'Trên 500.000 VND',
-        },
-    ]
+
 
 
     const onSuccessPaypal = (details, data) => {
@@ -256,7 +244,7 @@ const PaymentPage = () => {
 
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
-            <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
+            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '8px' }}>
                 <div style={{ display: 'flex', padding: '5px' }}>
                     <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span></h4>
                     <h4 style={{ padding: '0 5px' }}>|</h4>

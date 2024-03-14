@@ -15,7 +15,7 @@ const OrderSucess = () => {
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       {/* <Loading isLoading={false}> */}
-      <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
+      <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '8px' }}>
         <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Thông tin đơn hàng</h4>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <WrapperContainer>
@@ -45,8 +45,9 @@ const OrderSucess = () => {
                         width: 260,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'
-                      }}>{order?.name} (size {order?.size})</div>
+                        whiteSpace: 'nowrap',
+                        display: 'flex'
+                      }}>{order?.name} (size {order?.size}, màu{<div style={{ width: '20px', height: '14px', background: `${order?.color}`, marginLeft: '5px', border: '1px solid #e5e5e5' }} />} )</div>
                     </div>
                     <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span>

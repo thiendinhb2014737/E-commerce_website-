@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { WrapperHeader } from './style'
-import { Button, Form, Select, Space } from 'antd'
+import { WrapperHeader, WrapperRadio } from './style'
+import { Button, Form, Radio, Select, Space } from 'antd'
 import {
   PlusCircleTwoTone, DeleteOutlined, EditOutlined, SearchOutlined
 } from '@ant-design/icons';
@@ -30,23 +30,52 @@ const AdminProduct = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const [typeSelect, setTypeSelect] = useState('');
   const searchInput = useRef(null);
+  const [gender, setGender] = useState('')
   const inittial = () => ({
     name: '',
     image: '',
     type: '',
-    price: '',
+    price: 0,
     sizeS: 'S',
-    countS: '',
+    countS: 0,
     sizeM: 'M',
-    countM: '',
+    countM: 0,
     sizeL: 'L',
-    countL: '',
+    countL: 0,
     sizeXL: 'XL',
-    countXL: '',
+    countXL: 0,
+
+    colorBe: '#efefef',
+    colorWhite: 'white',
+    colorBlack: 'black',
+    colorBlue: 'blue',
+
+    countColorBeS: 0,
+    countColorWhiteS: 0,
+    countColorBlackS: 0,
+    countColorBlueS: 0,
+
+    countColorBeM: 0,
+    countColorWhiteM: 0,
+    countColorBlackM: 0,
+    countColorBlueM: 0,
+
+    countColorBeL: 0,
+    countColorWhiteL: 0,
+    countColorBlackL: 0,
+    countColorBlueL: 0,
+
+    countColorBeXL: 0,
+    countColorWhiteXL: 0,
+    countColorBlackXL: 0,
+    countColorBlueXL: 0,
+
+    gender: '',
+
     description: '',
-    countInStock: '',
-    rating: '',
-    discount: '',
+    countInStock: 0,
+    rating: 0,
+    discount: 0,
     newType: ''
   })
 
@@ -68,6 +97,34 @@ const AdminProduct = () => {
         countL,
         sizeXL,
         countXL,
+
+        colorBe,
+        colorWhite,
+        colorBlack,
+        colorBlue,
+
+        countColorBeS,
+        countColorWhiteS,
+        countColorBlackS,
+        countColorBlueS,
+
+        countColorBeM,
+        countColorWhiteM,
+        countColorBlackM,
+        countColorBlueM,
+
+        countColorBeL,
+        countColorWhiteL,
+        countColorBlackL,
+        countColorBlueL,
+
+        countColorBeXL,
+        countColorWhiteXL,
+        countColorBlackXL,
+        countColorBlueXL,
+
+        gender,
+
         description,
         countInStock, // khác chỗ này, nhưng ko sai
         rating,
@@ -85,6 +142,34 @@ const AdminProduct = () => {
         countL,
         sizeXL,
         countXL,
+
+        colorBe,
+        colorWhite,
+        colorBlack,
+        colorBlue,
+
+        countColorBeS,
+        countColorWhiteS,
+        countColorBlackS,
+        countColorBlueS,
+
+        countColorBeM,
+        countColorWhiteM,
+        countColorBlackM,
+        countColorBlueM,
+
+        countColorBeL,
+        countColorWhiteL,
+        countColorBlackL,
+        countColorBlueL,
+
+        countColorBeXL,
+        countColorWhiteXL,
+        countColorBlackXL,
+        countColorBlueXL,
+
+        gender,
+
         description,
         countInStock,
         rating,
@@ -151,6 +236,34 @@ const AdminProduct = () => {
         countL: res?.data?.countL,
         sizeXL: res?.data?.sizeXL,
         countXL: res?.data?.countXL,
+
+        colorBe: res?.data?.colorBe,
+        colorWhite: res?.data?.colorWhite,
+        colorBlack: res?.data?.colorBlack,
+        colorBlue: res?.data?.colorBlue,
+
+        countColorBeS: res?.data?.countColorBeS,
+        countColorWhiteS: res?.data?.countColorWhiteS,
+        countColorBlackS: res?.data?.countColorBlackS,
+        countColorBlueS: res?.data?.countColorBlueS,
+
+        countColorBeM: res?.data?.countColorBeM,
+        countColorWhiteM: res?.data?.countColorWhiteM,
+        countColorBlackM: res?.data?.countColorBlackM,
+        countColorBlueM: res?.data?.countColorBlueM,
+
+        countColorBeL: res?.data?.countColorBeL,
+        countColorWhiteL: res?.data?.countColorWhiteL,
+        countColorBlackL: res?.data?.countColorBlackL,
+        countColorBlueL: res?.data?.countColorBlueL,
+
+        countColorBeXL: res?.data?.countColorBeXL,
+        countColorWhiteXL: res?.data?.countColorWhiteXL,
+        countColorBlackXL: res?.data?.countColorBlueXL,
+        countColorBlueXL: res?.data?.countColorBlueXL,
+
+        gender: res?.data?.gender,
+
         description: res?.data?.description,
         countInStock: res?.data?.countInStock,
         rating: res?.data?.rating,
@@ -418,18 +531,47 @@ const AdminProduct = () => {
       name: '',
       image: '',
       type: '',
-      price: '',
+      price: 0,
       sizeS: 'S',
-      countS: '',
+      countS: 0,
       sizeM: 'M',
-      countM: '',
+      countM: 0,
       sizeL: 'L',
-      countL: '',
+      countL: 0,
       sizeXL: 'XL',
-      countXL: '',
+      countXL: 0,
+
+      colorBe: '#efefef',
+      colorWhite: 'white',
+      colorBlack: 'black',
+      colorBlue: 'blue',
+
+      countColorBeS: 0,
+      countColorWhiteS: 0,
+      countColorBlackS: 0,
+      countColorBlueS: 0,
+
+      countColorBeM: 0,
+      countColorWhiteM: 0,
+      countColorBlackM: 0,
+      countColorBlueM: 0,
+
+      countColorBeL: 0,
+      countColorWhiteL: 0,
+      countColorBlackL: 0,
+      countColorBlueL: 0,
+
+      countColorBeXL: 0,
+      countColorWhiteXL: 0,
+      countColorBlackXL: 0,
+      countColorBlueXL: 0,
+
+      gender: '',
+
       description: '',
-      countInStock: '',
-      discount: '',
+      countInStock: 0,
+      rating: 0,
+      discount: 0,
     })
     form.resetFields()
   };
@@ -439,17 +581,47 @@ const AdminProduct = () => {
       name: '',
       image: '',
       type: '',
-      price: '',
+      price: 0,
       sizeS: 'S',
-      countS: '',
+      countS: 0,
       sizeM: 'M',
-      countM: '',
+      countM: 0,
       sizeL: 'L',
-      countL: '',
+      countL: 0,
       sizeXL: 'XL',
-      countXL: '',
+      countXL: 0,
+
+      colorBe: '#efefef',
+      colorWhite: 'white',
+      colorBlack: 'black',
+      colorBlue: 'blue',
+
+      countColorBeS: 0,
+      countColorWhiteS: 0,
+      countColorBlackS: 0,
+      countColorBlueS: 0,
+
+      countColorBeM: 0,
+      countColorWhiteM: 0,
+      countColorBlackM: 0,
+      countColorBlueM: 0,
+
+      countColorBeL: 0,
+      countColorWhiteL: 0,
+      countColorBlackL: 0,
+      countColorBlueL: 0,
+
+      countColorBeXL: 0,
+      countColorWhiteXL: 0,
+      countColorBlackXL: 0,
+      countColorBlueXL: 0,
+
+      gender: '',
+
       description: '',
-      countInStock: '',
+      countInStock: 0,
+      rating: 0,
+      discount: 0,
     })
     form.resetFields()
   };
@@ -463,7 +635,16 @@ const AdminProduct = () => {
       }
     })
   }
-
+  const handleGender = (e) => {
+    setGender(e.target.value)
+  }
+  const handleGenderUpdate = (e) => {
+    setGender(e.target.value)
+    setStateProductDetails({
+      ...stateProductDetails,
+      gender: e.target.value
+    })
+  }
 
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === 'OK') {
@@ -489,6 +670,34 @@ const AdminProduct = () => {
       countL: stateProduct.countL,
       sizeXL: stateProduct.sizeXL,
       countXL: stateProduct.countXL,
+
+      colorBe: stateProduct.colorBe,
+      colorWhite: stateProduct.colorWhite,
+      colorBlack: stateProduct.colorBlack,
+      colorBlue: stateProduct.colorBlue,
+
+      countColorBeS: stateProduct.countColorBeS,
+      countColorWhiteS: stateProduct.countColorWhiteS,
+      countColorBlackS: stateProduct.countColorBlackS,
+      countColorBlueS: stateProduct.countColorBlueS,
+
+      countColorBeM: stateProduct.countColorBeM,
+      countColorWhiteM: stateProduct.countColorWhiteM,
+      countColorBlackM: stateProduct.countColorBlackM,
+      countColorBlueM: stateProduct.countColorBlueM,
+
+      countColorBeL: stateProduct.countColorBeL,
+      countColorWhiteL: stateProduct.countColorWhiteL,
+      countColorBlackL: stateProduct.countColorBlackL,
+      countColorBlueL: stateProduct.countColorBlueL,
+
+      countColorBeXL: stateProduct.countColorBeXL,
+      countColorWhiteXL: stateProduct.countColorWhiteXL,
+      countColorBlackXL: stateProduct.countColorBlueXL,
+      countColorBlueXL: stateProduct.countColorBlueXL,
+
+      gender: gender,
+
       description: stateProduct.description,
       countInStock: stateProduct.countInStock,
       rating: stateProduct.rating,
@@ -511,7 +720,7 @@ const AdminProduct = () => {
     //console.log('e.target.name', e.target.name, e.target.value)
   }
   const handleOnChangeDetails = (e) => {
-    //console.log('check', e.target.name, e.target.value)
+    console.log('check', e.target.name, e.target.value)
     setStateProductDetails({
       ...stateProductDetails,
       [e.target.name]: e.target.value // đổi.name thành .value
@@ -554,8 +763,6 @@ const AdminProduct = () => {
     })
   }
 
-
-
   return (
     <div>
       <WrapperHeader style={{ fontSize: '20px', textAlign: 'center' }}>QUẢN LÝ SẢN PHẨM</WrapperHeader>
@@ -583,7 +790,7 @@ const AdminProduct = () => {
             form={form}
           >
             <Form.Item
-              label="Type"
+              label="Danh mục"
               name="type"
               rules={[{ required: true, message: 'Please input your type!' }]}
             >
@@ -607,18 +814,41 @@ const AdminProduct = () => {
               </Form.Item>
             )}
             <Form.Item
-              label="Name"
+              label="Tên sản phẩm"
               name="name"
               rules={[{ required: true, message: 'Please input your name!' }]}
             >
               <InputComponents value={stateProduct.name} onChange={handleOnChange} name="name" />
             </Form.Item>
             <Form.Item
-              label="Price"
+              label="Giá sản phẩm"
               name="price"
               rules={[{ required: true, message: 'Please input your price!' }]}
             >
               <InputComponents value={stateProduct.price} onChange={handleOnChange} name="price" />
+            </Form.Item>
+
+
+            <Form.Item
+              label="Loại sản phẩm"
+              name="gender"
+              rules={[{ required: true, message: 'Please input your gender!' }]}
+            >
+              <WrapperRadio onChange={handleGender} value={gender}>
+                <Radio value="nam" name="gender"> Nam</Radio>
+                <Radio value="nữ" name="gender"> Nữ</Radio>
+                <Radio value="unisex" name="gender"> Unisex</Radio>
+              </WrapperRadio>
+            </Form.Item>
+
+
+
+            <Form.Item
+              label="Số lượng trong kho"
+              name="countInStock"
+              rules={[{ required: true, message: 'Please input your count inStock!' }]}
+            >
+              <InputComponents value={stateProduct.countInStock} onChange={handleOnChange} name="countInStock" />
             </Form.Item>
 
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
@@ -673,36 +903,235 @@ const AdminProduct = () => {
 
             </div>
 
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size S:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBeS} onChange={handleOnChange} name="countColorBeS" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProduct.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorWhiteS} onChange={handleOnChange} name="countColorWhiteS" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlackS} onChange={handleOnChange} name="countColorBlackS" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlueS} onChange={handleOnChange} name="countColorBlueS" />
+              </Form.Item>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size M:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBeM} onChange={handleOnChange} name="countColorBeM" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProduct.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorWhiteM} onChange={handleOnChange} name="countColorWhiteM" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlackM} onChange={handleOnChange} name="countColorBlackM" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlueM} onChange={handleOnChange} name="countColorBlueM" />
+              </Form.Item>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size L:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBeL} onChange={handleOnChange} name="countColorBeL" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProduct.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorWhiteL} onChange={handleOnChange} name="countColorWhiteL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlackL} onChange={handleOnChange} name="countColorBlackL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlueL} onChange={handleOnChange} name="countColorBlueL" />
+              </Form.Item>
+            </div>
+
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size XL:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBeXL} onChange={handleOnChange} name="countColorBeXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProduct.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorWhiteXL} onChange={handleOnChange} name="countColorWhiteXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlackXL} onChange={handleOnChange} name="countColorBlackXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProduct.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProduct.countColorBlueXL} onChange={handleOnChange} name="countColorBlueXL" />
+              </Form.Item>
+            </div>
+
             <Form.Item
-              label="Description"
+              label="Mô tả sản phẩm"
               name="description"
               rules={[{ required: true, message: 'Please input your description!' }]}
             >
               <InputComponents value={stateProduct.description} onChange={handleOnChange} name="description" />
             </Form.Item>
+
             <Form.Item
-              label="Count inStock"
-              name="countInStock"
-              rules={[{ required: true, message: 'Please input your count inStock!' }]}
-            >
-              <InputComponents value={stateProduct.countInStock} onChange={handleOnChange} name="countInStock" />
-            </Form.Item>
-            <Form.Item
-              label="Rating"
+              label="Chất lượng"
               name="rating"
               rules={[{ required: true, message: 'Please input your rating!' }]}
             >
               <InputComponents value={stateProduct.rating} onChange={handleOnChange} name="rating" />
             </Form.Item>
             <Form.Item
-              label="Discount"
+              label="Giảm giá"
               name="discount"
               rules={[{ required: true, message: 'Please input your discount!' }]}
             >
               <InputComponents value={stateProduct.discount} onChange={handleOnChange} name="discount" />
             </Form.Item>
             <Form.Item
-              label="Image"
+              label="Hình ảnh"
               name="image"
               rules={[{ required: true, message: 'Please input your image!' }]}
             >
@@ -712,7 +1141,6 @@ const AdminProduct = () => {
                   <img src={stateProduct?.image} style={{
                     height: '60px',
                     width: '60px',
-                    borderRadius: '50%',
                     objectFit: 'cover',
                     marginLeft: '10px'
                   }} alt='avatar' />
@@ -729,7 +1157,7 @@ const AdminProduct = () => {
         </Loading>
       </ModalComponents>
 
-      <DrawerComponents title='Chi tiết sản phẩm' isOpen={isOpenDrawer} onClose={() => setIsOpenDrawer(false)} width="90%">
+      <DrawerComponents title='Chi tiết sản phẩm' isOpen={isOpenDrawer} onClose={() => setIsOpenDrawer(false)} width="85%">
         <Loading isPending={isPendingUpdate || isPendingUpdated}>
           <Form
             name="basic"
@@ -760,6 +1188,24 @@ const AdminProduct = () => {
               rules={[{ required: true, message: 'Please input your price!' }]}
             >
               <InputComponents value={stateProductDetails.price} onChange={handleOnChangeDetails} name="price" />
+            </Form.Item>
+            <Form.Item
+              label="Loại sản phẩm"
+              name="gender"
+              rules={[{ required: true, message: 'Please input your gender!' }]}
+            >
+              <WrapperRadio onChange={handleGenderUpdate} value={gender}>
+                <Radio value="nam" name="gender"> Nam</Radio>
+                <Radio value="nữ" name="gender"> Nữ</Radio>
+                <Radio value="unisex" name="gender"> Unisex</Radio>
+              </WrapperRadio>
+            </Form.Item>
+            <Form.Item
+              label="Count inStock"
+              name="countInStock"
+              rules={[{ required: true, message: 'Please input your count inStock!' }]}
+            >
+              <InputComponents value={stateProductDetails.countInStock} onChange={handleOnChangeDetails} name="countInStock" />
             </Form.Item>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
               <Form.Item
@@ -812,6 +1258,212 @@ const AdminProduct = () => {
               </Form.Item>
 
             </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size S:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBeS} onChange={handleOnChangeDetails} name="countColorBeS" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorWhiteS} onChange={handleOnChangeDetails} name="countColorWhiteS" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlackS} onChange={handleOnChangeDetails} name="countColorBlackS" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueS"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlueS} onChange={handleOnChangeDetails} name="countColorBlueS" />
+              </Form.Item>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size M:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBeM} onChange={handleOnChangeDetails} name="countColorBeM" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorWhiteM} onChange={handleOnChangeDetails} name="countColorWhiteM" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlackM} onChange={handleOnChangeDetails} name="countColorBlackM" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueM"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlueM} onChange={handleOnChangeDetails} name="countColorBlueM" />
+              </Form.Item>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size L:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBeL} onChange={handleOnChangeDetails} name="countColorBeL" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorWhiteL} onChange={handleOnChangeDetails} name="countColorWhiteL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlackL} onChange={handleOnChangeDetails} name="countColorBlackL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlueL} onChange={handleOnChangeDetails} name="countColorBlueL" />
+              </Form.Item>
+            </div>
+
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }} >
+              <Form.Item
+                style={{ width: '120px', textAlign: 'center' }}>
+                <span>Màu sắc size XL:</span>
+              </Form.Item>
+              <Form.Item
+                name="colorBe"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBe" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBe}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBeXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBeXL} onChange={handleOnChangeDetails} name="countColorBeXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorWhite"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorWhite" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorWhite}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorWhiteXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorWhiteXL} onChange={handleOnChangeDetails} name="countColorWhiteXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlack"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlack" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlack}`, border: '1px solid #e5e5e5' }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlackXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlackXL} onChange={handleOnChangeDetails} name="countColorBlackXL" />
+              </Form.Item>
+              <Form.Item
+                name="colorBlue"
+                style={{ width: '30px', textAlign: 'center' }}>
+                <div name="colorBlue" style={{ width: '20px', height: '20px', background: `${stateProductDetails.colorBlue}` }}></div>
+              </Form.Item>
+              <Form.Item
+                name="countColorBlueXL"
+                style={{ marginRight: '10px' }}
+              >
+                <InputComponents style={{ width: '50px' }} value={stateProductDetails.countColorBlueXL} onChange={handleOnChangeDetails} name="countColorBlueXL" />
+              </Form.Item>
+            </div>
+
             <Form.Item
               label="Description"
               name="description"
@@ -819,13 +1471,7 @@ const AdminProduct = () => {
             >
               <InputComponents value={stateProductDetails.description} onChange={handleOnChangeDetails} name="description" />
             </Form.Item>
-            <Form.Item
-              label="Count inStock"
-              name="countInStock"
-              rules={[{ required: true, message: 'Please input your count inStock!' }]}
-            >
-              <InputComponents value={stateProductDetails.countInStock} onChange={handleOnChangeDetails} name="countInStock" />
-            </Form.Item>
+
             <Form.Item
               label="Rating"
               name="rating"

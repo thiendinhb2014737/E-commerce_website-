@@ -63,3 +63,9 @@ export const getProductPrice = async (fprice, page, limit) => {
         return res.data
     }
 }
+export const getProductGender = async (gender, page, limit) => {
+    if (gender) {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=gender&filter=${gender}&limit=${limit}&page=${page}`)
+        return res.data
+    }
+}

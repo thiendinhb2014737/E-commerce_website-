@@ -5,6 +5,9 @@ import SliderComponents from "../../components/SliderComponents/SliderComponents
 import slider1 from "../../assets/Images/slider1.png"
 import slider2 from "../../assets/Images/slider2.png"
 import slider3 from "../../assets/Images/slider3.png"
+import male from "../../assets/Images/male.png"
+import female from "../../assets/Images/female.png"
+import unisex from "../../assets/Images/unisex.png"
 import CardComponents from "../../components/CardComponents/CardComponents";
 import { useQuery } from "@tanstack/react-query";
 import * as ProductService from "../../services/ProductService"
@@ -14,7 +17,8 @@ import { useDebounce } from "../../hooks/useDebounce";
 import ButtonComponents from "../../components/ButtonComponents/ButtonComponents";
 import FooterComponents from '../../components/FooterComponents/FooterComponents';
 import { useNavigate } from "react-router-dom";
-import backgroundBody from "../../assets/Images/Body_Sale.png"
+
+import { Col, Row } from "antd";
 
 const Homepage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
@@ -51,7 +55,7 @@ const Homepage = () => {
 
         < Loading isPending={pending}>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
-                <div style={{ width: '1270px', margin: '0 auto', backgroundColor: "#fff" }}>
+                <div style={{ width: '1270px', margin: '0 auto', backgroundColor: "#fff", paddingTop: '10px' }}>
                     <WapperTypeProduct>
                         {typeProduct.map((item) => {
                             return (
@@ -65,6 +69,20 @@ const Homepage = () => {
                 <div id="container" style={{ margin: '0 auto', height: "1000px", width: '1270px', backgroundColor: "#fff", padding: '5px' }}>
                     <SliderComponents arrImages={[slider1, slider2, slider3]} />
 
+                    {/* <div style={{ margin: '0 auto', height: "300px", backgroundColor: "#888", marginTop: '5px' }}>
+                        <Row style={{ flexWrap: 'nowrap', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
+                                <img src={male} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                            </Col>
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
+                                <img src={female} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                            </Col>
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
+                                <img src={unisex} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                            </Col>
+                        </Row>
+
+                    </div> */}
                     <WrapperProducts>
                         {products?.data?.map((product) => {
                             return (

@@ -16,6 +16,7 @@ import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import PriceProductPage from "../pages/PriceProductPage/PriceProductPage";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
+import GenderProductPage from "../pages/GenderProductPage/GenderProductPage";
 
 
 export const routes = [
@@ -64,6 +65,12 @@ export const routes = [
     {
         path: '/product-price/:fprice',
         page: PriceProductPage,
+        isShowHeader: true
+
+    },
+    {
+        path: '/product-gender/:gender',
+        page: GenderProductPage,
         isShowHeader: true
 
     },

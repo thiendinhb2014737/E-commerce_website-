@@ -1,4 +1,4 @@
-import { Upload } from "antd";
+import { Radio, Upload } from "antd";
 import styled from "styled-components";
 
 export const WrapperHeader = styled.h1`
@@ -14,4 +14,11 @@ export const WrapperUpLoadFile = styled(Upload)`
     & .ant-upload-list-item.ant-upload-list-item-error{
         display: none;
     }
+`
+export const WrapperRadio = styled(Radio.Group)`
+  margin: 6px;
+  font-weight: normal;
+  display:flex;
+  gap: 10px;
+
 `

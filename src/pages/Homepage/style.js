@@ -8,8 +8,9 @@ export const WapperTypeProduct = styled.div`
     align-items: center;
     gap: 24px;
     justify-content: center;
-    height: 44px;
+    height: 30px;
     font-size: 13px;
+    padding-top: 8px
 `
 export const WrapperButtonMore = styled(ButtonComponents)`
     &:hover {

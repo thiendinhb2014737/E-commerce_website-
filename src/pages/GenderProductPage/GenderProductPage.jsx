@@ -1,17 +1,17 @@
-
 import React, { useEffect, useState } from 'react'
-import NavbarComponents from '../../components/NavbarComponents/NavbarComponents'
-import CardComponents from '../../components/CardComponents/CardComponents'
-import { Col, Pagination, Row } from 'antd'
-import { WrapperNavbar, WrapperProducts } from './style'
 import { useLocation } from 'react-router-dom'
+import NavbarComponents from '../../components/NavbarComponents/NavbarComponents'
+import { WrapperNavbar, WrapperProducts } from './style'
+import { Col, Pagination, Row } from 'antd'
 import * as ProductService from "../../services/ProductService"
-import { useSelector } from 'react-redux'
+import CardComponents from '../../components/CardComponents/CardComponents'
 import { useDebounce } from '../../hooks/useDebounce'
-const PriceProductPage = () => {
+import { useSelector } from 'react-redux'
+
+const GenderProductPage = () => {
+    const { state } = useLocation()
     const searchProduct = useSelector((state) => state?.product?.search)
     const searchDebounce = useDebounce(searchProduct, 100)
-    const { state } = useLocation()
     const [products, setProducts] = useState([])
     const [panigate, setPanigate] = useState({
         page: 0,
@@ -19,8 +19,9 @@ const PriceProductPage = () => {
         total: 1
     })
 
-    const fetchProductPrice = async (fprice, page, limit) => {
-        const res = await ProductService.getProductPrice(fprice, page, limit)
+
+    const fetchProductGender = async (gender, page, limit) => {
+        const res = await ProductService.getProductGender(gender, page, limit)
         if (res?.status === 'OK') {
             setProducts(res?.data)
             setPanigate({ ...panigate, total: res?.totalPage })
@@ -30,7 +31,7 @@ const PriceProductPage = () => {
 
     useEffect(() => {
         if (state) {
-            fetchProductPrice(state, panigate.page, panigate.limit)
+            fetchProductGender(state, panigate.page, panigate.limit)
         }
 
     }, [state, panigate.page, panigate.limit])
@@ -38,6 +39,7 @@ const PriceProductPage = () => {
     const onChange = (current, pageSize) => {
         setPanigate({ ...pageSize, page: current - 1, limit: pageSize })
     }
+
     return (
         <div style={{ width: '100%', background: '#f5f5fa', height: '100vh' }}>
             <div style={{ width: '1270px', margin: '0 auto', height: '100%' }}>
@@ -81,4 +83,4 @@ const PriceProductPage = () => {
     )
 }
 
-export default PriceProductPage
+export default GenderProductPage

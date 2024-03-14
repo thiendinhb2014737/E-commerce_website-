@@ -213,12 +213,10 @@ const OrderPage = () => {
             description: '> 500.000 VNĐ',
         },
     ]
-    const refreshPage = () => {
-        window.location.reload(false);
-    }
+
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
-            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '5px' }}>
+            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '8px' }}>
                 <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Giỏ hàng</h4>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     {/*  */}
@@ -253,8 +251,9 @@ const OrderPage = () => {
                                                     width: 'px',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap'
-                                                }}>{order?.name} (size {order?.size})</div>
+                                                    whiteSpace: 'nowrap',
+                                                    display: 'flex'
+                                                }}>{order?.name} (size {order?.size}, màu{<div style={{ width: '20px', height: '14px', background: `${order?.color}`, marginLeft: '5px', border: '1px solid #999' }} />} )</div>
                                             </div>
                                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                 <span>
