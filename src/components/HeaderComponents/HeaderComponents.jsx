@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Badge, Col, Popover } from 'antd'
-import { WapperHeader, WapperTextHeader, WapperHeaderAccount, WapperTextHeaderSmall, WrapperContentPopup } from "./style"
+import { WapperHeader, WapperTextHeader, WapperHeaderAccount, WapperTextHeaderSmall, WrapperContentPopup, WapperTextHeaderAD } from "./style"
 import {
     UserOutlined, CaretDownOutlined, ShoppingCartOutlined
 } from '@ant-design/icons';
@@ -107,7 +107,7 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                 )}
                 {isHiddenSearch && (
                     <Col span={13}>
-                        <WapperTextHeader>QUẢN TRỊ HỆ THỐNG</WapperTextHeader>
+                        <WapperTextHeaderAD>QUẢN TRỊ HỆ THỐNG</WapperTextHeaderAD>
                     </Col>
                 )}
 

@@ -41,3 +41,9 @@ export const WrapperContentPopup = styled.p`
         color: #fff;
     }
 `
+export const WapperTextHeaderAD = styled.div`
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center
+ ` 

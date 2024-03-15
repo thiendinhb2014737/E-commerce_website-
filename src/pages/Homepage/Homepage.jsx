@@ -19,6 +19,7 @@ import FooterComponents from '../../components/FooterComponents/FooterComponents
 import { useNavigate } from "react-router-dom";
 
 import { Col, Row } from "antd";
+import styled from "styled-components";
 
 const Homepage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
@@ -26,6 +27,7 @@ const Homepage = () => {
     const searchDebounce = useDebounce(searchProduct, 100)
     const [limit, setLimit] = useState(12)
     const [typeProduct, setTypeProduct] = useState([])
+    const navigate = useNavigate()
 
     const fetchProductAll = async (context) => {
 
@@ -50,10 +52,13 @@ const Homepage = () => {
     useEffect(() => {
         fetchAllTypeProduct()
     }, [])
+    const handleNavigateGender = (gender) => {
+        navigate(`/product-gender/${gender}`, { state: gender })
+    }
 
     return (
 
-        < Loading isPending={pending}>
+        < Loading isPending={pending || isPending}>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
                 <div style={{ width: '1270px', margin: '0 auto', backgroundColor: "#fff", paddingTop: '10px' }}>
                     <WapperTypeProduct>
@@ -69,20 +74,23 @@ const Homepage = () => {
                 <div id="container" style={{ margin: '0 auto', height: "1000px", width: '1270px', backgroundColor: "#fff", padding: '5px' }}>
                     <SliderComponents arrImages={[slider1, slider2, slider3]} />
 
-                    {/* <div style={{ margin: '0 auto', height: "300px", backgroundColor: "#888", marginTop: '5px' }}>
-                        <Row style={{ flexWrap: 'nowrap', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
-                                <img src={male} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                    <div style={{ margin: '0 auto', height: "170px", backgroundColor: "#FFF", marginTop: '5px' }}>
+                        <Row style={{ flexWrap: 'nowrap', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px' }}>
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
+                                <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px', marginRight: '5px' }} onClick={() => handleNavigateGender('nam')}> THỜI TRANG NAM</WrapperContentPopup>
+                                <WrapperContentPopupImg src={male} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '10px' }} onClick={() => handleNavigateGender('nam')} />
                             </Col>
-                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
-                                <img src={female} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
+                                <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px', marginRight: '5px' }} onClick={() => handleNavigateGender('nữ')}> THỜI TRANG NỮ</WrapperContentPopup>
+                                <WrapperContentPopupImg src={female} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '10px' }} onClick={() => handleNavigateGender('nữ')} />
                             </Col>
-                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff' }}>
-                                <img src={unisex} style={{ width: '380px', height: '300px', border: '1px solid #f5f5f5', borderRadius: '5%' }} />
+                            <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
+                                <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px' }} onClick={() => handleNavigateGender('unisex')}> THỜI TRANG NAM-NỮ</WrapperContentPopup>
+                                <WrapperContentPopupImg src={unisex} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '10px' }} onClick={() => handleNavigateGender('unisex')} />
                             </Col>
                         </Row>
 
-                    </div> */}
+                    </div>
                     <WrapperProducts>
                         {products?.data?.map((product) => {
                             return (
@@ -126,3 +134,16 @@ const Homepage = () => {
     )
 }
 export default Homepage
+
+export const WrapperContentPopup = styled.p`
+    &:hover {
+        color: #888;
+    }
+`
+export const WrapperContentPopupImg = styled.img`
+opacity: 0.9;
+transition: opacity 1s linear;
+    &:hover {
+        opacity: 0.5;
+    }
+`

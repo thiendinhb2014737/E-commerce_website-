@@ -12,6 +12,7 @@ const OrderSucess = () => {
   const navigate = useNavigate()
   //console.log('location', location)
   const { state } = location
+
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       {/* <Loading isLoading={false}> */}
@@ -19,6 +20,14 @@ const OrderSucess = () => {
         <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Thông tin đơn hàng</h4>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <WrapperContainer>
+            <WrapperInfo>
+              <div>
+                <Lable>Mã đơn hàng</Lable>
+                <WrapperValue>
+                  <span style={{ color: '#ea8500', fontWeight: 'bold' }}>{state?.stateMaDH}</span>
+                </WrapperValue>
+              </div>
+            </WrapperInfo>
             <WrapperInfo>
               <div>
                 <Lable>Phương thức giao hàng</Lable>

@@ -11,6 +11,7 @@ import * as message from '../../components/Message/Message'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents';
 import ButtonInputSearch from '../../components/ButtonInputSearch/ButtonInputSearch';
 import { WrapperButtonMore } from '../Homepage/style';
+import { useDebounce } from '../../hooks/useDebounce';
 
 const MyOrderPage = () => {
   const location = useLocation()
@@ -18,10 +19,13 @@ const MyOrderPage = () => {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
   const [limit, setLimit] = useState(4)
+  const searchProduct = useSelector((state) => state?.product?.search)
+  const searchDebounce = useDebounce(searchProduct, 100)
 
   const fetchMyOrder = async (context) => {
     const limit = context?.queryKey && context?.queryKey[1]
-    const res = await OrderService.getOrderByUserId(state?.id, state?.token, limit)
+    const search = context?.queryKey && context?.queryKey[2]
+    const res = await OrderService.getOrderByUserId(state?.id, state?.token, limit, search)
     //console.log('res', res)
     return res.data
   }
@@ -30,15 +34,13 @@ const MyOrderPage = () => {
   const token = state?.token
 
   const queryOrder = useQuery({
-    queryKey: ['orders', limit],
+    queryKey: ['orders', limit, searchDebounce],
     queryFn: fetchMyOrder,
     enabled: !!id && !!token
   })
 
   const { isPending, data } = queryOrder
-  console.log('data', data)
-
-
+  // console.log('data', data)
 
 
   const handleDetailsOrder = (id) => {
@@ -112,6 +114,10 @@ const MyOrderPage = () => {
               return (
                 <WrapperItemOrder key={order?._id}>
                   <WrapperStatus>
+                    <div>
+                      <span style={{ color: 'rgb(255, 66, 78)' }}>Mã đơn hàng: </span>
+                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.maDH}`}</span>
+                    </div>
                     <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái đơn hàng</span>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Trạng thái: </span>

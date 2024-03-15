@@ -1,5 +1,5 @@
 import React from 'react'
-import { WrapperAllPrice, WrapperContentInfo, WrapperHeaderUser, WrapperInfoUser, WrapperItem, WrapperItemLabel, WrapperLabel, WrapperNameProduct, WrapperProduct, WrapperStyleContent } from './style'
+import { Lable, WrapperAllPrice, WrapperContentInfo, WrapperHeaderUser, WrapperInfo, WrapperInfoUser, WrapperItem, WrapperItemLabel, WrapperLabel, WrapperNameProduct, WrapperProduct, WrapperStyleContent, WrapperValue } from './style'
 import logo from '../../assets/Images/Logo.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -91,6 +91,14 @@ const DetailsOrderPage = () => {
           <WrapperStyleContent>
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Card title="Thông tin sản phẩm" bordered={false} style={{ width: '1270px' }}>
+                <WrapperInfo>
+                  <div>
+                    <Lable>Mã đơn hàng:</Lable>
+                    <WrapperValue>
+                      <span style={{ color: '#ea8500', fontWeight: 'bold' }}>{data?.maDH}</span>
+                    </WrapperValue>
+                  </div>
+                </WrapperInfo>
                 {data?.orderItems?.map((order) => {
                   return (
                     <Row key={order?.product} style={{ padding: '16px', background: '#fff', borderRadius: '4px' }}>

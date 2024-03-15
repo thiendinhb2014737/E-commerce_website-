@@ -28,6 +28,9 @@ const PaymentPage = () => {
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
     const [sdkReady, setSdkReady] = useState(false)
     const date = moment().format("MMMM DD YYYY")
+    const a = Math.floor(Math.random() * 10000)
+    const maDH = `DINGVOG${a}`
+    const [stateMaDH, setStateMaDH] = useState('')
     const [stateUserDetails, setStateUserDetails] = useState({
         name: '',
         phone: '',
@@ -100,6 +103,7 @@ const PaymentPage = () => {
 
 
     const handleAddOrder = () => {
+        setStateMaDH(maDH)
         if (user?.access_token && order?.orderItemsSelected && user?.name && user?.address && user?.phone && priceMemo && user?.id) {
             mutationAddOrder.mutate(
                 {
@@ -113,6 +117,7 @@ const PaymentPage = () => {
                     shippingPrice: diliveryPriceMemo,
                     totalPrice: totalPriceMemo,
                     user: user?.id,
+                    maDH: maDH,
                     createOrderdAt: String(date)
                 }
             )
@@ -156,6 +161,7 @@ const PaymentPage = () => {
             message.success('Đặt hàng thành công!')
             navigate('/orderSuccess', {
                 state: {
+                    stateMaDH,
                     delivery,
                     payment,
                     orders: order?.orderItemsSelected,
@@ -197,10 +203,6 @@ const PaymentPage = () => {
     }
 
 
-
-
-
-
     const onSuccessPaypal = (details, data) => {
         mutationAddOrder.mutate(
             {
@@ -217,6 +219,7 @@ const PaymentPage = () => {
                 isPaid: true,
                 paidAt: details.update_time,
                 email: user?.email,
+                maDH: maDH,
                 createOrderdAt: String(date),
             }
         )

@@ -11,7 +11,7 @@ const TypeProduct = ({ name }) => {
     return (
         <WrapperContentPopup
             style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center', }}
-            onClick={() => handleNavigateType(name)}>{name}</WrapperContentPopup>
+            onClick={() => handleNavigateType(name)}>{name.toUpperCase()}</WrapperContentPopup>
     )
 }
 
