@@ -70,8 +70,8 @@ export const logoutUser = async () => {
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/log-out`)
     return res.data
 }
-export const getAllUserCount = async (access_token) => {
-    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAllCount`, {
+export const getAllUserCount = async (access_token, Year) => {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAllCount?filter=createUserdAt&filter=${Year}`, {
         headers: {
             token: `Bearer ${access_token}`,
         }
@@ -79,7 +79,8 @@ export const getAllUserCount = async (access_token) => {
     return res.data
 }
 export const countUserMonth = async (access_token, month) => {
-    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAll?filter=createOrderdAt&filter=${month}`, {
+
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/user/getAll?filter=createUserdAt&filter=${month}`, {
         headers: {
             token: `Bearer ${access_token}`,
         }

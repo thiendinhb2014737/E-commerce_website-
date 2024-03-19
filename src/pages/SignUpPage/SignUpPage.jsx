@@ -21,7 +21,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
-  const date = moment().format("MMMM DD YYYY")
+  const date = moment().format("MMMM YYYY")
 
   const mutation = useMutationHooks(
     (data) => UserService.signupUser(data)
@@ -57,7 +57,7 @@ const SignUpPage = () => {
       email,
       password,
       confirmPassword,
-      createOrderdAt: String(date)
+      createUserdAt: String(date)
     })
   }
 

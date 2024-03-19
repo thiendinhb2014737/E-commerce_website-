@@ -70,8 +70,8 @@ export const deleteOrder = async (id, orderItems, access_token) => {
     })
     return res.data
 }
-export const countAllOrder = async (access_token) => {
-    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/order/count-all-order`, {
+export const countAllOrder = async (access_token, Year) => {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/order/count-all-order?filter=createOrderdAt&filter=${Year}`, {
         headers: {
             token: `Bearer ${access_token}`,
         }
@@ -104,6 +104,14 @@ export const getOrderMonth = async (access_token, month) => {
 }
 export const countOrderMonth = async (access_token, month) => {
     const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/order/count-order-month?filter=createOrderdAt&filter=${month}`, {
+        headers: {
+            token: `Bearer ${access_token}`,
+        }
+    })
+    return res.data
+}
+export const getAllOrderYear = async (access_token, Year) => {
+    const res = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/order/get-all-order?filter=createOrderdAt&filter=${Year}`, {
         headers: {
             token: `Bearer ${access_token}`,
         }

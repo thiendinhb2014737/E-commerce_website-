@@ -27,7 +27,7 @@ const PaymentPage = () => {
     const [delivery, setDelivery] = useState('fast')
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
     const [sdkReady, setSdkReady] = useState(false)
-    const date = moment().format("MMMM DD YYYY")
+    const date = moment().format("MMMM YYYY")
     const a = Math.floor(Math.random() * 10000)
     const maDH = `DINGVOG${a}`
     const [stateMaDH, setStateMaDH] = useState('')

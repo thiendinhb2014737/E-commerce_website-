@@ -1,6 +1,5 @@
-import React, { PureComponent, useMemo } from 'react'
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Legend, Line } from 'recharts';
-import { convertDataChartPrice } from '../../utils';
+import React, { useState } from 'react'
+import { Tooltip, ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Legend, Line } from 'recharts';
 import * as OrderService from '../../services/OrderService'
 import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux';
@@ -10,7 +9,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 1
   const getPriceJan = async () => {
-    const month = "January "
+    const month = "January 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -19,7 +18,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 2
   const getPriceFeb = async () => {
-    const month = "February"
+    const month = "February 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -28,7 +27,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 3
   const getPriceMar = async () => {
-    const month = "March"
+    const month = "March 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -37,7 +36,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 4
   const getPriceApr = async () => {
-    const month = "April"
+    const month = "April 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -45,7 +44,7 @@ const DashedLineComponent = (props) => {
   const { data: priceApr } = queryGetPriceApr
   // Tiền tháng 5
   const getPriceMay = async () => {
-    const month = "May"
+    const month = "May 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -54,7 +53,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 6
   const getPriceJun = async () => {
-    const month = "June"
+    const month = "June 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -63,7 +62,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 7
   const getPriceJul = async () => {
-    const month = "July"
+    const month = "July 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -72,7 +71,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 8
   const getPriceAug = async () => {
-    const month = "August"
+    const month = "August 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -81,7 +80,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 9
   const getPriceSep = async () => {
-    const month = "September "
+    const month = "September 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -90,7 +89,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 10
   const getPriceOct = async () => {
-    const month = "October"
+    const month = "October 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -99,7 +98,7 @@ const DashedLineComponent = (props) => {
 
   // Tiền tháng 11
   const getPriceNov = async () => {
-    const month = "November"
+    const month = "November 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
@@ -107,7 +106,7 @@ const DashedLineComponent = (props) => {
   const { data: priceNov } = queryGetPriceNov
   // Tiền tháng 12
   const getPriceDec = async () => {
-    const month = "December"
+    const month = "December 2024"
     const res = await OrderService.getPrice(user?.access_token, month)
     return res
   }
