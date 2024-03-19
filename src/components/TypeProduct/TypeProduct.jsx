@@ -17,6 +17,7 @@ const TypeProduct = ({ name }) => {
 
 export default TypeProduct
 export const WrapperContentPopup = styled.p`
+box-shadow: 0 3px 3px #efefef;
     cursor: pointer;
     &:hover {
         color: #888;

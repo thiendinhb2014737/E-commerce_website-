@@ -51,10 +51,10 @@ const NavbarComponents = () => {
             <WrapperContent style={{ cursor: 'pointer' }}>
                 <WrapperContentPopup
                     style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
-                    value='200000' onClick={() => handleNavigatePrice(200000)}>Dưới 200000</WrapperContentPopup>
+                    value='200000' onClick={() => handleNavigatePrice(200000)}>Dưới 200.000</WrapperContentPopup>
                 <WrapperContentPopup
                     style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
-                    value='200001' onClick={() => handleNavigatePrice(200001)}>Trên 200000</WrapperContentPopup>
+                    value='200001' onClick={() => handleNavigatePrice(200001)}>Trên 200.000</WrapperContentPopup>
             </WrapperContent>
             <WapperLabelText>Thể loại sản phẩm:</WapperLabelText>
             <WrapperContent style={{ cursor: 'pointer' }}>
@@ -74,6 +74,7 @@ const NavbarComponents = () => {
 
 export default NavbarComponents
 export const WrapperContentPopup = styled.p`
+box-shadow: 0 3px 3px #efefef;
     cursor: pointer;
     &:hover {
         color: #888;

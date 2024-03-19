@@ -16,6 +16,7 @@ import * as mess from '../Message/Message'
 import LikeButtonComponent from '../LikeButtonComponent/LikeButtonComponent';
 import CommentComponent from '../CommentComponent/CommentComponent';
 import Loading from '../LoadingComponents/Loading'
+import * as message from '../../components/Message/Message'
 
 const ProductDetailsComponents = ({ idProduct }) => {
     const [numberProduct, setNumberProduct] = useState(1)
@@ -23,6 +24,8 @@ const ProductDetailsComponents = ({ idProduct }) => {
     const order = useSelector((state) => state?.order)
 
     const [errorLimitOrder, setErrorLimitOrder] = useState(false)
+    const [placement, SetPlacement] = useState('');
+    const [color, setColor] = useState('');
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
@@ -75,8 +78,6 @@ const ProductDetailsComponents = ({ idProduct }) => {
             }
         }
     }
-    const [placement, SetPlacement] = useState('');
-    const [color, setColor] = useState('');
 
     const placementChange = (e) => {
         SetPlacement(e.target.value);
@@ -89,25 +90,29 @@ const ProductDetailsComponents = ({ idProduct }) => {
         if (!user?.id) {
             navigate('/sign-in', { state: location?.pathname })
         } else {
-            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
-            if ((orderRedux?.amount + numberProduct) <= orderRedux?.countInStock || (!orderRedux && productDetails?.countInStock > 0)) {
-                dispatch(addOrderProduct({
-                    ///
-                    userID: user?.id,
-                    orderItem: {
-                        name: productDetails?.name,
-                        amount: numberProduct,
-                        image: productDetails?.image,
-                        price: productDetails?.price,
-                        product: productDetails?._id,
-                        discount: productDetails?.discount,
-                        size: placement,
-                        color: color,
-                        countInStock: productDetails?.countInStock
-                    },
-                }))
+            if (color !== '' && placement !== '') {
+                const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+                if ((orderRedux?.amount + numberProduct) <= orderRedux?.countInStock || (!orderRedux && productDetails?.countInStock > 0)) {
+                    dispatch(addOrderProduct({
+                        ///
+                        userID: user?.id,
+                        orderItem: {
+                            name: productDetails?.name,
+                            amount: numberProduct,
+                            image: productDetails?.image,
+                            price: productDetails?.price,
+                            product: productDetails?._id,
+                            discount: productDetails?.discount,
+                            size: placement,
+                            color: color,
+                            countInStock: productDetails?.countInStock
+                        },
+                    }))
+                } else {
+                    setErrorLimitOrder(true)
+                }
             } else {
-                setErrorLimitOrder(true)
+                message.error('Vui lòng chọn kích cỡ và màu sắc!')
             }
         }
     }
@@ -160,10 +165,10 @@ const ProductDetailsComponents = ({ idProduct }) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Radio.Group value={placement} onChange={placementChange}>
-                            <Radio.Button value={productDetails?.sizeS}>{productDetails?.sizeS}</Radio.Button>
-                            <Radio.Button value={productDetails?.sizeM}>{productDetails?.sizeM}</Radio.Button>
-                            <Radio.Button value={productDetails?.sizeL}>{productDetails?.sizeL}</Radio.Button>
-                            <Radio.Button value={productDetails?.sizeXL}>{productDetails?.sizeXL}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeS} disabled={productDetails?.countS === 0} >{productDetails?.sizeS}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeM} disabled={productDetails?.countS === 0}>{productDetails?.sizeM}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeL} disabled={productDetails?.countS === 0}>{productDetails?.sizeL}</Radio.Button>
+                            <Radio.Button value={productDetails?.sizeXL} disabled={productDetails?.countS === 0}>{productDetails?.sizeXL}</Radio.Button>
                         </Radio.Group>
                         <span></span>
                         <span></span>
@@ -173,50 +178,147 @@ const ProductDetailsComponents = ({ idProduct }) => {
                     <p>Số lượng màu còn lại:</p>
                     {placement === 'S' ?
                         (
-                            <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                            <div>
+                                <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
 
-                                <span>{productDetails?.countColorBeS}</span>
-                                <span>{productDetails?.countColorWhiteS}</span>
-                                <span>{productDetails?.countColorBlackS}</span>
-                                <span>{productDetails?.countColorBlueS}</span>
+                                    <span>{productDetails?.countColorBeS}</span>
+                                    <span>{productDetails?.countColorWhiteS}</span>
+                                    <span>{productDetails?.countColorBlackS}</span>
+                                    <span>{productDetails?.countColorBlueS}</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <Radio.Group value={color} onChange={colorChange}>
+                                        <Radio.Button
+                                            value={productDetails?.colorBe}
+                                            style={{ background: `${productDetails?.colorBe}`, width: '40px' }}
+                                            disabled={productDetails?.countColorBeS === 0}>
+                                        </Radio.Button>
+                                        <Radio.Button
+                                            value={productDetails?.colorWhite} s
+                                            tyle={{ background: `${productDetails?.colorWhite}`, width: '42px' }}
+                                            disabled={productDetails?.countColorWhiteS === 0}
+                                        ></Radio.Button>
+                                        <Radio.Button
+                                            value={productDetails?.colorBlack}
+                                            style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}
+                                            disabled={productDetails?.countColorBlackS === 0}
+                                        ></Radio.Button>
+                                        <Radio.Button
+                                            value={productDetails?.colorBlue}
+                                            style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}
+                                            disabled={productDetails?.countColorBlueS === 0}
+                                        ></Radio.Button>
+                                    </Radio.Group>
+                                </div>
                             </div>
                         ) : placement === 'M' ?
                             (
-                                <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
-                                    <span>{productDetails?.countColorBeM}</span>
-                                    <span>{productDetails?.countColorWhiteM}</span>
-                                    <span>{productDetails?.countColorBlackM}</span>
-                                    <span>{productDetails?.countColorBlueM}</span>
+                                <div>
+                                    <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                        <span>{productDetails?.countColorBeM}</span>
+                                        <span>{productDetails?.countColorWhiteM}</span>
+                                        <span>{productDetails?.countColorBlackM}</span>
+                                        <span>{productDetails?.countColorBlueM}</span>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <Radio.Group value={color} onChange={colorChange}>
+                                            <Radio.Button
+                                                value={productDetails?.colorBe}
+                                                style={{ background: `${productDetails?.colorBe}`, width: '40px' }}
+                                                disabled={productDetails?.countColorBeM === 0}>
+                                            </Radio.Button>
+                                            <Radio.Button
+                                                value={productDetails?.colorWhite} s
+                                                tyle={{ background: `${productDetails?.colorWhite}`, width: '42px' }}
+                                                disabled={productDetails?.countColorWhiteM === 0}
+                                            ></Radio.Button>
+                                            <Radio.Button
+                                                value={productDetails?.colorBlack}
+                                                style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}
+                                                disabled={productDetails?.countColorBlackM === 0}
+                                            ></Radio.Button>
+                                            <Radio.Button
+                                                value={productDetails?.colorBlue}
+                                                style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}
+                                                disabled={productDetails?.countColorBlueM === 0}
+                                            ></Radio.Button>
+                                        </Radio.Group>
+                                    </div>
                                 </div>
                             ) : placement === 'L' ?
                                 (
-                                    <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
-                                        <span>{productDetails?.countColorBeL}</span>
-                                        <span>{productDetails?.countColorWhiteL}</span>
-                                        <span>{productDetails?.countColorBlackL}</span>
-                                        <span>{productDetails?.countColorBlueL}</span>
+                                    <div>
+                                        <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                            <span>{productDetails?.countColorBeL}</span>
+                                            <span>{productDetails?.countColorWhiteL}</span>
+                                            <span>{productDetails?.countColorBlackL}</span>
+                                            <span>{productDetails?.countColorBlueL}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <Radio.Group value={color} onChange={colorChange}>
+                                                <Radio.Button
+                                                    value={productDetails?.colorBe}
+                                                    style={{ background: `${productDetails?.colorBe}`, width: '40px' }}
+                                                    disabled={productDetails?.countColorBeL === 0}>
+                                                </Radio.Button>
+                                                <Radio.Button
+                                                    value={productDetails?.colorWhite} s
+                                                    tyle={{ background: `${productDetails?.colorWhite}`, width: '42px' }}
+                                                    disabled={productDetails?.countColorWhiteL === 0}
+                                                ></Radio.Button>
+                                                <Radio.Button
+                                                    value={productDetails?.colorBlack}
+                                                    style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}
+                                                    disabled={productDetails?.countColorBlackL === 0}
+                                                ></Radio.Button>
+                                                <Radio.Button
+                                                    value={productDetails?.colorBlue}
+                                                    style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}
+                                                    disabled={productDetails?.countColorBlueL === 0}
+                                                ></Radio.Button>
+                                            </Radio.Group>
+                                        </div>
                                     </div>
                                 ) : placement === 'XL' ?
                                     (
-                                        <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
-                                            <span>{productDetails?.countColorBeXL}</span>
-                                            <span>{productDetails?.countColorWhiteXL}</span>
-                                            <span>{productDetails?.countColorBlackXL}</span>
-                                            <span>{productDetails?.countColorBlueXL}</span>
+                                        <div>
+                                            <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                                                <span>{productDetails?.countColorBeXL}</span>
+                                                <span>{productDetails?.countColorWhiteXL}</span>
+                                                <span>{productDetails?.countColorBlackXL}</span>
+                                                <span>{productDetails?.countColorBlueXL}</span>
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                <Radio.Group value={color} onChange={colorChange}>
+                                                    <Radio.Button
+                                                        value={productDetails?.colorBe}
+                                                        style={{ background: `${productDetails?.colorBe}`, width: '40px' }}
+                                                        disabled={productDetails?.countColorBeXL === 0}>
+                                                    </Radio.Button>
+                                                    <Radio.Button
+                                                        value={productDetails?.colorWhite} s
+                                                        tyle={{ background: `${productDetails?.colorWhite}`, width: '42px' }}
+                                                        disabled={productDetails?.countColorWhiteXL === 0}
+                                                    ></Radio.Button>
+                                                    <Radio.Button
+                                                        value={productDetails?.colorBlack}
+                                                        style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}
+                                                        disabled={productDetails?.countColorBlackXL === 0}
+                                                    ></Radio.Button>
+                                                    <Radio.Button
+                                                        value={productDetails?.colorBlue}
+                                                        style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}
+                                                        disabled={productDetails?.countColorBlueXL === 0}
+                                                    ></Radio.Button>
+                                                </Radio.Group>
+                                            </div>
                                         </div>
                                     ) : <div></div>
                     }
 
 
 
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Radio.Group value={color} onChange={colorChange}>
-                            <Radio.Button value={productDetails?.colorBe} style={{ background: `${productDetails?.colorBe}`, width: '40px' }}></Radio.Button>
-                            <Radio.Button value={productDetails?.colorWhite} style={{ background: `${productDetails?.colorWhite}`, width: '42px' }}></Radio.Button>
-                            <Radio.Button value={productDetails?.colorBlack} style={{ background: `${productDetails?.colorBlack}`, width: '42px' }}></Radio.Button>
-                            <Radio.Button value={productDetails?.colorBlue} style={{ background: `${productDetails?.colorBlue}`, width: '40px' }}></Radio.Button>
-                        </Radio.Group>
-                    </div>
+
 
 
                     <LikeButtonComponent

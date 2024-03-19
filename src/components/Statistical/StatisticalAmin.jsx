@@ -91,10 +91,12 @@ const StatisticalAmin = () => {
   const getAllOrder2024 = async () => {
     setIsPendingSelled(true)
     setIsPendingOrder(true)
+    setIsPendingTotalPrice(true)
     const Year = '2024'
     const res = await OrderService.getAllOrderYear(user?.access_token, Year)
     setIsPendingSelled(false)
     setIsPendingOrder(false)
+    setIsPendingTotalPrice(false)
     return res
   }
   const getAllOrder2020 = async () => {

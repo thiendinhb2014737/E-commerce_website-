@@ -30,10 +30,11 @@ const Homepage = () => {
     const navigate = useNavigate()
 
     const fetchProductAll = async (context) => {
-
+        setPending(true)
         const limit = context?.queryKey && context?.queryKey[1]
         const search = context?.queryKey && context?.queryKey[2]
         const res = await ProductService.getAllProduct(search, limit)
+        setPending(false)
         return res
     }
 
@@ -57,8 +58,7 @@ const Homepage = () => {
     }
 
     return (
-
-        < Loading isPending={pending || isPending}>
+        <>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
                 <div style={{ width: '1270px', margin: '0 auto', backgroundColor: "#fff", paddingTop: '10px' }}>
                     <WapperTypeProduct>
@@ -74,7 +74,7 @@ const Homepage = () => {
                 <div id="container" style={{ margin: '0 auto', height: "1000px", width: '1270px', backgroundColor: "#fff", padding: '5px' }}>
                     <SliderComponents arrImages={[slider1, slider2, slider3]} />
 
-                    <div style={{ margin: '0 auto', height: "170px", backgroundColor: "#FFF", marginTop: '5px' }}>
+                    <div style={{ margin: '0 auto', height: "170px", backgroundColor: "#FFF", marginTop: '10px' }}>
                         <Row style={{ flexWrap: 'nowrap', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px' }}>
                             <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
                                 <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px', marginRight: '5px' }} onClick={() => handleNavigateGender('nam')}> THỜI TRANG NAM</WrapperContentPopup>
@@ -91,26 +91,28 @@ const Homepage = () => {
                         </Row>
 
                     </div>
-                    <WrapperProducts>
-                        {products?.data?.map((product) => {
-                            return (
-                                <CardComponents
-                                    key={product._id}
-                                    countInStock={product.countInStock}
-                                    description={product.description}
-                                    image={product.image}
-                                    name={product.name}
-                                    price={product.price}
-                                    rating={product.rating}
-                                    type={product.type}
-                                    selled={product.selled}
-                                    discount={product.discount}
-                                    id={product._id}
-                                />
-                            )
-                        })}
+                    < Loading isPending={pending || isPending}>
+                        <WrapperProducts>
+                            {products?.data?.map((product) => {
+                                return (
+                                    <CardComponents
+                                        key={product._id}
+                                        countInStock={product.countInStock}
+                                        description={product.description}
+                                        image={product.image}
+                                        name={product.name}
+                                        price={product.price}
+                                        rating={product.rating}
+                                        type={product.type}
+                                        selled={product.selled}
+                                        discount={product.discount}
+                                        id={product._id}
+                                    />
+                                )
+                            })}
 
-                    </WrapperProducts>
+                        </WrapperProducts>
+                    </Loading>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
                         <WrapperButtonMore
                             textbutton={isPlaceholderData ? 'Load more' : ' Xem thêm'} type='outline'
@@ -129,19 +131,23 @@ const Homepage = () => {
                 </div>
             </div>
             <FooterComponents />
-        </Loading>
+        </>
 
     )
 }
 export default Homepage
 
 export const WrapperContentPopup = styled.p`
+border-radius: 6px;
+box-shadow: 0 3px 3px #efefef;
     &:hover {
         color: #888;
     }
 `
 export const WrapperContentPopupImg = styled.img`
-opacity: 0.9;
+border-radius: 6px;
+box-shadow: 0 5px 5px #efefef;
+opacity: 0.93;
 transition: opacity 1s linear;
     &:hover {
         opacity: 0.5;
