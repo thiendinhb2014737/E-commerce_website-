@@ -80,7 +80,7 @@ const ProfilePage = () => {
 
     return (
         <Loading isPending={isPending}>
-            <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>
+            <div style={{ width: '1350px', margin: '0 auto', height: '500px' }}>
                 <div style={{ display: 'flex', padding: '5px' }}>
                     <WapperGoHome to='/'>Trang chủ</WapperGoHome>
                     <p style={{ padding: '0 5px' }}>|</p>

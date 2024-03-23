@@ -28,8 +28,40 @@ export const WrapperButtonMore = styled(ButtonComponents)`
 // chỉnh sửa card trong trang HomePage
 export const WrapperProducts = styled.div`
     display: flex;
-
-    gap: 12px;
+    gap: 13px;
     margin-top: 20px;
+    margin-left: 6px;
     flex-wrap: wrap;
+`
+export const WrapperLabelTime = styled.p`
+height: 70px;
+width: 70px;
+border: 2px solid #fff;
+text-align: center;
+display: flex ; 
+flex-direction: column;
+justify-content: center; 
+align-items: center;
+color: #fff;
+padding: 5px;
+margin-bottom: 0
+
+`
+export const WrapperContentTime = styled.div`
+height: 100px;
+margin-top: 25px;
+background: #5774F8;
+display: flex ; 
+gap: 20px;
+justify-content: center; 
+align-items: center
+`
+export const WrapperTime = styled.p`
+height: 40px;
+width: 40px;
+background-color: #fff;
+border: 2px solid #fff;
+color: #000;
+margin-top: 10px;
+
 `

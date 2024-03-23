@@ -6,5 +6,5 @@
 //// "proxy": "http://localhost:3001" pakage.json
 /// Cập nhật tài khoản người dùng phải load lại
 //// NHỚ SỬA LẠI HỦY ĐƠN HÀNG CỦA ADMIN, NÓ ĐANG KO CẬP NHẬT LẠI SỐ LƯỢNG-xong
-///
+
 backgroundImage: `url("${backgroundfooter}")`

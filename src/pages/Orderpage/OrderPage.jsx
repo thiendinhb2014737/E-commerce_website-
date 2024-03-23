@@ -216,7 +216,7 @@ const OrderPage = () => {
 
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
-            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '8px' }}>
+            <div style={{ height: '100%', width: '1350px', margin: '0 auto', padding: '8px' }}>
                 <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Giỏ hàng</h4>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     {/*  */}

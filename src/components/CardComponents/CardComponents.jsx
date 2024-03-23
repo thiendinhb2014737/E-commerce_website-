@@ -18,7 +18,7 @@ const CardComponents = (props) => {
     <WapperCardStyle
       hoverable
       headStyle={{ width: "200px", height: "200px" }}
-      style={{ width: 200 }}
+      style={{ width: 210 }}
       bodyStyle={{ padding: "10px" }}
       cover={<img alt="example" src={image} />}
       onClick={() => handleDetailsProduct(id)}

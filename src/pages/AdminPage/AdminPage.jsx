@@ -9,12 +9,14 @@ import AdminUser from '../../components/AdminUser/AdminUser';
 import AdminProduct from '../../components/AdminProduct/AdminProduct';
 import OrderAdmin from '../../components/OrderAdmin/OrderAmin';
 import StatisticalAmin from '../../components/Statistical/StatisticalAmin';
+import EventAdmin from '../../components/EventAdmin/EventAdmin';
 
 const AdminPage = () => {
   const items = [
     getItem('Người dùng', 'user', <UserOutlined />),
     getItem('Sản phẩm', 'product', <AppstoreOutlined />),
     getItem('Đơn hàng', 'order', <AppstoreOutlined />),
+    getItem('Sự kiện', 'event', <AppstoreOutlined />),
     getItem('Thống kê', 'statistical', <AppstoreOutlined />),
   ];
 
@@ -33,6 +35,10 @@ const AdminPage = () => {
       case 'order':
         return (
           <OrderAdmin />
+        )
+      case 'event':
+        return (
+          <EventAdmin />
         )
       case 'statistical':
         return (

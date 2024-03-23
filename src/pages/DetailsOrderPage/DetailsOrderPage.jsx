@@ -43,7 +43,7 @@ const DetailsOrderPage = () => {
   return (
     <Loading isPending={isLoading}>
       <div style={{ width: '100%', height: '100%', background: '#f5f5fa' }}>
-        <div style={{ width: '1270px', margin: '0 auto', height: '1270px', padding: '5px' }}>
+        <div style={{ width: '1350px', margin: '0 auto', height: '1350px', padding: '5px' }}>
           <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Chi tiết đơn hàng</h4>
           <WrapperHeaderUser>
             <WrapperInfoUser>
@@ -90,7 +90,7 @@ const DetailsOrderPage = () => {
           </WrapperHeaderUser>
           <WrapperStyleContent>
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Card title="Thông tin sản phẩm" bordered={false} style={{ width: '1270px' }}>
+              <Card title="Thông tin sản phẩm" bordered={false} style={{ width: '1350px' }}>
                 <WrapperInfo>
                   <div>
                     <Lable>Mã đơn hàng:</Lable>

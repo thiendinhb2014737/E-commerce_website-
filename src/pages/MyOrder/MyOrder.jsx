@@ -107,7 +107,7 @@ const MyOrderPage = () => {
 
     <Loading isPending={isPending}>
       <WrapperContainer>
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '5px' }}>
+        <div style={{ height: '100%', width: '1350px', margin: '0 auto', padding: '5px' }}>
           <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Đơn hàng của tôi</h4>
           <WrapperListOrder>
             {data?.map((order) => {

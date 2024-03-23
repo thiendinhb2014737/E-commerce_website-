@@ -247,7 +247,7 @@ const PaymentPage = () => {
 
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
-            <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: '8px' }}>
+            <div style={{ height: '100%', width: '1350px', margin: '0 auto', padding: '8px' }}>
                 <div style={{ display: 'flex', padding: '5px' }}>
                     <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span></h4>
                     <h4 style={{ padding: '0 5px' }}>|</h4>

@@ -43,8 +43,8 @@ const PriceProductPage = () => {
         setPanigate({ ...pageSize, page: current - 1, limit: pageSize })
     }
     return (
-        <div style={{ width: '100%', background: '#f5f5fa', height: '100vh' }}>
-            <div style={{ width: '1270px', margin: '0 auto', height: '100%', padding: '8px' }}>
+        <div style={{ width: '100%', background: '#f5f5fa', height: '100%' }}>
+            <div style={{ width: '1350px', margin: '0 auto', height: '100%', padding: '8px' }}>
                 <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Giá sản phẩm</h4>
                 <Loading isPending={isPending}>
                     <Row style={{ flexWrap: 'nowrap', height: '100%' }}>

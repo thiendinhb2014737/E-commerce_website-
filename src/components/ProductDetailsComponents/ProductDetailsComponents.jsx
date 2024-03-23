@@ -365,7 +365,7 @@ const ProductDetailsComponents = ({ idProduct }) => {
                         </ButtonComponents>
                     </div>
                 </Col>
-                <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://clothingStore.com" : window.location.href} width="1270" />
+                <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://clothingStore.com" : window.location.href} width="1350" />
             </Row>
         </Loading>
     )

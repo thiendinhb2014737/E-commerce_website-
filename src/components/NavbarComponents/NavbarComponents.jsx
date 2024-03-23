@@ -36,6 +36,9 @@ const NavbarComponents = () => {
     const handleNavigateGender = (gender) => {
         navigate(`/product-gender/${gender}`, { state: gender })
     }
+    const handleNavigateFashion = (fashion) => {
+        navigate(`/product-fashion/${fashion}`, { state: fashion })
+    }
     return (
         <div>
             <WapperLabelText>Danh mục sản phẩm:</WapperLabelText>
@@ -67,6 +70,15 @@ const NavbarComponents = () => {
                 <WrapperContentPopup
                     style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
                     value='unisex' onClick={() => handleNavigateGender('unisex')}>Sản phẩm unisex</WrapperContentPopup>
+            </WrapperContent>
+            <WapperLabelText>Phong cách:</WapperLabelText>
+            <WrapperContent style={{ cursor: 'pointer' }}>
+                <WrapperContentPopup
+                    style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
+                    value='Áo sơ mi' onClick={() => handleNavigateFashion('Áo sơ mi')}>Đồ công sở</WrapperContentPopup>
+                <WrapperContentPopup
+                    style={{ padding: '5px', cursor: 'pointer', background: '#f5f5fa', height: '30px', width: '190px', borderRadius: '4px', textAlign: 'center' }}
+                    value='Áo thun' onClick={() => handleNavigateFashion('Áo thun')}>Đồ thể thao</WrapperContentPopup>
             </WrapperContent>
         </div>
     )

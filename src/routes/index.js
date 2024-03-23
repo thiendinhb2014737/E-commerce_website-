@@ -17,6 +17,7 @@ import PriceProductPage from "../pages/PriceProductPage/PriceProductPage";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import GenderProductPage from "../pages/GenderProductPage/GenderProductPage";
+import FashionProductPage from "../pages/FashionProductPage/FashionProductPage";
 
 
 export const routes = [
@@ -71,6 +72,12 @@ export const routes = [
     {
         path: '/product-gender/:gender',
         page: GenderProductPage,
+        isShowHeader: true
+
+    },
+    {
+        path: '/product-fashion/:fashion',
+        page: FashionProductPage,
         isShowHeader: true
 
     },

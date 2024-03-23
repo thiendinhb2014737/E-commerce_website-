@@ -9,7 +9,7 @@ export const WapperHeader = styled(Row)`
     align-items: center;
     gap: 16px;
     flex-wrap: nowrap;
-    width: 1270px;
+    width: 1350px;
     padding: 10px 0;
 `
 
