@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const WapperLabelText = styled.h4`
     font-weight: 500;
     font-size: 14px;
-    color: rgb(56, 56, 61);
+    color: #fff;
     margin-top: 20px
 `
 // style.div : tự xuống dòng

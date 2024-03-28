@@ -48,7 +48,7 @@ const TypeProductPage = () => {
                 <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Thể loại sản phẩm</h4>
                 <Loading isPending={isPending}>
                     <Row style={{ flexWrap: 'nowrap', height: '100%' }}>
-                        <WrapperNavbar span={4}>
+                        <WrapperNavbar span={4} style={{ background: '#6B86FF' }}>
                             <NavbarComponents />
                         </WrapperNavbar>
 
