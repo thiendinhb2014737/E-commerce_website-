@@ -69,3 +69,12 @@ export const getProductGender = async (gender, page, limit) => {
         return res.data
     }
 }
+export const getAllProductDiscount = async (search, limit, discountEvent) => {
+    let res = {}
+    if (search?.length > 0) {
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&filter=name&filter=${search}`)
+    } else {
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&limit=${limit}&sort=desc&sort=createdAt`)
+    }
+    return res.data
+}

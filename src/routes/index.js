@@ -18,6 +18,7 @@ import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import GenderProductPage from "../pages/GenderProductPage/GenderProductPage";
 import FashionProductPage from "../pages/FashionProductPage/FashionProductPage";
+import ContactPage from "../pages/ContactPage/ContactPage";
 
 
 export const routes = [
@@ -122,6 +123,12 @@ export const routes = [
         page: AdminPage,
         isShowHeader: false,
         isPrivate: true
+
+    },
+    {
+        path: '/contact',
+        page: ContactPage,
+        isShowHeader: true,
 
     },
     {

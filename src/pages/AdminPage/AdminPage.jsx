@@ -2,7 +2,7 @@ import { Menu } from 'antd'
 import React, { useState } from 'react'
 import { getItem } from '../../utils';
 import {
-  UserOutlined, AppstoreOutlined, HomeOutlined, BarChartOutlined, SkinOutlined, CalendarOutlined
+  UserOutlined, AppstoreOutlined, HomeOutlined, BarChartOutlined, SkinOutlined, CalendarOutlined, MailOutlined
 } from '@ant-design/icons';
 import HeaderComponents from '../../components/HeaderComponents/HeaderComponents';
 import AdminUser from '../../components/AdminUser/AdminUser';
@@ -11,6 +11,7 @@ import OrderAdmin from '../../components/OrderAdmin/OrderAmin';
 import StatisticalAmin from '../../components/Statistical/StatisticalAmin';
 import EventAdmin from '../../components/EventAdmin/EventAdmin';
 import { useNavigate } from 'react-router-dom';
+import ContactAdmin from '../../components/ContactAdmin/ContactAdmin';
 
 const AdminPage = () => {
   const items = [
@@ -19,6 +20,7 @@ const AdminPage = () => {
     getItem('Sản phẩm', 'product', <SkinOutlined />),
     getItem('Đơn hàng', 'order', <AppstoreOutlined />),
     getItem('Sự kiện', 'event', <CalendarOutlined />),
+    getItem('Liên hệ', 'contact', <MailOutlined />),
     getItem('Thống kê', 'statistical', <BarChartOutlined />),
   ];
   const navigate = useNavigate()
@@ -43,6 +45,10 @@ const AdminPage = () => {
       case 'event':
         return (
           <EventAdmin />
+        )
+      case 'contact':
+        return (
+          <ContactAdmin />
         )
       case 'statistical':
         return (

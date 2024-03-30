@@ -17,10 +17,12 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useNavigate } from "react-router-dom";
 import * as EventService from "../../services/EventService"
 
-import { Col, DatePicker, Row } from "antd";
+import { Col, Row } from "antd";
 import styled from "styled-components";
+import ChatBotComponent from "../../components/ChatBotComponent/ChatBotComponent";
 
 const Homepage = () => {
+    const user = useSelector((state) => state?.user)
     const searchProduct = useSelector((state) => state?.product?.search)
     const [pending, setPending] = useState(false)
     const searchDebounce = useDebounce(searchProduct, 100)
@@ -44,6 +46,15 @@ const Homepage = () => {
         setPending(false)
         return res
     }
+    const fetchProductAllDiscount = async (context) => {
+        setPending(true)
+        const limit = context?.queryKey && context?.queryKey[1]
+        const search = context?.queryKey && context?.queryKey[2]
+        const discountEvent = context?.queryKey && context?.queryKey[3]
+        const res = await ProductService.getAllProductDiscount(search, limit, discountEvent)
+        setPending(false)
+        return res
+    }
     const fetchEvent = async (context) => {
         const limitEvent = context?.queryKey && context?.queryKey[1]
         const res = await EventService.getEvent(limitEvent)
@@ -61,6 +72,11 @@ const Homepage = () => {
         queryKey: ['products', limit, searchDebounce],
         queryFn: fetchProductAll, retry: 3, retryDeplay: 1000, placeholderData: true
     })
+    const { isLoading: isPendingDiscount, data: productsDiscount, isPlaceholderDataDiscount } = useQuery({
+        queryKey: ['productsDiscount', limit, searchDebounce, discountEvent],
+        queryFn: fetchProductAllDiscount, retry: 3, retryDeplay: 1000, placeholderData: true
+    })
+
     const { data: event } = useQuery({
         queryKey: ['event', limitEvent],
         queryFn: fetchEvent
@@ -102,7 +118,7 @@ const Homepage = () => {
     return (
         <>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
-                <div style={{ width: '1350px', margin: '0 auto', backgroundColor: "#fff", paddingTop: '10px' }}>
+                <div style={{ width: '1390px', margin: '0 auto', backgroundColor: "#fff", paddingTop: '10px' }}>
                     <WapperTypeProduct>
                         {typeProduct.map((item) => {
                             return (
@@ -113,22 +129,22 @@ const Homepage = () => {
                 </div>
             </div>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
-                <div id="container" style={{ margin: '0 auto', height: "100%", width: '1350px', backgroundColor: "#fff" }}>
+                <div id="container" style={{ margin: '0 auto', height: "100%", width: '1390px', backgroundColor: "#fff" }}>
                     <SliderComponents arrImages={[slider1, slider2, slider3]} />
                     < Loading isPending={pending || isPending}>
                         <div style={{ margin: '0 auto', height: "170px", backgroundColor: "#FFF", marginTop: '10px' }}>
                             <Row style={{ flexWrap: 'nowrap', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px' }}>
                                 <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
                                     <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px', marginRight: '5px' }} onClick={() => handleNavigateGender('nam')}> THỜI TRANG NAM</WrapperContentPopup>
-                                    <WrapperContentPopupImg src={male} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '20px' }} onClick={() => handleNavigateGender('nam')} />
+                                    <WrapperContentPopupImg src={male} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '32px' }} onClick={() => handleNavigateGender('nam')} />
                                 </Col>
                                 <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
                                     <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px', marginRight: '5px' }} onClick={() => handleNavigateGender('nữ')}> THỜI TRANG NỮ</WrapperContentPopup>
-                                    <WrapperContentPopupImg src={female} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '20px' }} onClick={() => handleNavigateGender('nữ')} />
+                                    <WrapperContentPopupImg src={female} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '32px' }} onClick={() => handleNavigateGender('nữ')} />
                                 </Col>
                                 <Col span={8} style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
                                     <WrapperContentPopup style={{ padding: '8px', cursor: 'pointer', background: '#f5f5fa', borderRadius: '4px', textAlign: 'center', marginBottom: '5px' }} onClick={() => handleNavigateGender('unisex')}> THỜI TRANG NAM-NỮ</WrapperContentPopup>
-                                    <WrapperContentPopupImg src={unisex} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '20px' }} onClick={() => handleNavigateGender('unisex')} />
+                                    <WrapperContentPopupImg src={unisex} style={{ width: '400px', height: '150px', border: '1px solid #f5f5f5', borderRadius: '5%', marginLeft: '32px' }} onClick={() => handleNavigateGender('unisex')} />
                                 </Col>
                             </Row>
 
@@ -157,9 +173,9 @@ const Homepage = () => {
                         }
                         {
                             (days !== '00' && hours !== '00' && minutes !== '00' && seconds !== '00') ? (
-                                <div id="container" style={{ margin: '0 auto', height: "100%", width: '1350px', backgroundColor: "#fff", border: '2px solid #5774F8', margin: '0px' }}>
+                                <div id="container" style={{ margin: '0 auto', height: "100%", width: '1390px', backgroundColor: "#fff", border: '2px solid #5774F8', margin: '0px' }}>
                                     <WrapperProducts>
-                                        {products?.data?.map((product) => {
+                                        {productsDiscount?.data?.map((product) => {
                                             if (product.discount >= discountEvent) {
                                                 return (
                                                     <CardComponents
@@ -224,6 +240,11 @@ const Homepage = () => {
                     </Loading>
                 </div>
             </div>
+            {/* {
+                user ? (
+                   
+                ) : <div></div>
+            } */}
         </>
 
     )

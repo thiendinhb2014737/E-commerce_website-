@@ -380,7 +380,7 @@ const EventAdmin = () => {
                 }
             </WrapperContentTime>
             <div style={{ marginTop: '20px' }}>
-                <TableComponent columns={columns} data={dataTable} onRow={(record, rowIndex) => {
+                <TableComponent columns={columns} pagination={{ position: ['bottomCenter'] }} data={dataTable} onRow={(record, rowIndex) => {
                     return {
                         onClick: event => {
                             setRowSelected(record._id)

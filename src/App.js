@@ -10,6 +10,7 @@ import * as UserService from './services/UserService'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from './redux/slice/UserSlide'
 import Loading from './components/LoadingComponents/Loading'
+import ChatBotComponent from './components/ChatBotComponent/ChatBotComponent'
 
 
 
@@ -77,6 +78,7 @@ function App() {
           </Routes>
         </Router>
       </Loading>
+      <ChatBotComponent />
     </div>
   )
 }

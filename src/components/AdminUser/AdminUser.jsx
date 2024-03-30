@@ -380,7 +380,7 @@ const AdminUser = () => {
             <WrapperHeader style={{ fontSize: '20px', textAlign: 'center' }}>QUẢN LÝ NGƯỜI DÙNG</WrapperHeader>
 
             <div style={{ marginTop: '20px' }}>
-                <TableComponent handleDeleteMany={handleDeleteManyUser} columns={columns} isPending={isPendingUser} data={dataTable} onRow={(record, rowIndex) => {
+                <TableComponent handleDeleteMany={handleDeleteManyUser} columns={columns} pagination={{ position: ['bottomCenter'] }} isPending={isPendingUser} data={dataTable} onRow={(record, rowIndex) => {
                     return {
                         onClick: event => {
                             setRowSelected(record._id)

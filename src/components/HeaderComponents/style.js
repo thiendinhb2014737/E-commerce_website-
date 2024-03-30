@@ -36,7 +36,9 @@ export const WapperTextHeaderSmall = styled.span`
 // phần đăng xuất khi nhấn vào tên người dùng
 export const WrapperContentPopup = styled.p`
     cursor: pointer;
+    padding: 3px;
     &:hover {
+        border-radius: 4px;
         background: #5774F8;
         color: #fff;
     }

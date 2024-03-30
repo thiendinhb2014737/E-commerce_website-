@@ -422,7 +422,7 @@ const OrderAdmin = () => {
         </div>
       </Loading>
       <div style={{ marginTop: '20px' }}>
-        <TableComponent columns={columns} isPending={isLoadingOrders} data={dataTable} onRow={(record, rowIndex) => {
+        <TableComponent columns={columns} pagination={{ position: ['bottomCenter'] }} isPending={isLoadingOrders} data={dataTable} onRow={(record, rowIndex) => {
           return {
             onClick: event => {
               setRowSelected(record._id)
