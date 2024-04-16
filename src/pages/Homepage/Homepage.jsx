@@ -222,7 +222,7 @@ const Homepage = () => {
 
                         </WrapperProducts>
 
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px', paddingBottom: '20px' }}>
                             <WrapperButtonMore
                                 textbutton={isPlaceholderData ? 'Load more' : ' Xem thêm'} type='outline'
                                 styleButton={{

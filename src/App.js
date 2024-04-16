@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from './redux/slice/UserSlide'
 import Loading from './components/LoadingComponents/Loading'
 import ChatBotComponent from './components/ChatBotComponent/ChatBotComponent'
+import FooterComponents from './components/FooterComponents/FooterComponents'
 
 
 
@@ -71,6 +72,7 @@ function App() {
                 <Route key={route.path} path={isCheckAuth ? route.path : undefined} element={
                   <Layout>
                     <Page />
+                    <FooterComponents />
                   </Layout>
                 } />
               )

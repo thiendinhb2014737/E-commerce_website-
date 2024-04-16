@@ -228,23 +228,23 @@ const AdminUser = () => {
     const columns = [
 
         {
-            title: 'Admin',
+            title: 'Quản trị',
             dataIndex: 'isAdmin',
             filters: [
                 {
-                    text: 'True',
-                    value: true,
+                    text: 'Quản trị viên',
+                    value: 'Quản trị viên',
                 },
                 {
-                    text: 'False',
-                    value: false,
+                    text: 'Khách hàng',
+                    value: 'Khách hàng',
                 },
             ],
             onFilter: (value, record) => {
-                if (value === 'true') {
-                    return record.isAdmin === true
-                } else if (value === 'false') {
-                    return record.isAdmin === false
+                if (value === 'Quản trị viên') {
+                    return record.isAdmin === 'Quản trị viên'
+                } else if (value === 'Khách hàng') {
+                    return record.isAdmin === 'Khách hàng'
                 }
             }
         },
@@ -272,7 +272,7 @@ const AdminUser = () => {
 
         },
         {
-            title: 'Địa chỉ',
+            title: 'Địa chỉ giao hàng',
             dataIndex: 'address',
             render: (text) => <a>{text}</a>,
             sorter: (a, b) => a.address.length - b.address.length,
@@ -289,7 +289,7 @@ const AdminUser = () => {
         return {
             ...user,
             key: user._id,
-            isAdmin: user.isAdmin ? 'TRUE' : 'FALSE',
+            isAdmin: user.isAdmin ? 'Quản trị viên' : 'Khách hàng',
         }
     })
 

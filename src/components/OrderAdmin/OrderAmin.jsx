@@ -304,62 +304,46 @@ const OrderAdmin = () => {
   }
   const columns = [
     {
-      title: 'User name',
+      title: 'Mã đơn hàng',
+      dataIndex: 'maDH',
+      ...getColumnSearchProps('maDH')
+    },
+    {
+      title: 'Tên khách hàng',
       dataIndex: 'userName',
       sorter: (a, b) => a.userName.length - b.userName.length,
       ...getColumnSearchProps('userName')
     },
     {
-      title: 'Phone',
+      title: 'Số điện thoại',
       dataIndex: 'phone',
       sorter: (a, b) => a.phone.length - b.phone.length,
       ...getColumnSearchProps('phone')
     },
     {
-      title: 'Address',
+      title: 'Địa chỉ giao hàng',
       dataIndex: 'address',
-      sorter: (a, b) => a.address.length - b.address.length,
       ...getColumnSearchProps('address')
     },
     {
-      title: 'Paided',
+      title: 'Trạng thái thanh toán',
       dataIndex: 'isPaid',
-      sorter: (a, b) => a.isPaid.length - b.isPaid.length,
 
     },
     {
-      title: 'Trạng thái',
+      title: 'Trạng thái đơn hàng',
       dataIndex: 'statusOder',
-      sorter: (a, b) => a.statusOder.length - b.statusOder.length,
 
     },
     {
-      title: 'Payment method',
+      title: 'Phương thức thanh toán',
       dataIndex: 'paymentMethod',
-      sorter: (a, b) => a.paymentMethod.length - b.paymentMethod.length,
 
     },
     {
-      title: 'Total price',
+      title: 'Tổng tiền',
       dataIndex: 'totalPrice',
       sorter: (a, b) => a.totalPrice - b.totalPrice,
-      filters: [
-        {
-          text: '>= 199.000',
-          value: '>=',
-        },
-        {
-          text: '<= 199.000',
-          value: '<=',
-        },
-      ],
-      onFilter: (value, record) => {
-        if (value === '>=') {
-          return record.totalPrice >= 199000
-        } else if (value === '<=') {
-          return record.totalPrice <= 199000
-        }
-      }
     },
     {
       title: 'Hành động',
@@ -369,7 +353,7 @@ const OrderAdmin = () => {
   ];
 
   const dataTable = orders?.data?.length && orders?.data?.map((order) => {
-    return { ...order, key: order._id, userName: order?.shippingAddress?.fullName, phone: order?.shippingAddress?.phone, address: order?.shippingAddress?.address, paymentMethod: orderContant.payment[order?.paymentMethod], isPaid: order?.isPaid ? 'TRUE' : 'FALSE', isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE', totalPrice: convertPrice(order?.totalPrice) }
+    return { ...order, key: order._id, userName: order?.shippingAddress?.fullName, phone: order?.shippingAddress?.phone, address: order?.shippingAddress?.address, paymentMethod: orderContant.payment[order?.paymentMethod], isPaid: order?.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán', isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE', totalPrice: convertPrice(order?.totalPrice), maDH: order?.maDH }
   })
   const { data: dataUpdated, isPending: isPendingUpdated, isSuccess: isSuccessUpdated, isError: isErrorUpdated } = mutationUpdate
   const { data: dataDeleted, isPending: isPendingDeleted, isSuccess: isSuccessDeleted, isError: isErrorDeleted } = mutationDelete

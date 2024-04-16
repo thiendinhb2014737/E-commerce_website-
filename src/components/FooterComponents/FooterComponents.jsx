@@ -9,7 +9,7 @@ import logo from "../../assets/Images/Logo.png"
 
 const FooterComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     return (
-        <div style={{ width: '100%', background: '#5774F8', display: 'flex', justifyContent: 'center', height: '150px' }}>
+        <div style={{ width: '100%', background: '#5774F8', display: 'flex', justifyContent: 'center', height: '140px' }}>
             <WapperHeader style={{ justifyContent: isHiddenSearch && isHiddenCart ? 'space-between' : 'unset' }}>
                 <Col span={8}>
                     <WapperTextHeader to='/'>

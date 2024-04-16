@@ -64,8 +64,8 @@ const ProfilePage = () => {
     const handleOnChangePhone = (value) => {
         setPhone(value)
     }
-    const handleOnChangeAddress = (value) => {
-        setAddress(value)
+    const handleOnChangeAddress = (e) => {
+        setAddress(e.target.value)
     }
     const handleOnChangeAvatar = async ({ fileList }) => {
         const file = fileList[0]
@@ -80,7 +80,7 @@ const ProfilePage = () => {
 
     return (
         <Loading isPending={isPending}>
-            <div style={{ width: '1350px', margin: '0 auto', height: '500px' }}>
+            <div style={{ width: '1350px', margin: '0 auto', height: '100%', marginBottom: '30px' }}>
                 <div style={{ display: 'flex', padding: '5px' }}>
                     <WapperGoHome to='/'>Trang chủ</WapperGoHome>
                     <p style={{ padding: '0 5px' }}>|</p>
@@ -127,13 +127,14 @@ const ProfilePage = () => {
 
                     <WrapperInput>
                         <WrapperLabel htmlFor="address">Địa chỉ giao hàng</WrapperLabel>
-                        <InputFormComponents id="naaddressme" style={{ width: '520px' }} value={address} onChange={handleOnChangeAddress} />
+                        <textarea name="" id="address" cols="60" rows="8" value={address} style={{ border: 'none', borderRadius: '5px', paddingLeft: '8px' }} placeholder='Nhập nội dung liên hệ...' onChange={handleOnChangeAddress} />
+                        {/* <InputFormComponents id="address" style={{ width: '520px' }} value={address} onChange={handleOnChangeAddress} /> */}
                     </WrapperInput>
 
                     <ButtonComponents
                         onClick={handleUpdate}
                         size={20}
-                        styleButton={{ height: '30px', width: 'fit-content', borderRadius: '4px', padding: '2px 6px 6px', background: '#5774F8' }}
+                        styleButton={{ height: '30px', width: '100px', borderRadius: '4px', padding: '2px 6px 6px', background: '#5774F8', margin: '0 auto' }}
                         textbutton={'Cập nhật'}
                         styletextbutton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                     >Cập nhật</ButtonComponents>

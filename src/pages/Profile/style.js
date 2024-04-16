@@ -6,7 +6,7 @@ export const WrapperHeader = styled.h1`
     font-size: 18px;
     margin: 4px 0;
     text-align: center;
-    padding: 20px;
+    padding-bottom: 20px;
     
 `
 export const WapperGoHome = styled(Link)`
@@ -22,6 +22,7 @@ export const WrapperContentProfile = styled.div`
     margin: 0 auto; // cho ra chính giữa
     padding: 30px;
     border-radius: 10px;
+    background: #D4E1FF;
     gap: 30px;
 `
 export const WrapperLabel = styled.label`

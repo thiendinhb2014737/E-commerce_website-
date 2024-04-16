@@ -6,7 +6,7 @@ export const WrapperHeader = styled.h1`
     font-size: 18px;
     margin: 4px 0;
     text-align: center;
-    padding: 20px;
+    padding-bottom: 20px;
     
 `
 export const WapperGoHome = styled(Link)`
@@ -23,7 +23,7 @@ export const WrapperContentProfile = styled.div`
     padding: 30px;
     border-radius: 10px;
     gap: 30px;
-    background: #6B86FF;
+    background: #D4E1FF;
 `
 export const WrapperContentContact = styled.div`
     display: flex;
@@ -34,10 +34,22 @@ export const WrapperContentContact = styled.div`
     padding: 30px;
     border-radius: 10px;
     gap: 30px;
-    background: #6B86FF;
+    background: #D4E1FF;
+`
+export const WrapperContentContactRight = styled.div`
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    width: 300px;
+    margin: 0 auto; // cho ra chính giữa
+    padding: 30px;
+    border-radius: 10px;
+    gap: 30px;
+    background: #D4E1FF;
+    color: #555;
 `
 export const WrapperLabel = styled.label`
-    color: #fff;
+    color: #444;
     font-size: 14px;
     line-height: 30px;
     font-weight: 600;

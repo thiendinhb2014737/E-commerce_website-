@@ -416,18 +416,19 @@ const AdminProduct = () => {
 
   const columns = [
     {
-      title: 'Type',
+      title: 'Danh mục',
       dataIndex: 'type',
+      ...getColumnSearchProps('type')
     },
     {
-      title: 'Name',
+      title: 'Tên sản phẩm',
       dataIndex: 'name',
       render: (text) => <a>{text}</a>,
       sorter: (a, b) => a.name.length - b.name.length,
       ...getColumnSearchProps('name')
     },
     {
-      title: 'Price',
+      title: 'Giá bán',
       dataIndex: 'price',
       sorter: (a, b) => a.price - b.price,
       filters: [
@@ -453,15 +454,17 @@ const AdminProduct = () => {
     //     dataIndex: 'image',
     // },
     {
-      title: 'Description',
+      title: 'Mô tả',
       dataIndex: 'description',
+      ...getColumnSearchProps('description')
     },
     {
-      title: 'Count inStock',
+      title: 'Số lượng kho',
       dataIndex: 'countInStock',
+      sorter: (a, b) => a.countInStock - b.countInStock,
     },
     {
-      title: 'Rating',
+      title: 'Chất lượng',
       dataIndex: 'rating',
       sorter: (a, b) => a.rating - b.rating,
       filters: [
@@ -484,7 +487,7 @@ const AdminProduct = () => {
     },
 
     {
-      title: 'Action',
+      title: 'Hành động',
       dataIndex: 'action',
       render: renderAction
     },
@@ -1168,7 +1171,7 @@ const AdminProduct = () => {
             form={form}
           >
             <Form.Item
-              label="Type"
+              label="Danh mục"
               name="type"
               rules={[{ required: true, message: 'Please input your type!' }]}
             >
@@ -1176,14 +1179,14 @@ const AdminProduct = () => {
             </Form.Item>
 
             <Form.Item
-              label="Name"
+              label="Tên sản phẩm"
               name="name"
               rules={[{ required: true, message: 'Please input your name!' }]}
             >
               <InputComponents value={stateProductDetails.name} onChange={handleOnChangeDetails} name="name" />
             </Form.Item>
             <Form.Item
-              label="Price"
+              label="Giá bán"
               name="price"
               rules={[{ required: true, message: 'Please input your price!' }]}
             >
@@ -1201,7 +1204,7 @@ const AdminProduct = () => {
               </WrapperRadio>
             </Form.Item>
             <Form.Item
-              label="Count inStock"
+              label="Số lượng kho"
               name="countInStock"
               rules={[{ required: true, message: 'Please input your count inStock!' }]}
             >
@@ -1465,7 +1468,7 @@ const AdminProduct = () => {
             </div>
 
             <Form.Item
-              label="Description"
+              label="Mô tả"
               name="description"
               rules={[{ required: true, message: 'Please input your description!' }]}
             >
@@ -1473,21 +1476,21 @@ const AdminProduct = () => {
             </Form.Item>
 
             <Form.Item
-              label="Rating"
+              label="Chất lượng"
               name="rating"
               rules={[{ required: true, message: 'Please input your rating!' }]}
             >
               <InputComponents value={stateProductDetails.rating} onChange={handleOnChangeDetails} name="rating" />
             </Form.Item>
             <Form.Item
-              label="Discount"
+              label="Giảm giá"
               name="discount"
               rules={[{ required: true, message: 'Please input your discount!' }]}
             >
               <InputComponents value={stateProductDetails.discount} onChange={handleOnChangeDetails} name="discount" />
             </Form.Item>
             <Form.Item
-              label="Image"
+              label="Hình ảnh"
               name="image"
               rules={[{ required: true, message: 'Please input your image!' }]}
             >
