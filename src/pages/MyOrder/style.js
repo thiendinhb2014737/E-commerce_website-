@@ -1,4 +1,4 @@
-import styled  from "styled-components";
+import styled from "styled-components";
 
 export const WrapperStyleHeader = styled.div`
   background: rgb(255, 255, 255);
@@ -28,6 +28,7 @@ export const WrapperStyleHeaderDilivery = styled.div`
 
 export const WrapperContainer = styled.div`
   width: 100%;
+  padding-bottom: 420px;
   background-color: #f5f5fa;
 `
 

@@ -83,7 +83,7 @@ const Homepage = () => {
     })
 
     const fullTime = new Date(`${event?.data[0]?.days} ${event?.data[0]?.hours}:${event?.data[0]?.minutes}:${event?.data[0]?.seconds}`).getTime()
-
+    //console.log(days)
     useEffect(() => {
         fetchAllTypeProduct()
     }, [])

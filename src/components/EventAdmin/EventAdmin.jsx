@@ -278,17 +278,17 @@ const EventAdmin = () => {
     useEffect(() => {
         if (isSuccess && data?.status === 'OK') {
             setIsModalOpen(false)
-            mes.success()
+            mes.success('Tạo sự kiện thành công!')
         } else if (isError) {
-            mes.error()
+            mes.error('Tạo sự kiện thất bại!')
         }
     }, [isSuccess])
     useEffect(() => {
         if (isSuccessDeleted && dataDeleted?.status === 'OK') {
-            mes.success()
+            mes.success('Xóa sự kiện thành công!')
             handleCancelDelete()
         } else if (isErrorDeleted) {
-            mes.error()
+            mes.error('Xóa sự kiện thất bại!')
         }
     }, [isSuccessDeleted])
 
@@ -310,10 +310,10 @@ const EventAdmin = () => {
 
     useEffect(() => {
         if (isSuccessUpdated && dataUpdated?.status === 'OK') {
-            mes.success()
+            mes.success('Cập nhật sự kiện thành công!')
             handleCloseDrawer()
         } else if (isErrorUpdated) {
-            mes.error()
+            mes.error('Cập nhật sự kiện thất bại!')
         }
     }, [isSuccessUpdated])
     const handleCancelDelete = () => {

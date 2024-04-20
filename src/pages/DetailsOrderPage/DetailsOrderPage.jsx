@@ -44,7 +44,11 @@ const DetailsOrderPage = () => {
     <Loading isPending={isLoading}>
       <div style={{ width: '100%', height: '100%', background: '#f5f5fa' }}>
         <div style={{ width: '1350px', margin: '0 auto', height: '1350px', padding: '5px' }}>
-          <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Chi tiết đơn hàng</h4>
+          <div style={{ display: 'flex', padding: '5px' }}>
+            <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span></h4>
+            <h4 style={{ padding: '0 5px' }}>|</h4>
+            <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/my-order') }}> Đơn hàng của tôi</span> | Chi tiết đơn hàng</h4>
+          </div>
           <WrapperHeaderUser>
             <WrapperInfoUser>
               <Card title="Địa chỉ người nhận" bordered={false} >

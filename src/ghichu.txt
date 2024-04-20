@@ -8,3 +8,16 @@
 //// NHỚ SỬA LẠI HỦY ĐƠN HÀNG CỦA ADMIN, NÓ ĐANG KO CẬP NHẬT LẠI SỐ LƯỢNG-xong
 
 backgroundImage: `url("${backgroundfooter}")`
+
+------------------
+* GIỎ HÀNG:
+CẬP NHẬT THÔNG TIN GIAO HÀNG (XONG)
+XÓA SẢN PHẨM (XONG-chỉnh sửa lại chỗ remove trong redux)
+CHỈNH SỬA THỨ TỤ MẢNG (XONG-newArrayListCart)
+------------------
+* THANH TOÁN
+CHƯA CÓ LOADING (XONG)
+MÃ ĐƠN HÀNG TRONG FILE ORDERSUCCESS CHƯA HIỂN THỊ ĐƯỢC
+------------------
+* ĐƠN HÀNG CỦA TÔI
+XEM CHI TIẾT THIẾU THANH ĐIỀU HƯỚNG VỀ ĐƠN HÀNG CỦA TÔI (XONG)

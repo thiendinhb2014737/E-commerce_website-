@@ -296,19 +296,19 @@ const AdminUser = () => {
 
     useEffect(() => {
         if (isSuccessDeleted && dataDeleted?.status === 'OK') {
-            mes.success()
+            mes.success('Xóa người dùng thành công!')
             handleCancelDelete()
         } else if (isErrorDeleted) {
-            mes.error()
+            mes.error('Xóa người dùng thất bại!')
         }
     }, [isSuccessDeleted])
 
     useEffect(() => {
 
         if (isSuccessDeletedMany && dataDeletedMany?.status === 'OK') {
-            mes.success()
+            mes.success('Xóa người dùng thành công!')
         } else if (isErrorDeletedMany) {
-            mes.error()
+            mes.error('Xóa người dùng thất bại!')
         }
     }, [isSuccessDeletedMany])
 
@@ -336,10 +336,10 @@ const AdminUser = () => {
 
     useEffect(() => {
         if (isSuccessUpdated && dataUpdated?.status === 'OK') {
-            mes.success()
+            mes.success('Cập nhật thông tin người dùng thành công!')
             handleCloseDrawer()
         } else if (isErrorUpdated) {
-            mes.error()
+            mes.error('Cập nhật thông tin người dùng thất bại!')
         }
     }, [isSuccessUpdated])
     // stateUser trả về thông tin sản phẩm 

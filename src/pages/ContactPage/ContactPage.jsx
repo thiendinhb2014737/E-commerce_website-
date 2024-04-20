@@ -59,7 +59,7 @@ const ContactPage = () => {
 
     return (
         <Loading isPending={isPending}>
-            <div style={{ width: '1350px', margin: '0 auto', height: '100%', }}>
+            <div style={{ width: '1350px', margin: '0 auto', height: '100%', marginBottom: '30px' }}>
                 <div style={{ display: 'flex', padding: '5px' }}>
                     <WapperGoHome to='/'>Trang chủ</WapperGoHome>
                     <p style={{ padding: '0 5px' }}>|</p>

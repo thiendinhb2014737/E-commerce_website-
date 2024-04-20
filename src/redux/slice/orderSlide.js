@@ -73,7 +73,7 @@ export const orderSlide = createSlice({
             const itemOrder = state?.orderItems?.filter((item) => item?.product !== idProduct)
             const itemOrderSelected = state?.orderItemsSelected?.filter((item) => item?.product !== idProduct)//vd 57
             state.orderItems = itemOrder;
-            state.userIds = '';
+            //state.userIds = '';
             state.orderItemsSelected = itemOrderSelected;
 
         },
@@ -82,7 +82,7 @@ export const orderSlide = createSlice({
             const itemOrders = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
             const itemOrderSelected = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
             state.orderItems = itemOrders;
-            state.userIds = '';
+            //state.userIds = '';
             state.orderItemsSelected = itemOrderSelected;
 
         },

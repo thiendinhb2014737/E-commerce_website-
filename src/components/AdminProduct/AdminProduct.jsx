@@ -502,28 +502,28 @@ const AdminProduct = () => {
 
   useEffect(() => {
     if (isSuccess && data?.status === 'OK') {
-      mes.success()
+      mes.success('Tạo sản phẩm thành công!')
       handleCancel()
     } else if (isError) {
-      mes.error()
+      mes.error('Tạo sản phẩm thất bại!')
     }
   }, [isSuccess])
 
   useEffect(() => {
 
     if (isSuccessDeletedMany && dataDeletedMany?.status === 'OK') {
-      mes.success()
+      mes.success('Xóa sản phẩm thành công!')
     } else if (isErrorDeletedMany) {
-      mes.error()
+      mes.error('Xóa sản phẩm thất bại!')
     }
   }, [isSuccessDeletedMany])
 
   useEffect(() => {
     if (isSuccessDeleted && dataDeleted?.status === 'OK') {
-      mes.success()
+      mes.success('Xóa sản phẩm thành công!')
       handleCancelDelete()
     } else if (isErrorDeleted) {
-      mes.error()
+      mes.error('Xóa sản phẩm thất bại!')
     }
   }, [isSuccessDeleted])
 
@@ -651,10 +651,10 @@ const AdminProduct = () => {
 
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === 'OK') {
-      mes.success()
+      mes.success('Cập nhật thông tin sản phẩm thành công!')
       handleCloseDrawer()
     } else if (isErrorUpdated) {
-      mes.error()
+      mes.error('Cập nhật thông tin sản phẩm thất bại!')
     }
   }, [isSuccessUpdated])
 

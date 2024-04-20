@@ -356,13 +356,13 @@ const ProductDetailsComponents = ({ idProduct }) => {
                             </ButtonComponents>
                             {errorLimitOrder && <div style={{ color: 'red' }}>Sản phẩm đã hết hàng</div>}
                         </div>
-                        <ButtonComponents
+                        {/* <ButtonComponents
                             size={20}
                             styleButton={{ background: '#fff', height: '49px', width: '220px', border: '1px solid rgb(13, 92, 182)', borderRadius: '4px' }}
                             textbutton={'Mua trả sau-lãi xuất 0%'}
                             styletextbutton={{ color: 'rgb(13, 92, 182)', fontSize: '15px' }}
                         >
-                        </ButtonComponents>
+                        </ButtonComponents> */}
                     </div>
                 </Col>
                 <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://clothingStore.com" : window.location.href} width="1350" />
