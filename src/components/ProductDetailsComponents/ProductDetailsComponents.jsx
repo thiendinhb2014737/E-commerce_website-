@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import imgProductSmall from '../../assets/Images/a2.png'
 import { WrapperAddressProduct, WrapperInputNumber, WrapperPriceProduct, WrapperPriceTextProduct, WrapperQualityProduct, WrapperStyleColImage, WrapperStyleImageSmall, WrapperStyleNameProduct, WrapperStyleTextSell } from './style'
 import {
-    StarOutlined, PlusOutlined, MinusOutlined
+    StarOutlined, PlusOutlined, MinusOutlined, HeartOutlined
 } from '@ant-design/icons';
 import ButtonComponents from '../ButtonComponents/ButtonComponents'
 import * as ProductService from '../../services/ProductService'
@@ -17,11 +17,13 @@ import LikeButtonComponent from '../LikeButtonComponent/LikeButtonComponent';
 import CommentComponent from '../CommentComponent/CommentComponent';
 import Loading from '../LoadingComponents/Loading'
 import * as message from '../../components/Message/Message'
+import { addloveProProduct } from '../../redux/slice/loveProductSlice';
 
 const ProductDetailsComponents = ({ idProduct }) => {
     const [numberProduct, setNumberProduct] = useState(1)
     const user = useSelector((state) => state?.user)
     const order = useSelector((state) => state?.order)
+    const lovePro = useSelector((state) => state?.lovePro)
 
     const [errorLimitOrder, setErrorLimitOrder] = useState(false)
     const [placement, SetPlacement] = useState('');
@@ -116,6 +118,34 @@ const ProductDetailsComponents = ({ idProduct }) => {
             }
         }
     }
+    const loveProRedux = lovePro?.loveProItems?.find((item) => item.product === productDetails?._id)
+    const handleLovePro = () => {
+        if (!user?.id) {
+            navigate('/sign-in', { state: location?.pathname })
+        } else {
+            const loveProRedux = lovePro?.loveProItems?.find((item) => item.product === productDetails?._id)
+            if (!loveProRedux) {
+                dispatch(addloveProProduct({
+                    userID: user?.id,
+                    loveProItem: {
+                        name: productDetails?.name,
+                        image: productDetails?.image,
+                        price: productDetails?.price,
+                        product: productDetails?._id,
+                        discount: productDetails?.discount,
+                        countInStock: productDetails?.countInStock,
+                        gender: productDetails?.gender,
+                        selled: productDetails?.selled,
+                        rating: productDetails?.rating,
+                        description: productDetails?.description
+                    },
+                }))
+            } else {
+                message.error('Bạn đã thêm sản phẩm vào mục Yêu thích rồi!')
+            }
+        }
+    }
+    console.log(productDetails)
 
 
     return (
@@ -146,11 +176,17 @@ const ProductDetailsComponents = ({ idProduct }) => {
                     </Row> */}
                 </Col>
                 <Col span={14} style={{ paddingLeft: '6px' }}>
-                    <WrapperStyleNameProduct>{productDetails?.name}</WrapperStyleNameProduct>
+                    <WrapperStyleNameProduct>
+                        {productDetails?.name}
+                        {
+                            !loveProRedux ? <HeartOutlined style={{ paddingLeft: '10px', width: '30px', height: '30px' }} onClick={handleLovePro} /> :
+                                <HeartOutlined style={{ paddingLeft: '10px', width: '30px', height: '30px', color: 'red' }} onClick={handleLovePro} />
+                        }
+                    </WrapperStyleNameProduct>
                     <WrapperStyleTextSell>Thể loại: {productDetails?.gender}</WrapperStyleTextSell>
                     <div>
                         <Rate allowHalf defaultValue={productDetails?.rating} value={productDetails?.rating} />
-                        <WrapperStyleTextSell>| Đã bán {productDetails?.selled}+</WrapperStyleTextSell>
+                        <WrapperStyleTextSell>| Đã bán {productDetails?.selled || 0}+</WrapperStyleTextSell>
                     </div>
                     <WrapperPriceProduct>
                         <WrapperPriceTextProduct>{convertPrice(productDetails?.price)}</WrapperPriceTextProduct>
@@ -316,11 +352,6 @@ const ProductDetailsComponents = ({ idProduct }) => {
                                     ) : <div></div>
                     }
 
-
-
-
-
-
                     <LikeButtonComponent
                         dataHref={process.env.REACT_APP_IS_LOCAL ? "https://developers.facebook.com/docs/plugins/" : window.location.href}
                     />
@@ -356,13 +387,6 @@ const ProductDetailsComponents = ({ idProduct }) => {
                             </ButtonComponents>
                             {errorLimitOrder && <div style={{ color: 'red' }}>Sản phẩm đã hết hàng</div>}
                         </div>
-                        {/* <ButtonComponents
-                            size={20}
-                            styleButton={{ background: '#fff', height: '49px', width: '220px', border: '1px solid rgb(13, 92, 182)', borderRadius: '4px' }}
-                            textbutton={'Mua trả sau-lãi xuất 0%'}
-                            styletextbutton={{ color: 'rgb(13, 92, 182)', fontSize: '15px' }}
-                        >
-                        </ButtonComponents> */}
                     </div>
                 </Col>
                 <CommentComponent dataHref={process.env.REACT_APP_IS_LOCAL ? "https://clothingStore.com" : window.location.href} width="1350" />

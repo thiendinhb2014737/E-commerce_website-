@@ -52,6 +52,7 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             {user?.isAdmin && (
                 <WrapperContentPopup onClick={() => handleClickNavigate('admin')}>Quản lý hệ thống</WrapperContentPopup>
             )}
+            <WrapperContentPopup onClick={() => handleClickNavigate('my-lovePro')}>Yêu thích của tôi</WrapperContentPopup>
             <WrapperContentPopup onClick={() => handleClickNavigate('my-order')}>Đơn hàng của tôi</WrapperContentPopup>
             <WrapperContentPopup onClick={() => handleClickNavigate('contact')}>Liên hệ chúng tôi</WrapperContentPopup>
             <WrapperContentPopup onClick={() => handleClickNavigate()}>Đăng xuất</WrapperContentPopup>
@@ -65,6 +66,8 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             navigate('/system/admin')
         } else if (type === 'contact') {
             navigate('/contact')
+        } else if (type === 'my-lovePro') {
+            navigate('/my-lovePro')
         } else if (type === 'my-order') {
             navigate('/my-order', {
                 state: {

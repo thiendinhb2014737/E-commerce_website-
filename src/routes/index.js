@@ -19,6 +19,7 @@ import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import GenderProductPage from "../pages/GenderProductPage/GenderProductPage";
 import FashionProductPage from "../pages/FashionProductPage/FashionProductPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
+import MyLovePro from "../pages/MyLovePro/MyLovePro";
 
 
 export const routes = [
@@ -128,6 +129,12 @@ export const routes = [
     {
         path: '/contact',
         page: ContactPage,
+        isShowHeader: true,
+
+    },
+    {
+        path: '/my-lovePro',
+        page: MyLovePro,
         isShowHeader: true,
 
     },
