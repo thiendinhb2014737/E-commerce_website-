@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Badge, Col, Popover } from 'antd'
 import { WapperHeader, WapperTextHeader, WapperHeaderAccount, WapperTextHeaderSmall, WrapperContentPopup, WapperTextHeaderAD } from "./style"
 import {
-    UserOutlined, CaretDownOutlined, ShoppingCartOutlined
+    UserOutlined, CaretDownOutlined, ShoppingCartOutlined, HeartOutlined, SolutionOutlined, ShoppingOutlined, AppstoreAddOutlined
 } from '@ant-design/icons';
 import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
 import { useNavigate } from "react-router-dom";
@@ -48,13 +48,13 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const content = (
         <div>
 
-            <WrapperContentPopup onClick={() => handleClickNavigate('profile')}>Tài khoản người dùng</WrapperContentPopup>
+            <WrapperContentPopup onClick={() => handleClickNavigate('profile')}><UserOutlined />  Tài khoản</WrapperContentPopup>
             {user?.isAdmin && (
-                <WrapperContentPopup onClick={() => handleClickNavigate('admin')}>Quản lý hệ thống</WrapperContentPopup>
+                <WrapperContentPopup onClick={() => handleClickNavigate('admin')}><AppstoreAddOutlined />  Quản lý hệ thống</WrapperContentPopup>
             )}
-            <WrapperContentPopup onClick={() => handleClickNavigate('my-lovePro')}>Yêu thích của tôi</WrapperContentPopup>
-            <WrapperContentPopup onClick={() => handleClickNavigate('my-order')}>Đơn hàng của tôi</WrapperContentPopup>
-            <WrapperContentPopup onClick={() => handleClickNavigate('contact')}>Liên hệ chúng tôi</WrapperContentPopup>
+            <WrapperContentPopup onClick={() => handleClickNavigate('my-lovePro')}><HeartOutlined />  Yêu thích của tôi</WrapperContentPopup>
+            <WrapperContentPopup onClick={() => handleClickNavigate('my-order')}><ShoppingOutlined />  Đơn hàng của tôi</WrapperContentPopup>
+            <WrapperContentPopup onClick={() => handleClickNavigate('contact')}><SolutionOutlined />  Liên hệ chúng tôi</WrapperContentPopup>
             <WrapperContentPopup onClick={() => handleClickNavigate()}>Đăng xuất</WrapperContentPopup>
         </div>
     );
