@@ -24,6 +24,7 @@ import StepComponents from '../../components/Step/StepComponents';
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
     const user = useSelector((state) => state.user)
+
     const [listChecked, setListChecked] = useState([])
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
 
@@ -216,7 +217,9 @@ const OrderPage = () => {
         },
     ]
     const newArrayListCart = order?.orderItems.slice().reverse();
-
+    const handleDetailsProduct = (id) => {
+        navigate(`/product-details/${id}`)
+    }
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100%', paddingBottom: '200px' }}>
             <Loading isPending={isPending}>
@@ -250,7 +253,7 @@ const OrderPage = () => {
                                                 <div style={{ width: '390px', display: 'flex', alignItems: 'center', gap: 4 }}>
                                                     {/* <CustomCheckbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></CustomCheckbox> */}
                                                     <Checkbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)}></Checkbox>
-                                                    <img src={order?.image} style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
+                                                    <img src={order?.image} style={{ width: '77px', height: '79px', objectFit: 'cover' }} onClick={() => handleDetailsProduct(order?.product)} />
                                                     <div style={{
                                                         width: 'px',
                                                         overflow: 'hidden',

@@ -1119,13 +1119,13 @@ const AdminProduct = () => {
               <InputComponents value={stateProduct.description} onChange={handleOnChange} name="description" />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="Chất lượng"
               name="rating"
               rules={[{ required: true, message: 'Please input your rating!' }]}
             >
               <InputComponents value={stateProduct.rating} onChange={handleOnChange} name="rating" />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Giảm giá"
               name="discount"
@@ -1475,13 +1475,13 @@ const AdminProduct = () => {
               <InputComponents value={stateProductDetails.description} onChange={handleOnChangeDetails} name="description" />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="Chất lượng"
               name="rating"
               rules={[{ required: true, message: 'Please input your rating!' }]}
             >
               <InputComponents value={stateProductDetails.rating} onChange={handleOnChangeDetails} name="rating" />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Giảm giá"
               name="discount"

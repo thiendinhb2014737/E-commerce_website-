@@ -78,3 +78,7 @@ export const getAllProductDiscount = async (search, limit, discountEvent) => {
     }
     return res.data
 }
+export const evaluate = async (id, data) => {
+    const res = await axios.put(`${process.env.REACT_APP_API_URL}/product/evaluate/${id}`, data)
+    return res.data
+}

@@ -3,6 +3,8 @@ import productReducer from './slice/productSlide'
 import userReducer from './slice/UserSlide'
 import orderReducer from './slice/orderSlide'
 import loveProReducer from './slice/loveProductSlice'
+
+import orderEvaluateSlice from './slice/orderEvaluateSlice'
 import {
     persistStore,
     persistReducer,
@@ -26,7 +28,8 @@ const rootReducer = combineReducers({
     product: productReducer,
     user: userReducer,
     order: orderReducer,
-    lovePro: loveProReducer
+    lovePro: loveProReducer,
+    orderEvaluate: orderEvaluateSlice
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

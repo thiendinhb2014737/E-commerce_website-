@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Lable, WrapperAllPrice, WrapperContentInfo, WrapperHeaderUser, WrapperInfo, WrapperInfoUser, WrapperItem, WrapperItemLabel, WrapperLabel, WrapperNameProduct, WrapperProduct, WrapperStyleContent, WrapperValue } from './style'
 import logo from '../../assets/Images/Logo.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -10,16 +10,28 @@ import { convertPrice } from '../../utils'
 import { useMemo } from 'react'
 import Loading from '../../components/LoadingComponents/Loading'
 import TableComponent from '../../components/TableComponents/TableComponent'
-import { Card, Col, Image, Row } from 'antd'
+import { Button, Card, Col, Image, Radio, Row } from 'antd'
 import { WrapperAddressProduct, WrapperPriceProduct, WrapperPriceTextProduct, WrapperStyleNameProduct } from '../../components/ProductDetailsComponents/style'
-
+import ButtonComponents from '../../components/ButtonComponents/ButtonComponents'
+import ModalComponents from '../../components/ModalComponents/ModalComponents'
+import { useMutationHooks } from '../../hooks/useMutationHook'
+import * as mes from '../../components/Message/Message'
+import * as ProductService from '../../services/ProductService'
+import { addorderEvaluateProduct } from '../../redux/slice/orderEvaluateSlice';
+import { useDispatch, useSelector } from 'react-redux'
 const DetailsOrderPage = () => {
   const params = useParams()
   const location = useLocation()
   const navigate = useNavigate()
+  const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
+  const [evaluate, setEvaluate] = useState('')
+  const [isEvaluated, setIsEvaluated] = useState(false)
+  const [isEvaluatedList, setIsEvaluatedList] = useState(false)
+  const [evaluateIDPro, setEvaluateIDPro] = useState('')
   const { state } = location
   const { id } = params
-  //console.log('idaaaaa', id)
+  const dispatch = useDispatch()
+  const evaluatedListOrder = useSelector((state) => state?.orderEvaluate)
 
   const fetchDetailsOrder = async () => {
     const res = await OrderService.getDetailsOrder(id, state?.token)
@@ -32,14 +44,56 @@ const DetailsOrderPage = () => {
   })
 
   const { isLoading, data } = queryOrder
-  console.log('data', data)
+
   const priceMemo = useMemo(() => {
     const result = data?.orderItems?.reduce((total, cur) => {
       return total + ((cur.price * cur.amount))
     }, 0)
     return result
   }, [data])
+  const handleDetailsProduct = (id) => {
+    navigate(`/product-details/${id}`)
+  }
+  const handleOnChangeEvaluate = (id) => {
+    setIsOpenEvaluate(true)
+    setEvaluateIDPro(id)
+  }
+  const onChangeEvaluate = (e) => {
+    setEvaluate(e.target.value);
+  }
+  const mutationUpdate = useMutationHooks(
+    (data) => {
+      const { id, ...rests } = data
+      const res = ProductService.evaluate(id, rests)
+      return res
+    },
+  )
 
+  const { data: dataUpdated, isPending: isPendingUpdated, isSuccess: isSuccessUpdated, isError: isErrorUpdated } = mutationUpdate
+
+  useEffect(() => {
+    if (isSuccessUpdated && dataUpdated?.status === 'OK') {
+      mes.success('Đánh giá sản phẩm thành công!')
+      setIsOpenEvaluate(false)
+      // handleUpdateEvalue()
+    } else if (isErrorUpdated) {
+      mes.error('Đánh giá sản phẩm thất bại!')
+    }
+  }, [isSuccessUpdated])
+
+  const handleEvalute = () => {
+    mutationUpdate.mutate({ id: evaluateIDPro, rating: evaluate })
+  }
+  const orderEvaluatedRedux = evaluatedListOrder?.ListOrderEvaluated?.find((item) => item.ListOrderEvaluated === id)
+  const handleOnEvaluated = () => {
+    dispatch(addorderEvaluateProduct({
+      ListOrderEvaluated: id,
+    }))
+  }
+  console.log(id)
+  console.log(evaluatedListOrder.ListOrderEvaluated)
+  console.log(isEvaluated)
+  console.log('orderEvaluatedRedux', orderEvaluatedRedux)
   return (
     <Loading isPending={isLoading}>
       <div style={{ width: '100%', height: '100%', background: '#f5f5fa' }}>
@@ -107,7 +161,7 @@ const DetailsOrderPage = () => {
                   return (
                     <Row key={order?.product} style={{ padding: '16px', background: '#fff', borderRadius: '4px' }}>
                       <Col span={5} style={{ borderRight: '1px solid #e5e5e5', paddingRight: '8px' }}>
-                        <Image src={order?.image} alt='img product' preview={false} style={{ width: '150px' }} />
+                        <Image src={order?.image} alt='img product' preview={false} style={{ width: '150px' }} onClick={() => handleDetailsProduct(order?.product)} />
                       </Col>
                       <Col span={19} style={{ paddingLeft: '6px' }}>
                         <WrapperStyleNameProduct style={{ fontSize: '18px', margin: '4px', padding: '0', display: 'flex' }}>{order?.name} (size {order?.size}, màu{<div style={{ width: '20px', height: '20px', background: `${order?.color}`, marginLeft: '5px', marginTop: '5px' }} />} )</WrapperStyleNameProduct>
@@ -118,6 +172,35 @@ const DetailsOrderPage = () => {
                           <WrapperPriceTextProduct style={{ fontSize: '18px', margin: '4px', padding: '0' }}>(Giảm giá: {convertPrice((priceMemo * order?.discount) / 100)})</WrapperPriceTextProduct>
                         </WrapperPriceProduct>
                         <WrapperAddressProduct>
+
+                          {
+                            !orderEvaluatedRedux ?
+                              <ButtonComponents
+                                onClick={() => handleOnChangeEvaluate(order?.product)}
+                                size={40}
+                                styleButton={{
+                                  height: '36px',
+                                  border: '1px solid #9255FD',
+                                  borderRadius: '4px'
+                                }}
+                                textbutton={'Đánh giá sản phẩm'}
+                                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+                              >
+                              </ButtonComponents>
+                              :
+                              <ButtonComponents
+                                size={40}
+                                styleButton={{
+                                  height: '36px',
+                                  border: '1px solid #9255FD',
+                                  borderRadius: '4px'
+                                }}
+                                textbutton={'Sản phẩm đã được đánh giá'}
+                                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+                              >
+                              </ButtonComponents>
+
+                          }
                         </WrapperAddressProduct>
                       </Col>
                     </Row>
@@ -127,9 +210,48 @@ const DetailsOrderPage = () => {
 
             </div>
           </WrapperStyleContent>
-
+          {
+            !orderEvaluatedRedux ?
+              <ButtonComponents
+                onClick={handleOnEvaluated}
+                size={40}
+                styleButton={{
+                  height: '36px',
+                  border: '1px solid #9255FD',
+                  borderRadius: '4px'
+                }}
+                textbutton={'Hoàn tất đánh giá'}
+                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+              >
+              </ButtonComponents>
+              :
+              <ButtonComponents
+                onClick={handleOnEvaluated}
+                size={40}
+                styleButton={{
+                  height: '36px',
+                  border: '1px solid #9255FD',
+                  borderRadius: '4px'
+                }}
+                textbutton={'Đơn hàng đã được đánh giá'}
+                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+              >
+              </ButtonComponents>
+          }
         </div>
       </div>
+      <ModalComponents title="Quí khách vui lòng chọn mức đánh giá" open={isOpenEvaluate} footer={null}>
+        <Radio.Group onChange={onChangeEvaluate} value={evaluate}>
+          <Radio value={1} onClick={() => setEvaluate(1)}>1 sao</Radio>
+          <Radio value={2} onClick={() => setEvaluate(2)}>2 sao</Radio>
+          <Radio value={3} onClick={() => setEvaluate(3)}>3 sao</Radio>
+          <Radio value={4} onClick={() => setEvaluate(4)}>4 sao</Radio>
+          <Radio value={5} onClick={() => setEvaluate(5)}>5 sao</Radio>
+        </Radio.Group>
+        <Button type="primary" htmlType="submit" onClick={handleEvalute}>
+          Đánh giá
+        </Button>
+      </ModalComponents>
     </Loading>
   )
 }
