@@ -21,6 +21,7 @@ const MyOrderPage = () => {
   const [limit, setLimit] = useState(4)
   const searchProduct = useSelector((state) => state?.product?.search)
   const searchDebounce = useDebounce(searchProduct, 100)
+  const evaluatedListOrder = useSelector((state) => state?.orderEvaluate)
 
   const fetchMyOrder = async (context) => {
     const limit = context?.queryKey && context?.queryKey[1]
@@ -111,6 +112,7 @@ const MyOrderPage = () => {
           <h4><span style={{ cursor: 'pointer', fontWeight: 'bold', color: '#5774F8' }} onClick={() => { navigate('/') }}>Trang chủ</span> | Đơn hàng của tôi</h4>
           <WrapperListOrder>
             {data?.map((order) => {
+              let orderEvaluatedRedux = evaluatedListOrder?.ListOrderEvaluated?.find((item) => item.ListOrderEvaluated === order?._id)
               return (
                 <WrapperItemOrder key={order?._id}>
                   <WrapperStatus>
@@ -138,18 +140,21 @@ const MyOrderPage = () => {
                     </div>
 
                     <div style={{ display: 'flex', gap: '10px' }}>
-                      <ButtonComponents
-                        onClick={() => handleCanceOrder(order)}
-                        size={40}
-                        styleButton={{
-                          height: '36px',
-                          border: '1px solid #9255FD',
-                          borderRadius: '4px'
-                        }}
-                        textbutton={'Hủy đơn hàng'}
-                        styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
-                      >
-                      </ButtonComponents>
+                      {
+                        !orderEvaluatedRedux ?
+                          <ButtonComponents
+                            onClick={() => handleCanceOrder(order)}
+                            size={40}
+                            styleButton={{
+                              height: '36px',
+                              border: '1px solid #9255FD',
+                              borderRadius: '4px'
+                            }}
+                            textbutton={'Hủy đơn hàng'}
+                            styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+                          >
+                          </ButtonComponents> : <div></div>
+                      }
                       <ButtonComponents
                         onClick={() => handleDetailsOrder(order?._id)}
                         size={40}

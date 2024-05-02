@@ -30,7 +30,7 @@ const CardComponents = (props) => {
       <StyleNameProduct>{name}</StyleNameProduct>
       <WapperReportText>
         <span style={{ marginRight: "4px" }}>
-          <span>{rating} </span>
+          <span>{rating.toFixed(1)} </span>
           <StarOutlined style={{ fontSize: "12px", color: "rgb(253, 216, 54)" }} />
         </span>
         <WrapperStyleTextSell>| Đã bán {selled || 0}+</WrapperStyleTextSell>

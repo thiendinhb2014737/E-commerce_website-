@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Lable, WrapperAllPrice, WrapperContentInfo, WrapperHeaderUser, WrapperInfo, WrapperInfoUser, WrapperItem, WrapperItemLabel, WrapperLabel, WrapperNameProduct, WrapperProduct, WrapperStyleContent, WrapperValue } from './style'
-import logo from '../../assets/Images/Logo.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import * as OrderService from '../../services/OrderService'
@@ -9,7 +8,6 @@ import { orderContant } from '../../contant'
 import { convertPrice } from '../../utils'
 import { useMemo } from 'react'
 import Loading from '../../components/LoadingComponents/Loading'
-import TableComponent from '../../components/TableComponents/TableComponent'
 import { Button, Card, Col, Image, Radio, Row } from 'antd'
 import { WrapperAddressProduct, WrapperPriceProduct, WrapperPriceTextProduct, WrapperStyleNameProduct } from '../../components/ProductDetailsComponents/style'
 import ButtonComponents from '../../components/ButtonComponents/ButtonComponents'
@@ -19,6 +17,9 @@ import * as mes from '../../components/Message/Message'
 import * as ProductService from '../../services/ProductService'
 import { addorderEvaluateProduct } from '../../redux/slice/orderEvaluateSlice';
 import { useDispatch, useSelector } from 'react-redux'
+import {
+  StarOutlined
+} from '@ant-design/icons';
 const DetailsOrderPage = () => {
   const params = useParams()
   const location = useLocation()
@@ -26,7 +27,7 @@ const DetailsOrderPage = () => {
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
   const [evaluate, setEvaluate] = useState('')
   const [isEvaluated, setIsEvaluated] = useState(false)
-  const [isEvaluatedList, setIsEvaluatedList] = useState(false)
+  const [isOpenEvaluateComplete, setIsOpenEvaluateComplete] = useState(false)
   const [evaluateIDPro, setEvaluateIDPro] = useState('')
   const { state } = location
   const { id } = params
@@ -75,6 +76,7 @@ const DetailsOrderPage = () => {
     if (isSuccessUpdated && dataUpdated?.status === 'OK') {
       mes.success('Đánh giá sản phẩm thành công!')
       setIsOpenEvaluate(false)
+      setIsOpenEvaluateComplete(true)
       // handleUpdateEvalue()
     } else if (isErrorUpdated) {
       mes.error('Đánh giá sản phẩm thất bại!')
@@ -86,6 +88,7 @@ const DetailsOrderPage = () => {
   }
   const orderEvaluatedRedux = evaluatedListOrder?.ListOrderEvaluated?.find((item) => item.ListOrderEvaluated === id)
   const handleOnEvaluated = () => {
+    setIsOpenEvaluateComplete(false)
     dispatch(addorderEvaluateProduct({
       ListOrderEvaluated: id,
     }))
@@ -211,7 +214,7 @@ const DetailsOrderPage = () => {
             </div>
           </WrapperStyleContent>
           {
-            !orderEvaluatedRedux ?
+            isOpenEvaluateComplete ?
               <ButtonComponents
                 onClick={handleOnEvaluated}
                 size={40}
@@ -225,32 +228,54 @@ const DetailsOrderPage = () => {
               >
               </ButtonComponents>
               :
-              <ButtonComponents
-                onClick={handleOnEvaluated}
-                size={40}
-                styleButton={{
-                  height: '36px',
-                  border: '1px solid #9255FD',
-                  borderRadius: '4px'
-                }}
-                textbutton={'Đơn hàng đã được đánh giá'}
-                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
-              >
-              </ButtonComponents>
+              <div></div>
           }
         </div>
       </div>
-      <ModalComponents title="Quí khách vui lòng chọn mức đánh giá" open={isOpenEvaluate} footer={null}>
+
+      <ModalComponents title="Quí khách vui lòng chọn mức đánh giá" open={isOpenEvaluate} onCancel={() => setIsOpenEvaluate(false)} footer={null}>
         <Radio.Group onChange={onChangeEvaluate} value={evaluate}>
-          <Radio value={1} onClick={() => setEvaluate(1)}>1 sao</Radio>
-          <Radio value={2} onClick={() => setEvaluate(2)}>2 sao</Radio>
-          <Radio value={3} onClick={() => setEvaluate(3)}>3 sao</Radio>
-          <Radio value={4} onClick={() => setEvaluate(4)}>4 sao</Radio>
-          <Radio value={5} onClick={() => setEvaluate(5)}>5 sao</Radio>
+          <Row>
+            <Radio value={1} onClick={() => setEvaluate(1)}>
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+            </Radio>
+          </Row>
+          <Row>
+            <Radio value={2} onClick={() => setEvaluate(2)}>
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+            </Radio>
+          </Row>
+          <Row>
+            <Radio value={3} onClick={() => setEvaluate(3)}>
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+            </Radio>
+          </Row>
+          <Row>
+            <Radio value={4} onClick={() => setEvaluate(4)}>
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+            </Radio>
+          </Row>
+          <Row>
+            <Radio value={5} onClick={() => setEvaluate(5)}>
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+              <StarOutlined style={{ fontSize: '16px', color: 'yellow' }} />
+            </Radio>
+          </Row>
         </Radio.Group>
-        <Button type="primary" htmlType="submit" onClick={handleEvalute}>
-          Đánh giá
-        </Button>
+        <Row style={{ marginTop: '10px' }}>
+          <Button type="primary" htmlType="submit" onClick={handleEvalute}>
+            Đánh giá
+          </Button>
+        </Row>
       </ModalComponents>
     </Loading>
   )

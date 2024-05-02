@@ -25,7 +25,8 @@ const MyLovePro = () => {
     const handleDetailsProduct = (id) => {
         navigate(`/product-details/${id}`)
     }
-    console.log(lovePro?.loveProItems)
+    const newArrayListLovePro = lovePro?.loveProItems.slice().reverse();
+    // console.log(lovePro?.loveProItems)
     return (
         <>
             <WrapperContainer>
@@ -37,7 +38,7 @@ const MyLovePro = () => {
                         </span>
                     </WrapperHeader>
                     <WrapperListOrder>
-                        {lovePro?.loveProItems?.map((item) => {
+                        {newArrayListLovePro?.map((item) => {
                             return (
                                 <WrapperItemOrder key={item?._id}>
                                     <WrapperHeaderItem >

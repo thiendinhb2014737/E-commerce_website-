@@ -28,6 +28,8 @@ const Homepage = () => {
     const searchDebounce = useDebounce(searchProduct, 100)
     const [limit, setLimit] = useState(12)
     const [typeProduct, setTypeProduct] = useState([])
+
+
     const navigate = useNavigate()
 
     const [distances, setDistances] = useState();
@@ -41,20 +43,21 @@ const Homepage = () => {
     const fetchProductAll = async (context) => {
         setPending(true)
         const limit = context?.queryKey && context?.queryKey[1]
-        const search = context?.queryKey && context?.queryKey[2]
-        const res = await ProductService.getAllProduct(search, limit)
+        // const search = context?.queryKey && context?.queryKey[2]
+        const res = await ProductService.getAllProduct(limit)
         setPending(false)
         return res
     }
-    const fetchProductAllDiscount = async (context) => {
-        setPending(true)
-        const limit = context?.queryKey && context?.queryKey[1]
-        const search = context?.queryKey && context?.queryKey[2]
-        const discountEvent = context?.queryKey && context?.queryKey[3]
-        const res = await ProductService.getAllProductDiscount(search, limit, discountEvent)
-        setPending(false)
-        return res
-    }
+
+    // const fetchProductAllDiscount = async (context) => {
+    //     setPending(true)
+    //     const limit = context?.queryKey && context?.queryKey[1]
+    //     // const search = context?.queryKey && context?.queryKey[2]
+    //     const discountEvent = context?.queryKey && context?.queryKey[3]
+    //     const res = await ProductService.getAllProductDiscount(limit, discountEvent)
+    //     setPending(false)
+    //     return res
+    // }
     const fetchEvent = async (context) => {
         const limitEvent = context?.queryKey && context?.queryKey[1]
         const res = await EventService.getEvent(limitEvent)
@@ -67,15 +70,17 @@ const Homepage = () => {
             setTypeProduct(res?.data)
         }
     }
+
     // bỏ isPending
     const { isLoading: isPending, data: products, isPlaceholderData } = useQuery({
-        queryKey: ['products', limit, searchDebounce],
+        queryKey: ['products', limit], /// bỏ searchDebounce
         queryFn: fetchProductAll, retry: 3, retryDeplay: 1000, placeholderData: true
     })
-    const { isLoading: isPendingDiscount, data: productsDiscount, isPlaceholderDataDiscount } = useQuery({
-        queryKey: ['productsDiscount', limit, searchDebounce, discountEvent],
-        queryFn: fetchProductAllDiscount, retry: 3, retryDeplay: 1000, placeholderData: true
-    })
+
+    // const { isLoading: isPendingDiscount, data: productsDiscount, isPlaceholderDataDiscount } = useQuery({
+    //     queryKey: ['productsDiscount', limit, discountEvent],/// bỏ searchDebounce
+    //     queryFn: fetchProductAllDiscount, retry: 3, retryDeplay: 1000, placeholderData: true
+    // })
 
     const { data: event } = useQuery({
         queryKey: ['event', limitEvent],
@@ -83,7 +88,6 @@ const Homepage = () => {
     })
 
     const fullTime = new Date(`${event?.data[0]?.days} ${event?.data[0]?.hours}:${event?.data[0]?.minutes}:${event?.data[0]?.seconds}`).getTime()
-    //console.log(days)
     useEffect(() => {
         fetchAllTypeProduct()
     }, [])
@@ -99,10 +103,10 @@ const Homepage = () => {
                 const hours = `0${Math.floor(distance / 60 / 60 % 24)}`.slice(-2)
                 const minutes = `0${Math.floor((distance / 60) % 60)}`.slice(-2)
                 const seconds = `0${Math.floor(distance % 60)}`.slice(-2)
-                setDay(days)
-                setHour(hours)
-                setMinute(minutes)
-                setSecond(seconds)
+                setDay(Number(days))
+                setHour(Number(hours))
+                setMinute(Number(minutes))
+                setSecond(Number(seconds))
             } else {
                 clearInterval(interval)
             }
@@ -115,6 +119,8 @@ const Homepage = () => {
         navigate(`/product-gender/${gender}`, { state: gender })
     }
     console.log(fullTime)
+    console.log('products', products)
+
     return (
         <>
             <div className="body" style={{ width: '100%', backgroundColor: "#f5f5fa" }}>
@@ -149,7 +155,7 @@ const Homepage = () => {
                             </Row>
 
                         </div>
-                        {(days !== '00' && hours !== '00' && minutes !== '00' && seconds !== '00') ? (
+                        {((days >= 0) && (hours >= 0) && (minutes >= 0) && (seconds > 0)) ? (
                             <WrapperContentTime>
                                 <WrapperLabelTime>
                                     <WrapperTime>{days}</WrapperTime>
@@ -172,10 +178,16 @@ const Homepage = () => {
                         ) : <div></div>
                         }
                         {
-                            (days !== '00' && hours !== '00' && minutes !== '00' && seconds !== '00') ? (
+                            ((days >= 0) && (hours >= 0) && (minutes >= 0) && (seconds > 0)) ? (
                                 <div id="container" style={{ margin: '0 auto', height: "100%", width: '1390px', backgroundColor: "#fff", border: '2px solid #5774F8', margin: '0px' }}>
                                     <WrapperProducts>
-                                        {productsDiscount?.data?.map((product) => {
+                                        {products?.data?.filter((pro) => {
+                                            if (searchDebounce === '') {
+                                                return pro
+                                            } else if (pro?.name?.toLowerCase().includes(searchDebounce?.toLowerCase())) {
+                                                return pro
+                                            }
+                                        })?.map((product) => {
                                             if (product.discount >= discountEvent) {
                                                 return (
                                                     <CardComponents
@@ -202,7 +214,13 @@ const Homepage = () => {
                         }
 
                         <WrapperProducts>
-                            {products?.data?.map((product) => {
+                            {products?.data?.filter((pro) => {
+                                if (searchDebounce === '') {
+                                    return pro
+                                } else if (pro?.name?.toLowerCase().includes(searchDebounce?.toLowerCase())) {
+                                    return pro
+                                }
+                            })?.map((product) => {
                                 return (
                                     <CardComponents
                                         key={product._id}

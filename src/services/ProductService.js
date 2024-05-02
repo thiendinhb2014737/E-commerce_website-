@@ -1,13 +1,17 @@
 import axios from "axios"
 import { axiosJWT } from "./UserService"
 
-export const getAllProduct = async (search, limit) => {
-    let res = {}
-    if (search?.length > 0) {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}`)
-    } else {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}&sort=desc&sort=createdAt`)
-    }
+// export const getAllProduct = async (search, limit) => {
+//     let res = {}
+//     if (search?.length > 0) {
+//         res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}`)
+//     } else {
+//         res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}&sort=desc&sort=createdAt`)
+//     }
+//     return res.data
+// }
+export const getAllProduct = async (limit) => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}&sort=desc&sort=createdAt`)
     return res.data
 }
 export const createProduct = async (data) => {
@@ -69,15 +73,16 @@ export const getProductGender = async (gender, page, limit) => {
         return res.data
     }
 }
-export const getAllProductDiscount = async (search, limit, discountEvent) => {
-    let res = {}
-    if (search?.length > 0) {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&filter=name&filter=${search}`)
-    } else {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&limit=${limit}&sort=desc&sort=createdAt`)
-    }
-    return res.data
-}
+// export const getAllProductDiscount = async (search, limit, discountEvent) => {
+//     let res = {}
+//     if (search?.length > 0) {
+//         res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&filter=name&filter=${search}`)
+//     } else {
+//         res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all?filter=discount&filter=${discountEvent}&limit=${limit}&sort=desc&sort=createdAt`)
+//     }
+//     return res.data
+// }
+
 export const evaluate = async (id, data) => {
     const res = await axios.put(`${process.env.REACT_APP_API_URL}/product/evaluate/${id}`, data)
     return res.data
