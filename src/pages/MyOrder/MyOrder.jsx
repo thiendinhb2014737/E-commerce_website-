@@ -72,11 +72,11 @@ const MyOrderPage = () => {
 
   useEffect(() => {
     if (isSuccessCancel && dataCancel?.status === 'OK') {
-      message.success()
+      message.success('Hủy đơn hàng thành công!')
     } else if (isSuccessCancel && dataCancel?.status === 'ERR') {
       message.error(dataCancel?.message)
     } else if (isErrorCancle) {
-      message.error()
+      message.error('Hủy đơn hàng thất bại!')
     }
   }, [isErrorCancle, isSuccessCancel])
 

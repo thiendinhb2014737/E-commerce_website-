@@ -104,7 +104,7 @@ const OrderAdmin = () => {
 
 
   const fetchGetDetailsOrder = async (rowSelected) => {
-    const res = await OrderService.getDetailsOrder(rowSelected, user?.token)
+    const res = await OrderService.getDetailsOrder(rowSelected, user?.access_token)
     if (res?.data) {
       setStateOrderDetails({
         // fullName: res?.data?.shippingAddress?.fullName,
@@ -121,7 +121,7 @@ const OrderAdmin = () => {
     setIsPendingUpdate(false)
   }
   const fetchGetDetailsOrderItems = async (rowSelected) => {
-    const res = await OrderService.getDetailsOrder(rowSelected, user?.token)
+    const res = await OrderService.getDetailsOrder(rowSelected, user?.access_token)
     if (res?.data) {
       setStateOrderItems({
         fullName: res?.data?.shippingAddress?.fullName,

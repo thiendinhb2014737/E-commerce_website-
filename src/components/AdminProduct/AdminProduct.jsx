@@ -495,6 +495,7 @@ const AdminProduct = () => {
   const dataTable = products?.data?.length && products?.data?.map((product) => {
     return {
       ...product,
+      rating: product.rating.toFixed(1),
       key: product._id
     }
   })

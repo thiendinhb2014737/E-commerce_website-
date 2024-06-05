@@ -206,6 +206,7 @@ const PaymentPage = () => {
 
 
     const onSuccessPaypal = (details, data) => {
+        setStateMaDH(maDH)
         mutationAddOrder.mutate(
             {
                 token: user?.access_token,

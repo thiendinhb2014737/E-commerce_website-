@@ -75,6 +75,7 @@ const DetailsOrderPage = () => {
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === 'OK') {
       mes.success('Đánh giá sản phẩm thành công!')
+      setIsEvaluated(true)
       setIsOpenEvaluate(false)
       setIsOpenEvaluateComplete(true)
       // handleUpdateEvalue()
@@ -93,10 +94,10 @@ const DetailsOrderPage = () => {
       ListOrderEvaluated: id,
     }))
   }
-  console.log(id)
-  console.log(evaluatedListOrder.ListOrderEvaluated)
-  console.log(isEvaluated)
-  console.log('orderEvaluatedRedux', orderEvaluatedRedux)
+
+  // console.log(evaluatedListOrder.ListOrderEvaluated)
+  // console.log(isEvaluated)
+  // console.log('orderEvaluatedRedux', orderEvaluatedRedux)
   return (
     <Loading isPending={isLoading}>
       <div style={{ width: '100%', height: '100%', background: '#f5f5fa' }}>
@@ -177,31 +178,33 @@ const DetailsOrderPage = () => {
                         <WrapperAddressProduct>
 
                           {
-                            !orderEvaluatedRedux ?
-                              <ButtonComponents
-                                onClick={() => handleOnChangeEvaluate(order?.product)}
-                                size={40}
-                                styleButton={{
-                                  height: '36px',
-                                  border: '1px solid #9255FD',
-                                  borderRadius: '4px'
-                                }}
-                                textbutton={'Đánh giá sản phẩm'}
-                                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
-                              >
-                              </ButtonComponents>
-                              :
-                              <ButtonComponents
-                                size={40}
-                                styleButton={{
-                                  height: '36px',
-                                  border: '1px solid #9255FD',
-                                  borderRadius: '4px'
-                                }}
-                                textbutton={'Sản phẩm đã được đánh giá'}
-                                styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
-                              >
-                              </ButtonComponents>
+                            data?.statusOder === 'Đã xác nhận' ?
+                              !orderEvaluatedRedux && isEvaluated === false ?
+                                <ButtonComponents
+                                  onClick={() => handleOnChangeEvaluate(order?.product)}
+                                  size={40}
+                                  styleButton={{
+                                    height: '36px',
+                                    border: '1px solid #9255FD',
+                                    borderRadius: '4px'
+                                  }}
+                                  textbutton={'Đánh giá sản phẩm'}
+                                  styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+                                >
+                                </ButtonComponents>
+                                :
+                                <ButtonComponents
+                                  size={40}
+                                  styleButton={{
+                                    height: '36px',
+                                    border: '1px solid #9255FD',
+                                    borderRadius: '4px'
+                                  }}
+                                  textbutton={'Sản phẩm đã được đánh giá'}
+                                  styletextbutton={{ color: '#9255FD', fontSize: '14px' }}
+                                >
+                                </ButtonComponents>
+                              : <div></div>
 
                           }
                         </WrapperAddressProduct>

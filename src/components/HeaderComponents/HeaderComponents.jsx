@@ -49,12 +49,16 @@ const HeaderComponents = ({ isHiddenSearch = false, isHiddenCart = false }) => {
         <div>
 
             <WrapperContentPopup onClick={() => handleClickNavigate('profile')}><UserOutlined />  Tài khoản</WrapperContentPopup>
-            {user?.isAdmin && (
+            {user?.isAdmin ? (
                 <WrapperContentPopup onClick={() => handleClickNavigate('admin')}><AppstoreAddOutlined />  Quản lý hệ thống</WrapperContentPopup>
-            )}
-            <WrapperContentPopup onClick={() => handleClickNavigate('my-lovePro')}><HeartOutlined />  Yêu thích của tôi</WrapperContentPopup>
-            <WrapperContentPopup onClick={() => handleClickNavigate('my-order')}><ShoppingOutlined />  Đơn hàng của tôi</WrapperContentPopup>
-            <WrapperContentPopup onClick={() => handleClickNavigate('contact')}><SolutionOutlined />  Liên hệ chúng tôi</WrapperContentPopup>
+            ) :
+                <div>
+                    <WrapperContentPopup onClick={() => handleClickNavigate('my-lovePro')}><HeartOutlined />  Yêu thích của tôi</WrapperContentPopup>
+                    <WrapperContentPopup onClick={() => handleClickNavigate('my-order')}><ShoppingOutlined />  Đơn hàng của tôi</WrapperContentPopup>
+                    <WrapperContentPopup onClick={() => handleClickNavigate('contact')}><SolutionOutlined />  Liên hệ chúng tôi</WrapperContentPopup>
+                </div>
+            }
+
             <WrapperContentPopup onClick={() => handleClickNavigate()}>Đăng xuất</WrapperContentPopup>
         </div>
     );

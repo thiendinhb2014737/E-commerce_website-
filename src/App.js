@@ -58,7 +58,18 @@ function App() {
     dispatch(updateUser({ ...res?.data, access_token: token }))
 
   }
+  const addChatScript = async () => {
+    const script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = `https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1`
+    script.async = true;
 
+    document.body.appendChild(script)
+  }
+
+  useEffect(() => {
+    addChatScript()
+  }, [])
   return (
     <div>
       <Loading isPending={isPending}>
@@ -72,6 +83,12 @@ function App() {
                 <Route key={route.path} path={isCheckAuth ? route.path : undefined} element={
                   <Layout>
                     <Page />
+                    <df-messenger
+                      intent="WELCOME"
+                      chat-title="BotClothes"
+                      agent-id="b85e4acd-643a-48bc-877d-f12afae9d3a7"
+                      language-code="en"
+                    ></df-messenger>
                     <FooterComponents />
                   </Layout>
                 } />
@@ -80,7 +97,9 @@ function App() {
           </Routes>
         </Router>
       </Loading>
-      <ChatBotComponent />
+      {/* <ChatBotComponent /> */}
+
+
     </div>
   )
 }

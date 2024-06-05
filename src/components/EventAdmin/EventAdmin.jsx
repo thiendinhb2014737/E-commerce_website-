@@ -129,9 +129,14 @@ const EventAdmin = () => {
     }, [rowSelected, isModalOpenUpdate])
 
 
-    // const handleDetailsUser = () => {
-    //     setIsOpenDrawer(true)
-    // }
+    const handleOnclickCreatEvent = () => {
+        setIsModalOpen(true)
+        setIsModalOpenUpdate(false)
+    }
+    const handleOnclickUpdateEvent = () => {
+        setIsModalOpenUpdate(true)
+        setIsModalOpen(false)
+    }
 
     const { data, isPending, isSuccess, isError } = mutation
     const { data: dataUpdated, isPending: isPendingUpdated, isSuccess: isSuccessUpdated, isError: isErrorUpdated } = mutationUpdate
@@ -148,7 +153,7 @@ const EventAdmin = () => {
         return (
             <div>
                 <DeleteOutlined style={{ fontSize: '20px', cursor: 'pointer' }} onClick={() => setIsModalOpenDelete(true)} />
-                <EditOutlined style={{ fontSize: '20px', cursor: 'pointer' }} onClick={() => setIsModalOpenUpdate(true)} />
+                <EditOutlined style={{ fontSize: '20px', cursor: 'pointer' }} onClick={handleOnclickUpdateEvent} />
             </div>
         )
     }
@@ -324,7 +329,7 @@ const EventAdmin = () => {
             <WrapperHeader style={{ fontSize: '20px', textAlign: 'center' }}>SỰ KIỆN GIẢM GIÁ</WrapperHeader>
             <WrapperContentTime>
                 <div style={{ marginTop: '10px' }}>
-                    <Button style={{ height: '150px', width: '150px', borderRadius: '6px', borderStyle: 'dashed' }} onClick={() => setIsModalOpen(true)}><PlusCircleTwoTone style={{ fontSize: '40px' }} /></Button>
+                    <Button style={{ height: '150px', width: '150px', borderRadius: '6px', borderStyle: 'dashed' }} onClick={handleOnclickCreatEvent}><PlusCircleTwoTone style={{ fontSize: '40px' }} /></Button>
                 </div>
                 {
                     isModalOpen === true ? (
